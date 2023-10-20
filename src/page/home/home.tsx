@@ -23,6 +23,8 @@ export default function Home(){
 
     useEffect(()=> {
         async function getInfoList():Promise<any> {
+            if(!loginSelector)
+                navigate('/')
             try{                
                 const data:any = await getHistory(`/mslLast/webTable?writetime=${getTime(false)}`)            
                 setLoding(false)
