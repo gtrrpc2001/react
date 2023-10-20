@@ -16,6 +16,7 @@ export default function Home(){
     const navigate = useNavigate();  
     const useCheckDispatch = useDispatch<AppDispatch>();
     const eqSelector = useSelector<RootState,string>(state => state.eq)
+    const loginSelector = useSelector<RootState,boolean>(state => state.check)
     const InfoDispatch = useDispatch<AppDispatch>();
     const [check,setCheck] = useState(false)
     const [loading, setLoding] = useState(true); 
