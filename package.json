@@ -2,6 +2,7 @@
   "name": "reactadmin",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://121.152.22.85:40081",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
