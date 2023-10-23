@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './header.scss';
-import graph from '../../../assets/image/graph.png';
+import graph from '../../../assets/image/graph2.png';
 import youtube from '../../../assets/image/youtube_logo2..png'
 
 export const Header = () => {
