@@ -1,12 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {eqSlice,listSlice,loadingSlice,loginSlice} from '../components/createslice/createslices';
+import {eqSlice,listSlice,cellSlice,loginSlice} from '../components/createslice/createslices';
 
 export const store = configureStore({
     reducer:{
-        loading:loadingSlice.reducer,
         check: loginSlice.reducer,
         eq: eqSlice.reducer,
-        historylast:listSlice.reducer
+        historylast:listSlice.reducer,
+        cellValues:cellSlice.reducer,
     }
 });
 export type RootState = ReturnType<typeof store.getState>
