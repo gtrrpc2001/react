@@ -1,15 +1,15 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 
 
-export const loadingSlice = createSlice({
-    name:'loading',
-    initialState:true,
+export const cellSlice = createSlice({
+    name:'cell',
+    initialState:[],
     reducers:{  
-        loginCheck: (state,action: PayloadAction<boolean>) => state = action.payload,
+        cellValues: (state,action: PayloadAction<any>) => state = action.payload,
       
     },
 });
-export const loadingActions = loadingSlice.actions;
+export const cellActions = cellSlice.actions;
 
 export const loginSlice = createSlice({
     name:'login',
