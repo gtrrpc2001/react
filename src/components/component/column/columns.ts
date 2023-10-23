@@ -17,42 +17,42 @@ export const COLUMNS = [
     },
 
     {
-        Header: '맥박',
+        Header: '맥박 (번/분)',
         accessor : 'bpm'
     },
 
     {
-        Header: 'HRV',
+        Header: 'HRV (ms)',
         accessor : 'hrv'
     },
 
     {
-        Header: '온도',
+        Header: '온도 (ºC)',
         accessor : 'temp'
     },
 
     {
-        Header: '걸음수',
+        Header: '걸음수 (걸음)',
         accessor : 'step'
     },
 
     {
-        Header: '활동거리',
+        Header: '걸음거리 (m)',
         accessor : 'distanceKM'
     },
 
     {
-        Header: '칼로리',
+        Header: '칼로리 (kCal)',
         accessor : 'cal'
     },
 
     {
-        Header: '활동칼로리',
+        Header: '활동칼로리 (kCal)',
         accessor : 'calexe'
     },
 
     {
-        Header: '비정상맥박',
+        Header: '비정상맥박 (회)',
         accessor : 'arrcnt'
     },
 

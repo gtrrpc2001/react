@@ -16,17 +16,23 @@ export default function Home(){
     const navigate = useNavigate();  
     const useCheckDispatch = useDispatch<AppDispatch>();
     const eqSelector = useSelector<RootState,string>(state => state.eq)
+    const loginSelector = useSelector<RootState,boolean>(state => state.check)
     const InfoDispatch = useDispatch<AppDispatch>();
     const [check,setCheck] = useState(false)
     const [loading, setLoding] = useState(true); 
+    const [editData, setEditData] = useState([])
 
     useEffect(()=> {
         async function getInfoList():Promise<any> {
-            try{                
-                const data:any = await getHistory(`/mslLast/webTable?writetime=${getTime(false)}`)            
+            if(!loginSelector)
+                navigate('/')
+            try{
+                const data:any = await getHistory(`/mslLast/webTable?writetime=${getTime(false)}`)                            
                 setLoding(false)
-                if(data?.length != 0)
-                    InfoDispatch(listActions.listHistory(data))
+                setEditData(data)
+                if(data?.length != 0){
+                    InfoDispatch(listActions.listHistory(data))                                        
+                }
                 return data;
             }catch(E){
                 console.log(E)
@@ -35,7 +41,7 @@ export default function Home(){
         }
             const timer = setInterval(async() => {    
                 if(!check)            
-                    await getInfoList()                            
+                    await getInfoList()                                          
             },1000)            
             
         return ()=>{clearTimeout(timer)}
