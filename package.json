@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-table": "^7.7.16",
+    "animate.css": "^4.1.1",
     "axios": "^1.4.0",
     "faker": "^6.6.6",
     "file-loader": "^6.2.0",

@@ -1,0 +1,38 @@
+
+
+.heart{
+    display:flex;    
+    position: absolute;    
+    top: 30px;
+    right: 40px;
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    background-color: #ef507b;
+    position: relative;
+    transform: rotate(45deg);     
+}
+
+.heart:hover{
+    animation: bounce;
+    animation-duration:2s;
+}
+
+.heart:before,
+.heart:after {
+    content: "";
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    border-radius: 50%;
+    background: #ef507b;
+    border: 1px solid #ef507b;
+}
+
+.heart:before{
+    left: -50%;
+}
+
+.heart:after{
+    top: -50%;    
+}
