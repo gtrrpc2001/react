@@ -21,7 +21,7 @@ export const ModalTopBodyRight = ({arrCnt,HeartText}:Props) =>{
                         
                 <div className="heart"/>
                 <Box sx={{position:position,fontSize:24,fontWeight:'regular',color:'white',
-                    top:103 ,right:117}}>{HeartText}
+                    top:103 ,right:122}}>{HeartText}
                 </Box>
 
                 <Typography 

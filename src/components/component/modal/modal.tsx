@@ -5,12 +5,12 @@ import Box from '@mui/material/Box';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { historyLast } from "../../../axios/interface/history_last";
-import { modalValues } from "../../../axios/interface/modalvalues";
 import './modal.scss'
 import 'animate.css';
 import { ModalHeader } from "./header/modalHeader";
 import { ModalTopBody } from "./topbody/modalTopbody";
-import { getHeartText } from "./controller/modalController";
+import { getHeartText, getValues } from "./controller/modalController";
+import { BpmType } from "./middlebody/bpmType";
 
 
 interface ModalDefaultType {
@@ -20,22 +20,8 @@ interface ModalDefaultType {
 
   export const Modal = ({open,setModalOpen,children}:PropsWithChildren<ModalDefaultType>) =>{   
     const values = useSelector<RootState,any>(state => state.cellValues)
-    const data:historyLast[] = useSelector<RootState,any>(state => state.historylast)
-    
-    const getValues = ():modalValues => {    
-     let modalList:modalValues = {bpm:0,arrCnt:0,actCal:0,step:0,temp:0,distance:0}
-     let row 
-    for (var i = 0 ; i < data?.length; i++){
-      if(data[i].eq == values.eq){
-        row = data[i]
-        modalList = {bpm:row.bpm,arrCnt:row.arrcnt,actCal:row.calexe,step:row.step,temp:row.temp,distance:row.distanceKM}             
-        break;
-      }
-    }     
-    return modalList;
-   }
-
-   const modalList = getValues()
+    const data:historyLast[] = useSelector<RootState,any>(state => state.historylast) 
+    const modalList = getValues(data,values.eq)
 
     const closeModal = () => {
       setModalOpen(false);     
@@ -73,7 +59,8 @@ interface ModalDefaultType {
               <ModalTopBody bpm={modalList.bpm} arrCnt={modalList.arrCnt} HeartText={getHeartText(modalList.arrCnt)} />
               
               <Box>
-                <Typography id="body" sx={{ mt: 2 }}>
+                <BpmType bpm={modalList.bpm}/>                
+                <Typography>
                   {children}
                 </Typography>
               </Box>

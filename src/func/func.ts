@@ -19,3 +19,8 @@ export const getTime = (includeTime:boolean):string => {
               }      
 
 }
+
+export const getHour = ():number => {
+  const today = new Date()
+  return today?.getHours()
+}

@@ -13,7 +13,9 @@ export const ModalHeader = () => {
         width:130,
         paddingBlockStart:3,
         paddingInlineStart:3,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        cursor:'default',
+        ":hover":{color:'#5388F7',transform:'Scale(1.2)'},
       }
 
       const flex = 'flex'
@@ -28,7 +30,8 @@ export const ModalHeader = () => {
             </Box>
             <Box sx={{width:'80%',display:flex, alignItems:center,
                 justifyContent: 'end',paddingBlockEnd:1,paddingInlineEnd:3}}> 
-                <BatteryCharging50Icon sx={{transform:'rotate(90deg)'}}/>                
+                <BatteryCharging50Icon sx={{transform:'rotate(90deg)',
+                ":hover":{color:'green', fontSize:'large'}}}/>                
             </Box>
         </Box>
     );
