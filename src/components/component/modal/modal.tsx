@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import UiModal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -10,8 +10,13 @@ import 'animate.css';
 import { ModalHeader } from "./header/modalHeader";
 import { ModalTopBody } from "./topbody/modalTopbody";
 import { getHeartText, getValues } from "./controller/modalController";
-import { BpmType } from "./middlebody/bpmType";
+import { MiddleBody } from "./middlebody/middleBody";
+import { LineChart } from "@mui/x-charts";
 
+import moment, { min } from 'moment';
+import { getTime } from "../../../func/func";
+import { getData } from "../../../axios/api/serverApi";
+import { ModalRealTimeGraph } from "../../../page/graph/modalGraph";
 
 interface ModalDefaultType {
     open:boolean
@@ -20,9 +25,12 @@ interface ModalDefaultType {
 
   export const Modal = ({open,setModalOpen,children}:PropsWithChildren<ModalDefaultType>) =>{   
     const values = useSelector<RootState,any>(state => state.cellValues)
-    const data:historyLast[] = useSelector<RootState,any>(state => state.historylast) 
-    const modalList = getValues(data,values.eq)
-
+    const data:historyLast[] = useSelector<RootState,any>(state => state.historylast)     
+    const modalList = getValues(data,values.eq)    
+    const bpm = modalList.bpm
+    const arrCnt = modalList.arrCnt
+    const currentDate = new Date();
+    const showDate = Number(moment(currentDate).format('ss'));
     const closeModal = () => {
       setModalOpen(false);     
     }; 
@@ -42,8 +50,8 @@ interface ModalDefaultType {
     paddingInline:0,
     paddingBlock:0,
     display:'absolute',
-  }; 
-
+  };  
+  
     return (    
         <div>
           <UiModal
@@ -56,10 +64,16 @@ interface ModalDefaultType {
 
               <ModalHeader />        
 
-              <ModalTopBody bpm={modalList.bpm} arrCnt={modalList.arrCnt} HeartText={getHeartText(modalList.arrCnt)} />
+              <ModalTopBody bpm={bpm} arrCnt={arrCnt} HeartText={getHeartText(arrCnt)} />
               
+              <MiddleBody bpm={bpm} arrCnt={arrCnt}/>
+              
+              
+              <Box>                
+                <ModalRealTimeGraph bpm={bpm} categories={[showDate]} eq={values.eq} time={modalList.writetime} />
+              </Box>
+
               <Box>
-                <BpmType bpm={modalList.bpm}/>                
                 <Typography>
                   {children}
                 </Typography>

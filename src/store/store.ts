@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {eqSlice,listSlice,cellSlice,loginSlice} from '../components/createslice/createslices';
+import {eqSlice,listSlice,cellSlice,loginSlice, arrCntSlice} from '../components/createslice/createslices';
 
 export const store = configureStore({
     reducer:{
@@ -7,6 +7,7 @@ export const store = configureStore({
         eq: eqSlice.reducer,
         historylast:listSlice.reducer,
         cellValues:cellSlice.reducer,
+        arrCnt:arrCntSlice.reducer,
     }
 });
 export type RootState = ReturnType<typeof store.getState>

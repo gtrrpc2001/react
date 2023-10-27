@@ -5,16 +5,12 @@ import { getHour } from "../../../../func/func"
 
 export const getHeartText = (arrCnt:number):string => {
     let value:string = "양호"
-    if(arrCnt < 30){
-      value = "좋음"
-    }else if(arrCnt > 30 && arrCnt < 50)
+    if(arrCnt > 50 && arrCnt < 100)
     {
-      value = "양호"
-    }else if(arrCnt > 50 && arrCnt < 75){
-      value = "보통"
-    }else if(arrCnt > 75)
-     value = "심각"
-      
+      value = "경고"
+    }else if(arrCnt >= 100 ){
+      value = "위험"
+    } 
     return value
   }
 
@@ -38,12 +34,12 @@ export const getHeartText = (arrCnt:number):string => {
   }
 
   export const getValues = (data:historyLast[],eq:string):modalValues => {    
-    let modalList:modalValues = {bpm:0,arrCnt:0,actCal:0,step:0,temp:0,distance:0}
+    let modalList:modalValues = {writetime:'',bpm:0,arrCnt:0,actCal:0,step:0,temp:0,distance:0}
     let row 
    for (var i = 0 ; i < data?.length; i++){
      if(data[i].eq == eq){
        row = data[i]
-       modalList = {bpm:row.bpm,arrCnt:row.arrcnt,actCal:row.calexe,step:row.step,temp:row.temp,distance:row.distanceKM}             
+       modalList = {writetime:row.writetime,bpm:row.bpm,arrCnt:row.arrcnt,actCal:row.calexe,step:row.step,temp:row.temp,distance:row.distanceKM}             
        break;
      }
    }     

@@ -1,16 +1,25 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import HeartBrokenOutlinedIcon from '@mui/icons-material/HeartBrokenOutlined';
+import { useSelector } from "react-redux";
+import { RootState } from '../../../../store/store';
+import './modalTopbodyRight.scss'
+import { ModalTopbodyRightText } from './modalTopbodyRightText';
 
 type Props = {
-    arrCnt:number
+    ArrCnt:number
     HeartText:string
 }
 
 const color = '#ef507b'
 const position = 'absolute'
 
-export const ModalTopBodyRight = ({arrCnt,HeartText}:Props) =>{
+export const ModalTopBodyRight = ({ArrCnt,HeartText}:Props) =>{
+
+    const getPrevArrCnt = useSelector<RootState,any>(state => state.arrCnt)[0]
+    const {arrCnt} = getPrevArrCnt
+    const prevArrCnt:number = arrCnt
+    let minusArrCnt = (prevArrCnt < ArrCnt) ? (ArrCnt - prevArrCnt) : (prevArrCnt - ArrCnt)
+    let compareArrChecked = (prevArrCnt > ArrCnt) ? true : false       
     return (
         <Box sx={{display:'flex',width:177,justifyContent:'flex-end'}}>
                   
@@ -21,15 +30,14 @@ export const ModalTopBodyRight = ({arrCnt,HeartText}:Props) =>{
                         
                 <div className="heart"/>
                 <Box sx={{position:position,fontSize:24,fontWeight:'regular',color:'white',
-                    top:103 ,right:122}}>{HeartText}
+                    top:103 ,right:120}}>{HeartText}
                 </Box>
 
-                <Typography 
-                    sx={{fontFamily:'-moz-initial',fontSize:20,color:color,
-                    fontWeight:'bold',marginBlockStart:3,position:position,right:17,top:84}} 
-                    id="bpm" variant="h5" component="h5">                          
-                    {arrCnt + '회 발생'} 
-                </Typography>                        
+               <ModalTopbodyRightText 
+               ArrCnt={minusArrCnt} 
+               compareArrChecked={compareArrChecked} 
+               position={position}/>
+                
             </Box>
             <Box sx={{position:position,top:63,left:248,}}>
                 <HeartBrokenOutlinedIcon sx={{color:color}} fontSize="large"/>                      

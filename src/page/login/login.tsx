@@ -13,6 +13,8 @@ import { LoginEmailError } from '../../components/component/inputs/login/loginEm
 import { LoginPwdError } from '../../components/component/inputs/login/loginPwdError';
 import { LoginButton } from '../../components/component/buttons/loginButton';
 import { LoginInput } from '../../components/component/inputs/login/loginInput';
+import { getTime } from '../../func/func';
+import { getData } from '../../axios/api/serverApi';
 
 const LoginPage = () =>{
     const AppDispatch = useDispatch<AppDispatch>();
@@ -79,8 +81,9 @@ const LoginPage = () =>{
         if(loginBool)
           logBool = await saveLog(email,'로그인')        
        
-        if(logBool)            
+        if(logBool){            
             navigate('/home');        
+        }
     }
 
     const logoClick = () => navigate('/')

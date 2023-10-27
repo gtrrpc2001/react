@@ -23,7 +23,7 @@ export const ModalTopBody = ({bpm,arrCnt,HeartText}:Props) => {
 
                 <ModalTopBodyLeft bpm={bpm} />
 
-                <ModalTopBodyRight arrCnt={arrCnt} HeartText={HeartText} />
+                <ModalTopBodyRight ArrCnt={arrCnt} HeartText={HeartText} />
                   
             </Box>                
         </Box>

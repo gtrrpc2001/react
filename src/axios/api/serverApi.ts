@@ -4,7 +4,7 @@ import { historyLast } from '../interface/history_last';
 
 
 const client: Axios = axios.create({
-    baseURL: 'http://121.152.22.85:40081',
+    baseURL: 'https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app',  //http://121.152.22.85:40081
     headers: {
       'Content-Type': 'application/json',
     }
@@ -23,6 +23,15 @@ const client: Axios = axios.create({
    export const getHistory = async (url:string, config?: AxiosRequestConfig): Promise<historyLast[]> => {
     try {
         const response = await client.get<historyLast[]>(url, config);
+        return response.data;
+    } catch (error:any) {
+      throw new Error(error.message);
+    }
+   };
+
+   export const getEcg = async (url:string, config?: AxiosRequestConfig): Promise<number[]> => {
+    try {
+        const response = await client.get<number[]>(url, config);
         return response.data;
     } catch (error:any) {
       throw new Error(error.message);

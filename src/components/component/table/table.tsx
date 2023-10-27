@@ -12,7 +12,9 @@ import { Theader } from "./theader";
 import { CellSelectHooks } from "../hooks/selectCheckboxHooks";
 import { Tbody } from "./tbody";
 import { Modal } from "../modal/modal";
-import { cellActions } from "../../createslice/createslices";
+import { arrCntActions, cellActions } from "../../createslice/createslices";
+import { getData } from "../../../axios/api/serverApi";
+import { getTime } from "../../../func/func";
 
 type Props = {
     stopCheck:boolean
@@ -53,21 +55,22 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
           
     const { pageSize,selectedRowIds } = state 
     
-    const onClickToggleModal = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>,cell:any)=>{
+    const onClickToggleModal = async(e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>,cell:any)=>{
         const row = cell?.row
         const column = cell?.column
         const values = cell?.row?.values
         const {eq,eqname,timezone} = values
         const cellVlaue = {eq,eqname,timezone}
         if(column?.id != 'selection'){
-            if(!row?.isSelected)  {    
+            if(!row?.isSelected)  { 
+                const prevArrCnt  = await getData(`/mslecgarr/arrCnt?eq=${eq}&startDate=${getTime(false,true,1)}&endDate=${getTime(false)}`)                              
+                cellDispatch(arrCntActions.arrCnt(prevArrCnt))
                 setValues(cell?.row?.values)
                 cellDispatch(cellActions.cellValues(cellVlaue))
                 setOpenModal(!isOpenModal);
             }
         }
     } 
-
 
     return (
         <>
@@ -95,8 +98,8 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
 
                     <Theader headerGroups={headerGroups}/>
                     {isOpenModal && (
-                        <Modal 
-                        open={isOpenModal}
+                        <Modal
+                            open={isOpenModal}
                             setModalOpen={setOpenModal}>
                             이곳에 children이 들어갑니다.
                         </Modal>
@@ -122,9 +125,7 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
                 canNextPage={canNextPage}
                 />                   
             
-            </div>
-            
-            
+            </div>            
         </> 
     );
 }

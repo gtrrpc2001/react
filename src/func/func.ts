@@ -1,10 +1,10 @@
 
-export const getTime = (includeTime:boolean):string => {
+export const getTime = (includeTime:boolean,mius:boolean=false,num:number = 0):string => {
     const today = new Date()
     const year = today.getFullYear()
               const month = today.getMonth() + 1
               var monthStr: string = month < 10 ? `0${month}` : month.toString()        
-              const date = today.getDate()    
+              const date = mius ? today.getDate() - num : today.getDate()    
               var dateStr: string = date < 10 ? `0${date}` : date.toString()
               if(includeTime){
                   const hour = today.getHours()

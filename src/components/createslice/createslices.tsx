@@ -41,3 +41,13 @@ export const listSlice = createSlice({
 
 });
 export const listActions = listSlice.actions;
+
+export const arrCntSlice = createSlice({
+    name:'arrCnt',
+    initialState:[],
+    reducers:{
+        arrCnt:(state:any,action: PayloadAction<any>) => state = action.payload,
+    }
+
+});
+export const arrCntActions = arrCntSlice.actions;

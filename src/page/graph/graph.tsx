@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
+
+
 
 export const Graph = () =>{
     const navigate = useNavigate();
@@ -10,10 +12,7 @@ export const Graph = () =>{
         if(!loginSelector)
             navigate('/')
     },)
-
-  return (
-    <div>
-        graph
-    </div>
-  );
+    return (<div>
+      graph
+    </div>)
 }
