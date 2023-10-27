@@ -10,23 +10,23 @@ type Porps = {
 }
 
 export const ModalRealTimeGraph = ({bpm,categories,eq,time}:Porps) => {  
-    const [ecgData,setEcgData] = useState<number[]>([]);
-    const dataRef = useRef<number[]>();
-    
+    const [ecgData,setEcgData] = useState<number[]>([]);    
+    const dataRef = useRef<number[]>([bpm]);
+
     useEffect(() => {
         const getEcgData = async() =>  {
             try{
-                const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)                
-                // dataRef.current = result
-                // console.log(dataRef.current)
-                setEcgData(result)                
+                const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)                                
+                dataRef.current = result                
+                //setEcgData(result)                
             }catch(E){
                 console.log(E)
             }                      
         }
         const timer = setInterval(async()=>{
-             await getEcgData()                  
-        },)
+             await getEcgData()  
+              setEcgData(dataRef.current)                
+        },500)
 
         return (() => clearTimeout(timer))
     },[bpm])    
@@ -37,17 +37,21 @@ export const ModalRealTimeGraph = ({bpm,categories,eq,time}:Porps) => {
           data: ecgData,
           
         }
-      ]
+      ]      
     const options = {
         chart: {
           id: "realtime",
           animation:{
             enabled:true,
-            easing:"linear",            
-            speed:10,            
+            easing:"easeinout",            
+            speed:500000,            
+            animateGradually: {
+                enabled: true,
+                delay: 1
+              },
             dynamicAnimation:{
                 enabled:true,
-                speed:10
+                speed:500000
             }
           },
           toolbar:{
