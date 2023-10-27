@@ -4,7 +4,11 @@ import { historyLast } from '../interface/history_last';
 
 
 const client: Axios = axios.create({
+<<<<<<< HEAD
     baseURL: 'https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app',  //http://121.152.22.85:40081
+=======
+    baseURL: 'https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app',
+>>>>>>> 007d88812ccbc38243efcd352849e6c615bd96be
     headers: {
       'Content-Type': 'application/json',
     }
