@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect, useState } from "react";
 import UiModal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { historyLast } from "../../../axios/interface/history_last";
 import './modal.scss'
@@ -11,9 +11,6 @@ import { ModalHeader } from "./header/modalHeader";
 import { ModalTopBody } from "./topbody/modalTopbody";
 import { getHeartText, getValues } from "./controller/modalController";
 import { MiddleBody } from "./middlebody/middleBody";
-import moment, { min } from 'moment';
-import { getTime } from "../../../func/func";
-import { getData } from "../../../axios/api/serverApi";
 import { ModalRealTimeGraph } from "../../../page/graph/modalGraph";
 
 interface ModalDefaultType {
@@ -27,8 +24,6 @@ interface ModalDefaultType {
     const modalList = getValues(data,values.eq)    
     const bpm = modalList.bpm
     const arrCnt = modalList.arrCnt
-    const currentDate = new Date();
-    const showDate = Number(moment(currentDate).format('ss'));
     
     const closeModal = () => {      
         setModalOpen(false);
@@ -69,7 +64,7 @@ interface ModalDefaultType {
               
               
               <Box>                
-                <ModalRealTimeGraph bpm={bpm} categories={[showDate]} eq={values.eq} time={modalList.writetime} />
+                <ModalRealTimeGraph bpm={bpm} eq={values.eq} time={modalList.writetime} />
               </Box>
 
               <Box>
