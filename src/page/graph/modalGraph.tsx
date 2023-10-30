@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import Chart from "react-apexcharts";
 import { getEcg } from "../../axios/api/serverApi";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { modalTimerActions } from "../../components/createslice/createslices";
 
 type Porps = {
     bpm:number
@@ -10,76 +13,95 @@ type Porps = {
 }
 
 export const ModalRealTimeGraph = ({bpm,categories,eq,time}:Porps) => {  
-    const [ecgData,setEcgData] = useState<number[]>([]);    
-    const dataRef = useRef<number[]>([bpm]);
+    const [ecgData,setEcgData] = useState<number[]>([]);
+    let updateData:number[] = []
+    const dataRef = useRef<number[]>([]);    
+    const series = [
+      {
+        name: "ecgData",
+        data: ecgData?.slice(0,500),
+        
+      }
+    ]      
+    
+  const options = {
+      chart: {
+        id: "realtime",
+        animation:{
+          enabled:true,
+          easing:"linear",//"linear", 
+                               
+          dynamicAnimation:{
+              enabled:true,
+              speed:3000
+          }
+        },
 
+        toolbar:{
+          show:false
+        },
+        zoom:{
+          enabled:false,
+        } ,             
+      }, 
+      
+           
+      xaxis: {          
+        //categories: categories,          
+        rage:4000,
+        labels:{show:false}
+      },
+      fill:{
+
+      },
+      yaxis:{
+          show:true,
+          min:0,
+          max:1000
+      },
+      markers: {
+          showNullDataPoints:false
+      },
+      stroked:{            
+          curve:"smooth"
+      },
+      dataLabels:{enabled:false}
+    }
+    
     useEffect(() => {
         const getEcgData = async() =>  {
             try{
-                const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)                                
-                dataRef.current = result                
-                //setEcgData(result)                
+                const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)
+                
+                result.forEach(num => {
+                  updateData.push(num)
+                })                                
+                
+                // const current = dataRef.current 
+                // setEcgData(current)
+                console.log(updateData.length)
+               if(updateData.length>=500){
+                 setEcgData(updateData)
+                 updateData = []
+               }
+                
             }catch(E){
                 console.log(E)
             }                      
         }
-        const timer = setInterval(async()=>{
-             await getEcgData()  
-              setEcgData(dataRef.current)                
+        
+        const timer = setInterval(async()=>{          
+           await getEcgData()            
+            ApexCharts.exec('realtime', 'updateSeries', [{newSeries:series,animate:true},] )
         },500)
 
         return (() => clearTimeout(timer))
+        
     },[bpm])    
- 
-      const series = [
-        {
-          name: "series-1",
-          data: ecgData,
-          
-        }
-      ]      
-    const options = {
-        chart: {
-          id: "realtime",
-          animation:{
-            enabled:true,
-            easing:"easeinout",            
-            speed:500000,            
-            animateGradually: {
-                enabled: true,
-                delay: 1
-              },
-            dynamicAnimation:{
-                enabled:true,
-                speed:500000
-            }
-          },
-          toolbar:{
-            show:false
-          }
-        }, 
-             
-        xaxis: {
-          categories: categories,
-          labels:{show:false}
-        },
-        fill:{
+     
+      
 
-        },
-        yaxis:{
-            show:true,
-            min:0,
-            max:1000
-        },
-        markers: {
-            showNullDataPoints:false
-        },
-        stroked:{            
-            curve:"smooth"
-        },
-        dataLabels:{enabled:false}
-      }
-
+      
 
     return (
         <Chart options={options} series={series} type="line" width={330} height={200}/>

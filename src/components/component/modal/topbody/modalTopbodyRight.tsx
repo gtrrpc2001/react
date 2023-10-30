@@ -17,9 +17,11 @@ export const ModalTopBodyRight = ({ArrCnt,HeartText}:Props) =>{
 
     const getPrevArrCnt = useSelector<RootState,any>(state => state.arrCnt)[0]
     const {arrCnt} = getPrevArrCnt
-    const prevArrCnt:number = arrCnt
-    let minusArrCnt = (prevArrCnt < ArrCnt) ? (ArrCnt - prevArrCnt) : (prevArrCnt - ArrCnt)
-    let compareArrChecked = (prevArrCnt > ArrCnt) ? true : false       
+    const prevArrCnt = Number(arrCnt)
+   
+    let minusArrCnt = Boolean(prevArrCnt < +ArrCnt) ? Math.abs(ArrCnt - prevArrCnt) : Math.abs(prevArrCnt - ArrCnt)
+    let compareArrChecked = (prevArrCnt > +ArrCnt) ? true : false       
+    
     return (
         <Box sx={{display:'flex',width:177,justifyContent:'flex-end'}}>
                   

@@ -11,6 +11,16 @@ export const cellSlice = createSlice({
 });
 export const cellActions = cellSlice.actions;
 
+export const modalTimerSlice = createSlice({
+    name:'modalTimer',
+    initialState:false,
+    reducers:{  
+        modalTimerValues: (state,action: PayloadAction<boolean>) => state = action.payload,
+      
+    },
+});
+export const modalTimerActions = modalTimerSlice.actions;
+
 export const loginSlice = createSlice({
     name:'login',
     initialState:false,

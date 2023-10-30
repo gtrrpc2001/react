@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {eqSlice,listSlice,cellSlice,loginSlice, arrCntSlice} from '../components/createslice/createslices';
+import {eqSlice,listSlice,cellSlice,loginSlice, arrCntSlice, modalTimerSlice} from '../components/createslice/createslices';
 
 export const store = configureStore({
     reducer:{
@@ -8,6 +8,7 @@ export const store = configureStore({
         historylast:listSlice.reducer,
         cellValues:cellSlice.reducer,
         arrCnt:arrCntSlice.reducer,
+        modalTimer:modalTimerSlice.reducer
     }
 });
 export type RootState = ReturnType<typeof store.getState>

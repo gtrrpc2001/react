@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect, useState } from "react";
 import UiModal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { historyLast } from "../../../axios/interface/history_last";
 import './modal.scss'
@@ -11,8 +11,6 @@ import { ModalHeader } from "./header/modalHeader";
 import { ModalTopBody } from "./topbody/modalTopbody";
 import { getHeartText, getValues } from "./controller/modalController";
 import { MiddleBody } from "./middlebody/middleBody";
-import { LineChart } from "@mui/x-charts";
-
 import moment, { min } from 'moment';
 import { getTime } from "../../../func/func";
 import { getData } from "../../../axios/api/serverApi";
@@ -25,14 +23,15 @@ interface ModalDefaultType {
 
   export const Modal = ({open,setModalOpen,children}:PropsWithChildren<ModalDefaultType>) =>{   
     const values = useSelector<RootState,any>(state => state.cellValues)
-    const data:historyLast[] = useSelector<RootState,any>(state => state.historylast)     
+    const data:historyLast[] = useSelector<RootState,any>(state => state.historylast) 
     const modalList = getValues(data,values.eq)    
     const bpm = modalList.bpm
     const arrCnt = modalList.arrCnt
     const currentDate = new Date();
     const showDate = Number(moment(currentDate).format('ss'));
-    const closeModal = () => {
-      setModalOpen(false);     
+    
+    const closeModal = () => {      
+        setModalOpen(false);
     }; 
 
   const mainBoxstyle = {
@@ -55,10 +54,10 @@ interface ModalDefaultType {
     return (    
         <div>
           <UiModal
-            open={open}            
+            open={open}                        
             onClose={closeModal}
             aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            aria-describedby="modal-modal-description"         
             >
             <Box sx={mainBoxstyle}>
 
