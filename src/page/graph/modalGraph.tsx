@@ -1,18 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import Chart from "react-apexcharts";
 import { getEcg } from "../../axios/api/serverApi";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { modalTimerActions } from "../../components/createslice/createslices";
 
 type Porps = {
     bpm:number
-    categories:number[]
     eq:string
     time:string
 }
 
-export const ModalRealTimeGraph = ({bpm,categories,eq,time}:Porps) => {  
+export const ModalRealTimeGraph = ({bpm,eq,time}:Porps) => {  
     const [ecgData,setEcgData] = useState<number[]>([]);
     let updateData:number[] = []
     const dataRef = useRef<number[]>([]);    
@@ -46,8 +42,7 @@ export const ModalRealTimeGraph = ({bpm,categories,eq,time}:Porps) => {
       }, 
       
            
-      xaxis: {          
-        //categories: categories,          
+      xaxis: {                   
         rage:4000,
         labels:{show:false}
       },
