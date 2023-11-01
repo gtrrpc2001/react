@@ -52,12 +52,12 @@ export const listSlice = createSlice({
 });
 export const listActions = listSlice.actions;
 
-export const arrCntSlice = createSlice({
-    name:'arrCnt',
+export const profileSlice = createSlice({
+    name:'getProfile',
     initialState:[],
     reducers:{
-        arrCnt:(state:any,action: PayloadAction<any>) => state = action.payload,
+        profile:(state:any,action: PayloadAction<any>) => state = action.payload,
     }
 
 });
-export const arrCntActions = arrCntSlice.actions;
+export const profileActions = profileSlice.actions;

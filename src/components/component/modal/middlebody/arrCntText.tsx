@@ -8,7 +8,7 @@ type Props = {
 export const ArrCntText = ({arrCnt}:Props) => {
     return (
         <Box sx={{display:'flex',width:'51%',justifyContent:'end',textAlign:'center'}}>
-                  <Box sx={{width:'88%',bgcolor:'#ef507b',borderRadius:2,height:25}}>
+                  <Box sx={{width:'88%',bgcolor:'#ef507b',borderRadius:2,height:25,":hover":{cursor:'default'}}}>
                       <Typography sx={{position:'absolute',color:'white',
                       fontSize:13,fontWeight:'bold',wordSpacing:'pre-wrap',
                       top:195,right:20,letterSpacing:2}}>

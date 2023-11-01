@@ -1,0 +1,21 @@
+export interface profileModal{        
+    이메일:string 
+    핸드폰:string
+    성별:string
+    신장:number
+    몸무게:number
+    나이:number
+    생년월일:string
+    가입일:string
+    설정_수면시작:number
+    설정_수면종료:number
+    설정_활동BPM:number
+    설정_일걸음:number
+    설정_일거리:number
+    설정_일활동칼로리:number
+    설정_일칼로리:number
+    알림_sms:number
+    시간차이:number
+    phone:string
+    arrCnt:number
+}

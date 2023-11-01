@@ -18,7 +18,7 @@ export const ModalTopBodyLeft = ({bpm}:Props) => {
                 verticalAlign:'middle',marginLeft:1,textAlign:'center'}} >
                 <Typography 
                     sx={{fontFamily:'-moz-initial',fontSize:24,color:bpmColor,
-                    fontWeight:'bold',marginBlockStart:3}} 
+                    fontWeight:'bold',marginBlockStart:3, ":hover":{cursor:'default'}}} 
                     id="bpm" variant="h5" component="h5">
                     {bpm}
                 </Typography>

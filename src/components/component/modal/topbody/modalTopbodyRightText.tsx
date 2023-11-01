@@ -11,7 +11,7 @@ export const ModalTopbodyRightText = ({ArrCnt,position,compareArrChecked}:Props)
         <Typography 
             sx={{fontFamily:'-moz-initial',fontSize:13,color:'black',
             fontWeight:'bold',marginBlockStart:3,position:position,right:25,top:75,
-            whiteSpace:'pre-wrap'}} 
+            whiteSpace:'pre-wrap',":hover":{cursor:'default'}}} 
             id="bpm" variant="h5" component="h5">
             어제보다                    
             <Typography sx={{fontSize:13,fontWeight:'bold',height:21}}>

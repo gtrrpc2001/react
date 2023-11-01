@@ -4,10 +4,13 @@ import { BpmTypeChildren } from './bpmTypeChildren';
 
 type Props = {
     bpm:number
+    sleepTime:number
+    upTime:number
+    settingBpm:number
 }
 
-export const BpmType = ({bpm}:Props) => {
-  const bpmTypeList = getUserBpmType(bpm)
+export const BpmType = ({bpm,sleepTime,upTime,settingBpm}:Props) => {
+  const bpmTypeList = getUserBpmType(bpm,sleepTime,upTime,settingBpm)
   const restbgColor = `${bpmTypeList.rest ? '#2d3f64' : ''}`
   const restColor = `${bpmTypeList.rest ? 'white' : ''}`
   const activitybgColor = `${bpmTypeList.activity ? '#2d3f64' : ''}`
@@ -16,7 +19,7 @@ export const BpmType = ({bpm}:Props) => {
   const sleepColor = `${bpmTypeList.sleep ? 'white' : ''}`
 
     return (
-        <Box sx={{display:'flex',width:'45%',height:25,bgcolor:'#ecf0f3',borderRadius:1,marginLeft:0.5}}>
+        <Box sx={{display:'flex',width:'45%',height:25,bgcolor:'#ecf0f3',borderRadius:1,marginLeft:0.5,":hover":{cursor:'default'}}}>
                   
                 <BpmTypeChildren iconType={'rest'} children={'휴식'} 
                 bgColor={restbgColor} Color={restColor} />                  

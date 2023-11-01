@@ -1,4 +1,4 @@
-import React,{useCallback, useEffect, useMemo, useState} from "react";
+import React,{ useMemo, useState} from "react";
 import { useGlobalFilter, useSortBy,usePagination, useTable, Row, useRowSelect, TableOptions, TableState } from "react-table";
 import { Search } from "../search/search";
 import { COLUMNS } from "../column/columns";
@@ -12,8 +12,8 @@ import { Theader } from "./theader";
 import { CellSelectHooks } from "../hooks/selectCheckboxHooks";
 import { Tbody } from "./tbody";
 import { Modal } from "../modal/modal";
-import { arrCntActions, cellActions } from "../../createslice/createslices";
-import { getData } from "../../../axios/api/serverApi";
+import { cellActions, profileActions } from "../../createslice/createslices";
+import { getProfile } from "../../../axios/api/serverApi";
 import { getTime } from "../../../func/func";
 
 type Props = {
@@ -63,8 +63,9 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
         const cellVlaue = {eq,eqname,timezone}
         if(column?.id != 'selection'){
             if(!row?.isSelected)  { 
-                const prevArrCnt  = await getData(`/mslecgarr/arrCnt?eq=${eq}&startDate=${getTime(false,true,1)}&endDate=${getTime(false)}`)                              
-                cellDispatch(arrCntActions.arrCnt(prevArrCnt))
+                const Profile:any  = await getProfile(`/mslecgarr/arrCnt?eq=${eq}&startDate=${getTime(false,true,1)}&endDate=${getTime(false)}`)                              
+               console.log(Profile)
+                cellDispatch(profileActions.profile(Profile))
                 setValues(cell?.row?.values)
                 cellDispatch(cellActions.cellValues(cellVlaue))
                 setOpenModal(!isOpenModal);

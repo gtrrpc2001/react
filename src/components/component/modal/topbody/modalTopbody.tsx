@@ -5,10 +5,11 @@ import { ModalTopBodyRight } from './modalTopbodyRight';
 type Props = {
     bpm:number
     arrCnt:number
+    prevArrCnt:number
     HeartText:string
 }
 
-export const ModalTopBody = ({bpm,arrCnt,HeartText}:Props) => {
+export const ModalTopBody = ({bpm,arrCnt,prevArrCnt,HeartText}:Props) => {
 
     const topBodyStyle = {
         display:'flex',
@@ -23,7 +24,7 @@ export const ModalTopBody = ({bpm,arrCnt,HeartText}:Props) => {
 
                 <ModalTopBodyLeft bpm={bpm} />
 
-                <ModalTopBodyRight ArrCnt={arrCnt} HeartText={HeartText} />
+                <ModalTopBodyRight ArrCnt={arrCnt} prevArrCnt={prevArrCnt} HeartText={HeartText} />
                   
             </Box>                
         </Box>

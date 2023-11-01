@@ -8,7 +8,7 @@ import { Graph } from './page/graph/graph';
 
 
 
-const App: React.FC = () => {     
+const App: React.FC = () => {       
   return (    
       <BrowserRouter>
         <Provider store={store}>

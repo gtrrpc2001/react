@@ -15,7 +15,7 @@ export const ModalHeader = () => {
         paddingInlineStart:3,
         fontWeight:'bold',
         cursor:'default',
-        ":hover":{color:'#5388F7',transform:'Scale(1.2)'},
+        ":hover":{color:'#5388F7',transform:'Scale(1.1)'},
       }
 
       const flex = 'flex'

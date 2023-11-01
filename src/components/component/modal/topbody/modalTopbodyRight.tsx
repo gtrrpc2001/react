@@ -7,21 +7,19 @@ import { ModalTopbodyRightText } from './modalTopbodyRightText';
 
 type Props = {
     ArrCnt:number
+    prevArrCnt:number
     HeartText:string
 }
 
 const color = '#ef507b'
 const position = 'absolute'
 
-export const ModalTopBodyRight = ({ArrCnt,HeartText}:Props) =>{
-
-    const getPrevArrCnt = useSelector<RootState,any>(state => state.arrCnt)[0]
-    const {arrCnt} = getPrevArrCnt
-    const prevArrCnt = Number(arrCnt)
-   
-    let minusArrCnt = Boolean(prevArrCnt < +ArrCnt) ? Math.abs(ArrCnt - prevArrCnt) : Math.abs(prevArrCnt - ArrCnt)
-    let compareArrChecked = (prevArrCnt > +ArrCnt) ? true : false       
+export const ModalTopBodyRight = ({ArrCnt,prevArrCnt,HeartText}:Props) =>{    
     
+    const beforeArrCnt = Number(prevArrCnt)
+   
+    let minusArrCnt = Boolean(beforeArrCnt < +ArrCnt) ? Math.abs(ArrCnt - beforeArrCnt) : Math.abs(beforeArrCnt - ArrCnt)
+    let compareArrChecked = (beforeArrCnt > +ArrCnt) ? true : false 
     return (
         <Box sx={{display:'flex',width:177,justifyContent:'flex-end'}}>
                   
@@ -32,7 +30,7 @@ export const ModalTopBodyRight = ({ArrCnt,HeartText}:Props) =>{
                         
                 <div className="heart"/>
                 <Box sx={{position:position,fontSize:24,fontWeight:'regular',color:'white',
-                    top:103 ,right:120}}>{HeartText}
+                    top:103 ,right:120,":hover":{cursor:'default'}}}>{HeartText}
                 </Box>
 
                <ModalTopbodyRightText 

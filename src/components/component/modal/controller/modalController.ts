@@ -1,4 +1,5 @@
 import { userBpmType } from "../../../../axios/interface/bpmType"
+import { footerIcon } from "../../../../axios/interface/footerIcon"
 import { historyLast } from "../../../../axios/interface/history_last"
 import { modalValues } from "../../../../axios/interface/modalvalues"
 import { getHour } from "../../../../func/func"
@@ -14,19 +15,16 @@ export const getHeartText = (arrCnt:number):string => {
     return value
   }
 
-  export const getUserBpmType = (bpm:number):userBpmType => { 
-    let bpmTypeList:userBpmType = {rest:true,activity:false,sleep:false}
-    const setSleepTime:number = 23
-    const setUpTime:number = 7
+  export const getUserBpmType = (bpm:number,sleepTime:number,upTime:number,settingBpm:number):userBpmType => { 
+    let bpmTypeList:userBpmType = {rest:true,activity:false,sleep:false}    
     let nowHours = getHour()
-    const setBpm:number = 90
+    
     //설정 bpm  >= bpm 일경우 
-
-    if(setSleepTime <= nowHours || setUpTime > nowHours)
+    if(sleepTime <= nowHours || upTime > nowHours)
     {
       bpmTypeList = {rest:false,activity:false,sleep:true}
     }else{
-      if(setBpm <= bpm)
+      if(settingBpm <= bpm)
         bpmTypeList = {rest:false,activity:true,sleep:false}
       
     }
@@ -44,4 +42,26 @@ export const getHeartText = (arrCnt:number):string => {
      }
    }     
    return modalList;
+  }
+
+  export const getDecimal = (value:number) : number => {    
+    return value / 1000    
+  }
+
+  export const getClickFooter = (innerHTML:string):footerIcon => {
+    const home = '1n603a'
+    const graph = '1s1pzv5'
+    const pulse = '11wp3nn'
+    const profile = '1bonciu'    
+    let iconClick:footerIcon = {home:true,graph:false,pulse:false,profile:false}
+    switch(true){
+      case innerHTML.includes(graph) :
+        return {home:false,graph:true,pulse:false,profile:false}
+      case innerHTML.includes(pulse) :
+        return {home:false,graph:false,pulse:true,profile:false}
+      case innerHTML.includes(profile) :
+        return {home:false,graph:false,pulse:false,profile:true}
+      default :
+        return iconClick
+    }
   }

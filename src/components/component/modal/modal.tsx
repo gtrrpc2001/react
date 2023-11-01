@@ -1,20 +1,18 @@
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import React, { PropsWithChildren, useState} from "react";
 import UiModal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { historyLast } from "../../../axios/interface/history_last";
 import './modal.scss'
 import 'animate.css';
 import { ModalHeader } from "./header/modalHeader";
-import { ModalTopBody } from "./topbody/modalTopbody";
-import { getHeartText, getValues } from "./controller/modalController";
-import { MiddleBody } from "./middlebody/middleBody";
-import moment, { min } from 'moment';
-import { getTime } from "../../../func/func";
-import { getData } from "../../../axios/api/serverApi";
-import { ModalRealTimeGraph } from "../../../page/graph/modalGraph";
+import {  getClickFooter, getValues } from "./controller/modalController";
+import { profileModal } from "../../../axios/interface/profileModal";
+import { Footer } from "./footer/footer";
+import { ModalHome } from "./modalHome";
+import { footerIcon } from "../../../axios/interface/footerIcon";
+
 
 interface ModalDefaultType {
     open:boolean
@@ -24,12 +22,12 @@ interface ModalDefaultType {
   export const Modal = ({open,setModalOpen,children}:PropsWithChildren<ModalDefaultType>) =>{   
     const values = useSelector<RootState,any>(state => state.cellValues)
     const data:historyLast[] = useSelector<RootState,any>(state => state.historylast) 
+    const getProfile:profileModal = useSelector<RootState,any>(state => state.profile)[0]
+    const [footerBtn , setFooterBtn] = useState<footerIcon>({home:true,graph:false,pulse:false,profile:false})
     const modalList = getValues(data,values.eq)    
     const bpm = modalList.bpm
     const arrCnt = modalList.arrCnt
-    const currentDate = new Date();
-    const showDate = Number(moment(currentDate).format('ss'));
-    
+
     const closeModal = () => {      
         setModalOpen(false);
     }; 
@@ -49,7 +47,38 @@ interface ModalDefaultType {
     paddingInline:0,
     paddingBlock:0,
     display:'absolute',
-  };  
+  };    
+
+  const footerClick = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {    
+    const innerHTML = e?.currentTarget?.innerHTML
+    let iconClick:footerIcon = getClickFooter(innerHTML)  
+    setFooterBtn(iconClick)
+  }
+
+  const getModalUI = (footerSelect:footerIcon) => {
+    switch(true){
+      case footerSelect.graph:
+          return (
+            <Box sx={{height:656}}>
+            </Box>
+          );
+      case footerSelect.profile:
+        return (
+          <Box sx={{height:656}}>
+          </Box>
+        );
+    
+      case footerSelect.pulse:
+        return (
+          <Box sx={{height:656}}>
+          </Box>
+        );
+      default :
+        return (
+          <ModalHome modalList={modalList} values={values} getProfile={getProfile}/>
+        );
+    }
+  }
   
     return (    
         <div>
@@ -60,23 +89,13 @@ interface ModalDefaultType {
             aria-describedby="modal-modal-description"         
             >
             <Box sx={mainBoxstyle}>
-
+            
               <ModalHeader />        
 
-              <ModalTopBody bpm={bpm} arrCnt={arrCnt} HeartText={getHeartText(arrCnt)} />
+              {(getModalUI(footerBtn))}                           
+            
+              <Footer footerClick={footerBtn} onClick={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => footerClick(e)}/>
               
-              <MiddleBody bpm={bpm} arrCnt={arrCnt}/>
-              
-              
-              <Box>                
-                <ModalRealTimeGraph bpm={bpm} categories={[showDate]} eq={values.eq} time={modalList.writetime} />
-              </Box>
-
-              <Box>
-                <Typography>
-                  {children}
-                </Typography>
-              </Box>
             </Box>
           </UiModal>
         </div>
