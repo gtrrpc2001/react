@@ -2,7 +2,7 @@
 export const getTime = (includeTime:boolean,mius:boolean=false,num:number = 0):string => {
   const today = new Date()
   const year = today.getFullYear()
-            const month = mius? today.getMonth() : today.getMonth() + 1
+            const month = mius? (today.getDate() - num == 0 ? today.getMonth() : today.grtDate() + 1) : today.getMonth() + 1
             var monthStr: string = month < 10 ? `0${month}` : month.toString()        
             const date = mius ? getYesterday(today,num) : today.getDate()    
             var dateStr: string = date < 10 ? `0${date}` : date.toString()
