@@ -93,7 +93,7 @@ export const ModalRealTimeGraph = ({bpm,eq,time,height}:Porps) => {
           
         },1000)
 
-        return (() => clearTimeout(timer))
+        return (() => clearTimeout(timer));
         
     },[bpm])    
      
