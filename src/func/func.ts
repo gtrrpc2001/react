@@ -1,6 +1,5 @@
 
 export const getTime = (includeTime:boolean,mius:boolean=false,num:number = 0):string => {
-<<<<<<< HEAD
   const today = new Date()
   const year = today.getFullYear()
             const month = mius? today.getMonth() : today.getMonth() + 1
@@ -17,8 +16,7 @@ export const getTime = (includeTime:boolean,mius:boolean=false,num:number = 0):s
                 return `${year}-${monthStr}-${dateStr} ${getHour}:${getMinute}:${getSecond}`
             }else{
               return `${year}-${monthStr}-${dateStr}`
-            }      
-=======
+            }     
     const today = new Date()
     const year = today.getFullYear()
               const month = mius? today.getMonth() : today.getMonth() + 1
@@ -36,7 +34,6 @@ export const getTime = (includeTime:boolean,mius:boolean=false,num:number = 0):s
               }else{
                 return `${year}-${monthStr}-${dateStr}`
               }      
->>>>>>> d805b4f7f54e34b663326341e7b4afd3298f5a29
 
 }
 
@@ -50,7 +47,6 @@ export const getHour = ():number => {
 const today = new Date()
 return today?.getHours()
 }
-=======
   var yesterday = new Date(today.setDate(today.getDate() - num));
   return yesterday.getDate()
 }
@@ -59,4 +55,3 @@ export const getHour = ():number => {
   const today = new Date()
   return today?.getHours()
 }
->>>>>>> d805b4f7f54e34b663326341e7b4afd3298f5a29
