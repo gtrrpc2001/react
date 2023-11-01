@@ -7,19 +7,12 @@ import { historyLast } from "../../../axios/interface/history_last";
 import './modal.scss'
 import 'animate.css';
 import { ModalHeader } from "./header/modalHeader";
-<<<<<<< HEAD
 import {  getClickFooter, getValues } from "./controller/modalController";
 import { profileModal } from "../../../axios/interface/profileModal";
 import { Footer } from "./footer/footer";
 import { ModalHome } from "./modalHome";
 import { footerIcon } from "../../../axios/interface/footerIcon";
 
-=======
-import { ModalTopBody } from "./topbody/modalTopbody";
-import { getHeartText, getValues } from "./controller/modalController";
-import { MiddleBody } from "./middlebody/middleBody";
-import { ModalRealTimeGraph } from "../../../page/graph/modalGraph";
->>>>>>> d88793d16d49cb8f8cebe90e363ef1d9efd2734e
 
 interface ModalDefaultType {
     open:boolean
@@ -34,11 +27,7 @@ interface ModalDefaultType {
     const modalList = getValues(data,values.eq)    
     const bpm = modalList.bpm
     const arrCnt = modalList.arrCnt
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> d88793d16d49cb8f8cebe90e363ef1d9efd2734e
     const closeModal = () => {      
         setModalOpen(false);
     }; 
@@ -107,21 +96,6 @@ interface ModalDefaultType {
             
               <Footer footerClick={footerBtn} onClick={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => footerClick(e)}/>
               
-<<<<<<< HEAD
-=======
-              <MiddleBody bpm={bpm} arrCnt={arrCnt}/>
-              
-              
-              <Box>                
-                <ModalRealTimeGraph bpm={bpm} eq={values.eq} time={modalList.writetime} />
-              </Box>
-
-              <Box>
-                <Typography>
-                  {children}
-                </Typography>
-              </Box>
->>>>>>> d88793d16d49cb8f8cebe90e363ef1d9efd2734e
             </Box>
           </UiModal>
         </div>

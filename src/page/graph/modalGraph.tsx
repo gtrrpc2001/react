@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Chart from "react-apexcharts";
 import { getEcg } from "../../axios/api/serverApi";
-<<<<<<< HEAD
 import { ApexOptions } from "apexcharts";
-=======
->>>>>>> d88793d16d49cb8f8cebe90e363ef1d9efd2734e
 
 type Porps = {
     bpm:number
@@ -13,11 +10,7 @@ type Porps = {
     height:number
 }
 
-<<<<<<< HEAD
 export const ModalRealTimeGraph = ({bpm,eq,time,height}:Porps) => {  
-=======
-export const ModalRealTimeGraph = ({bpm,eq,time}:Porps) => {  
->>>>>>> d88793d16d49cb8f8cebe90e363ef1d9efd2734e
     const [ecgData,setEcgData] = useState<number[]>([]);
     const ecgRef = useRef<any>()
     
@@ -54,17 +47,9 @@ export const ModalRealTimeGraph = ({bpm,eq,time}:Porps) => {
         zoom:{
           enabled:false,
         } ,             
-<<<<<<< HEAD
       },      
       xaxis: {
         categories:ecgData.slice(0,500)?.map(d=>d),        
-=======
-      }, 
-      
-           
-      xaxis: {                   
-        rage:4000,
->>>>>>> d88793d16d49cb8f8cebe90e363ef1d9efd2734e
         labels:{show:false}
       },      
       yaxis:{
