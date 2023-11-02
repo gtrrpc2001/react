@@ -2,6 +2,7 @@ import axios, {Axios, AxiosRequestConfig } from 'axios'
 import  APIResponse  from '../interface/response';
 import { historyLast } from '../interface/history_last';
 import { profileModal } from '../interface/profileModal';
+import { graphBpm } from '../interface/graphModal';
 
 
 const client: Axios = axios.create({
@@ -15,6 +16,15 @@ const client: Axios = axios.create({
    export const getData = async <T>(url:string, config?: AxiosRequestConfig): Promise<APIResponse<T>> => {
     try {
         const response = await client.get<APIResponse<T>>(url, config);
+        return response.data;
+    } catch (error:any) {
+      throw new Error(error.message);
+    }
+   };
+
+   export const getGraphBpm = async (url:string, config?: AxiosRequestConfig): Promise<graphBpm[]> => {
+    try {
+        const response = await client.get<graphBpm[]>(url, config);
         return response.data;
     } catch (error:any) {
       throw new Error(error.message);
