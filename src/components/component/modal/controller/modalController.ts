@@ -49,7 +49,11 @@ export const getHeartText = (arrCnt:number):string => {
     return value / 1000    
   }
 
+<<<<<<< HEAD
   export const getClickFooter = (id:string):footerIcon => {
+=======
+  export const getClickFooter = (innerHTML:string):footerIcon => {
+>>>>>>> d2cbd6c797d063601cf6e3c0e92478d906861c55
     const home = 'home'
     const graph = 'graph'
     const pulse = 'pulse'

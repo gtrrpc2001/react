@@ -30,4 +30,8 @@ return yesterday.getDate()
 export const getHour = ():number => {
 const today = new Date()
 return today?.getHours()
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d2cbd6c797d063601cf6e3c0e92478d906861c55
