@@ -8,7 +8,6 @@ XAxis,
 YAxis,
 CartesianGrid,
 Tooltip,
-Legend,
 } from 'recharts';
 
 type Porps = {

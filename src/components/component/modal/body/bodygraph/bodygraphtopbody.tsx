@@ -1,9 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import HeartBrokenOutlinedIcon from '@mui/icons-material/HeartBrokenOutlined';
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
-import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
-import MonitorHeartOutlinedIcon from '@mui/icons-material/MonitorHeartOutlined';
+import { Box } from "@mui/material";
 import { graphModal } from "../../../../../axios/interface/graphModal"
 import { useState } from "react";
 import { IconBox } from "./icons/iconbox";
