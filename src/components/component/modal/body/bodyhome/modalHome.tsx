@@ -33,7 +33,7 @@ export const ModalHome = ({modalList,values,getProfile}:Props) => {
               />              
               
               <Box>                
-                <ModalRealTimeGraph bpm={modalList.bpm} eq={values.eq} time={modalList.writetime} height={280} />
+                <ModalRealTimeGraph bpm={modalList.bpm} eq={values.eq} time={modalList.writetime} />
               </Box>
 
               <BottomBody actCal={modalList.actCal} step={modalList.step} temp={modalList.temp} distance={getDecimal(modalList.distance)}/>

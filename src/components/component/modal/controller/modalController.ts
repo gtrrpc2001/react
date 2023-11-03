@@ -89,3 +89,5 @@ export const getHeartText = (arrCnt:number):string => {
   }
 
   
+
+  
