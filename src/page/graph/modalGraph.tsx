@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getEcg } from "../../axios/api/serverApi";
+import { Box, CircularProgress } from "@mui/material";
 import {
   LineChart,
 Line,
@@ -21,28 +22,37 @@ type Porps = {
 export const ModalRealTimeGraph = ({bpm,eq,time}:Porps) => {  
     const [ecgData,setEcgData] = useState<number[]>([]);
     const [open , setOpen] = useState<boolean>(true);
-    const ecgRef = useRef<any>()
     
     const setData = ecgData?.map(d=>{
       return {ecg:d,xAxis:d}
     })   
     
     useEffect(() => {
+        let firstData:number[] = []
         const getEcgData = async() =>  {
             try{
-                const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)                
-                // ecgRef.current = result
+                const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)   
                 if(open){
-                  setEcgData(result)
-                  setOpen(false)
+                  firstData = result
+                  if(firstData.length < 420){
+                    result?.map(d=> {firstData.push(d)})
+                  }else{
+                    setEcgData(firstData)
+                    setOpen(false)
+                    firstData = []
+                  }
                 }else{
                   let data = ecgData
+                  let i = 0
                   result.map(d=>{
                       data?.shift()
-                      data.push(d)
-                                       
+                      data?.push(d)
+                      if(i == 140){
+                        setEcgData(data)                   
+                        i = 0
+                      }
+                      i ++
                   })
-                  setEcgData(data)                   
                 }
             }catch(E){
                 console.log(E)
@@ -61,17 +71,25 @@ export const ModalRealTimeGraph = ({bpm,eq,time}:Porps) => {
      
       
     return (
+      <>
+      {open == false ? (
       <LineChart
             width={335}
             height={280}
             data={setData}  
          >
         <CartesianGrid stroke="#f5f5f5" />
-        <XAxis dataKey="xAxis" allowDataOverflow={true} domain={[0,560]} width={0} height={0} /> 
+        <XAxis dataKey="xAxis" allowDataOverflow={true} domain={[0,600]} width={0} height={0} /> 
         <YAxis yAxisId="left" domain={[0,1000]} width={30}/>
         <Tooltip active={true}/>               
         <Line yAxisId="left" type="monotone" dataKey="ecg" stroke="#8884d8" dot={false} />
       </LineChart>
+      ) : (
+        <Box sx={{width:335,height:280,display:'flex',justifyContent:'center',alignItems:'center'}}>
+          <CircularProgress color="primary"/>
+        </Box>
+      )}
+      </>
     );
 };
 
