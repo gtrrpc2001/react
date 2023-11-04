@@ -1,9 +1,10 @@
 import { Box} from "@mui/material";
 import { getClickGraph } from "../../controller/modalController";
-import { graphBpm, graphModal } from "../../../../../axios/interface/graphModal";
+import { graphModal } from "../../../../../axios/interface/graphModal";
 import { useState } from "react";
 import { BodyGraphTopBody } from "./bodygraphtopbody";
 import { BpmChart } from "./bpmChart";
+import { Writetime } from "../../component/writetime";
 
 type Props = {
     eq:string
@@ -58,6 +59,8 @@ export const BodyGraph = ({eq}:Props) => {
             <BodyGraphTopBody onClick={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => iconClick(e)} graphIcon = {clickGraph}/>
               
             {(getGraphBodyUI(clickGraph))}  
+
+            <Writetime />
         </Box>
     );
 }

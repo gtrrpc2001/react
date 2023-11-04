@@ -11,7 +11,7 @@ import {
 	CartesianGrid,
 	Tooltip,
 } from 'recharts';
-import { ButtonChartBpm } from "./bpmChartButton";
+import { ButtonChartBpm } from "./ChartButton";
 
 
 type Props = {
@@ -83,15 +83,14 @@ export const BpmChart = ({eq}:Props) => {
                 <XAxis dataKey="xAxis" allowDataOverflow={true} domain={[0,1000]}/>
                 <YAxis yAxisId="left" domain={[0,180]} width={30}/>
                 <Tooltip active={true}/>
-                {/* <Legend /> */}
             <Line yAxisId="left" type="monotone" dataKey="usageLast" stroke="#8884d8" dot={false} />
             </LineChart>
             <Box sx={{display:'flex',alignItems:'center',justifyContent:'center'}}>
-                <ButtonChartBpm id="minus" disabled={backBtn} Handler={(e)=>countHandler(e)} front={false}/>                
-                <Typography sx={{marginLeft:1,marginRight:1,fontSize:12,fontWeight:'bold'}}>
+                <ButtonChartBpm id="minus" bgColor="#5388F7" disabled={backBtn} Handler={(e)=>countHandler(e)} front={false}/>                
+                <Typography sx={{marginLeft:1,marginRight:1,fontSize:12,fontWeight:'bold',":hover":{cursor:'default'}}}>
                     이전,다음
                 </Typography>
-                <ButtonChartBpm id="plus" disabled={nextBtn} Handler={(e)=>countHandler(e)} front={true}/>                
+                <ButtonChartBpm id="plus" bgColor="#5388F7" disabled={nextBtn} Handler={(e)=>countHandler(e)} front={true}/>                
             </Box>
         </Box>
     );

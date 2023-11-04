@@ -88,6 +88,10 @@ export const getHeartText = (arrCnt:number):string => {
     }
   }
 
+  export const checkNull = (value:number | undefined) => {
+    return value == null ? 0 : value
+  }
+
   
 
   

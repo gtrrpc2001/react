@@ -4,9 +4,9 @@ export const getTime = (includeTime:boolean,mius:boolean=false,num:number = 0):s
   const year = today.getFullYear()
   const getMonth = today.getMonth()
   const getDate = today.getDate()
-  const month = mius? getLastMonth(today,num) : getMonth + 1
+  const month = mius? getLastMonth(today,getDate,num) : getMonth + 1
             var monthStr: string = month < 10 ? `0${month}` : month.toString()        
-            const date = mius ? getYesterday(today,num) : getDate    
+            const date = mius ? getYesterday(today,getDate,num) : getDate    
             var dateStr: string = date < 10 ? `0${date}` : date.toString()
             if(includeTime){
                 const hour = today.getHours()
@@ -22,13 +22,13 @@ export const getTime = (includeTime:boolean,mius:boolean=false,num:number = 0):s
 
 }
 
-export const getLastMonth = (today:Date,num:number):number => {
-  var yesterday = new Date(today.setDate(today.getMonth() - num + 1));
-  return yesterday.getDate()
+export const getLastMonth = (today:Date,date:number,num:number):number => {
+  var yesterday = new Date(today.setDate(date - num));  
+  return yesterday.getMonth() + 1
   }
 
-export const getYesterday = (today:Date,num:number):number => {
-var yesterday = new Date(today.setDate(today.getDate() - num));
+export const getYesterday = (today:Date,date:number,num:number):number => {  
+var yesterday = new Date(today.setDate(date - num));
 return yesterday.getDate()
 }
 
