@@ -54,7 +54,7 @@ export const BodyGraph = ({eq}:Props) => {
     }
 
     return (
-        <Box sx={{height:640,marginTop:2}}>
+        <Box sx={{height:625,marginTop:2}}>
 
             <BodyGraphTopBody onClick={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => iconClick(e)} graphIcon = {clickGraph}/>
               
