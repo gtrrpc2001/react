@@ -70,13 +70,13 @@ interface ModalDefaultType {
           );
       case footerSelect.profile:
         return (
-          <Box sx={{height:656}}>
+          <Box sx={{height:641}}>
           </Box>
         );
     
       case footerSelect.pulse:
         return (
-          <Box sx={{height:656}}>
+          <Box sx={{height:641}}>
           </Box>
         );
       default :
