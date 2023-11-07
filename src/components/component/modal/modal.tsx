@@ -16,6 +16,7 @@ import { BodyGraph } from "./body/bodygraph/bodygraph";
 import { getBpm } from "./data/data";
 import { bpmGraphActions } from "../../createslice/createslices";
 import { Loading } from "../loading/loading";
+import { getTime } from "../../../func/func";
 
 
 interface ModalDefaultType {
@@ -55,10 +56,7 @@ interface ModalDefaultType {
 
   const footerClick = async (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {    
     const id = e?.currentTarget?.id    
-    let iconClick:footerIcon = getClickFooter(id)    
-    if(iconClick.graph){
-      bpmGraphValue(bpmGraphActions.value(await getBpm(eq)))
-    }
+    let iconClick:footerIcon = getClickFooter(id) 
     setFooterBtn(iconClick)
   }
 
@@ -70,13 +68,13 @@ interface ModalDefaultType {
           );
       case footerSelect.profile:
         return (
-          <Box sx={{height:656}}>
+          <Box sx={{height:641}}>
           </Box>
         );
     
       case footerSelect.pulse:
         return (
-          <Box sx={{height:656}}>
+          <Box sx={{height:641}}>
           </Box>
         );
       default :
