@@ -37,7 +37,7 @@ useEffect(()=>{
         }
     }
     getValue()
-},[clickWritetimeButton,writetime])
+},[data,clickWritetimeButton,writetime])
 
 const childrenBoxStyle = {
 position:'absolute',

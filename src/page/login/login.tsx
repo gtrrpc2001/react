@@ -13,8 +13,6 @@ import { LoginEmailError } from '../../components/component/inputs/login/loginEm
 import { LoginPwdError } from '../../components/component/inputs/login/loginPwdError';
 import { LoginButton } from '../../components/component/buttons/loginButton';
 import { LoginInput } from '../../components/component/inputs/login/loginInput';
-import { getTime } from '../../func/func';
-import { getData } from '../../axios/api/serverApi';
 
 const LoginPage = () =>{
     const AppDispatch = useDispatch<AppDispatch>();

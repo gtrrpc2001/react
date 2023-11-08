@@ -90,7 +90,7 @@ interface ModalDefaultType {
             >
             <Box sx={mainBoxstyle}>
             
-              <ModalHeader />        
+              <ModalHeader values={modalList}/>        
 
               {(getModalUI(footerBtn))}                           
             
