@@ -24,3 +24,8 @@ export interface graphValueReduce{
     min:number
     aver:number
 }
+
+export interface graphPulse{
+    count:number
+    writetime:string
+}

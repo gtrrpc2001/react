@@ -13,10 +13,6 @@ import { Footer } from "./footer/footer";
 import { ModalHome } from "./body/bodyhome/modalHome";
 import { footerIcon } from "../../../axios/interface/footerIcon";
 import { BodyGraph } from "./body/bodygraph/bodygraph";
-import { getBpm } from "./data/data";
-import { bpmGraphActions } from "../../createslice/createslices";
-import { Loading } from "../loading/loading";
-import { getTime } from "../../../func/func";
 
 
 interface ModalDefaultType {
@@ -29,7 +25,6 @@ interface ModalDefaultType {
     const data:historyLast[] = useSelector<RootState,any>(state => state.historylast) 
     const getProfile:profileModal = useSelector<RootState,any>(state => state.profile)[0]
     const [footerBtn , setFooterBtn] = useState<footerIcon>({home:true,graph:false,pulse:false,profile:false})
-    const bpmGraphValue = useDispatch()
     const modalList = getValues(data,values.eq)    
     const eq = values.eq
 
