@@ -21,17 +21,17 @@ export const WritetimeButton = ({onClick,clickWritetimeButton}:Props) => {
     
     return (
         <Box sx={{height:50,display:'flex',alignItems:'center',marginBottom:1}}>
-            <Button id="today" onClick={(e)=>onClick(e)} sx={{marginLeft:1.7,width:80,height:40,borderRadius:3,bgcolor:today}}>
+            <Button id="today" onClick={(e)=>onClick(e)} sx={{marginLeft:1.7,width:80,height:40,borderRadius:3,bgcolor:today,":hover":{bgcolor:today}}}>
                 <Typography sx={{color:todayChildren}}>
                     {'Today'}
                 </Typography>
             </Button>
-            <Button id="days2" onClick={(e)=>onClick(e)} sx={{marginLeft:5,width:80,height:40,borderRadius:3,bgcolor:days2}}>
+            <Button id="days2" onClick={(e)=>onClick(e)} sx={{marginLeft:5,width:80,height:40,borderRadius:3,bgcolor:days2,":hover":{bgcolor:days2}}}>
                 <Typography sx={{color:days2Children}}>
                     {'2 Days'}
                 </Typography>
             </Button>
-            <Button id="days3" onClick={(e)=>onClick(e)} sx={{marginLeft:5.5,width:80,height:40,borderRadius:3,bgcolor:days3}}>
+            <Button id="days3" onClick={(e)=>onClick(e)} sx={{marginLeft:5.5,width:80,height:40,borderRadius:3,bgcolor:days3,":hover":{bgcolor:days3}}}>
                 <Typography sx={{color:days3Children}}>
                     {'3 Days'}
                 </Typography>

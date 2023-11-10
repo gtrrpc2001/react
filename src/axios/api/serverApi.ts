@@ -2,11 +2,11 @@ import axios, {Axios, AxiosRequestConfig } from 'axios'
 import  APIResponse  from '../interface/response';
 import { historyLast } from '../interface/history_last';
 import { profileModal } from '../interface/profileModal';
-import { graphBpm } from '../interface/graphModal';
+import { graphBpm, graphCalStep, graphPulse } from '../interface/graphModal';
 
 
 const client: Axios = axios.create({
-    baseURL: 'https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app',
+    baseURL: 'http://121.152.22.85:40081', //https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app/
     headers: {
       'Content-Type': 'application/json',
     }
@@ -21,6 +21,26 @@ const client: Axios = axios.create({
       throw new Error(error.message);
     }
    };
+
+   export const getGraphCalStep = async (url:string, config?: AxiosRequestConfig): Promise<graphCalStep[]> => {
+    try {
+        const response = await client.get<graphCalStep[]>(url, config);
+        return response.data;
+    } catch (error:any) {
+      throw new Error(error.message);
+    }
+   };
+
+   export const getGraphArr = async (url:string, config?: AxiosRequestConfig): Promise<graphPulse[]> => {
+    try {
+        const response = await client.get<graphPulse[]>(url, config);
+        return response.data;
+    } catch (error:any) {
+      throw new Error(error.message);
+    }
+   };
+
+   
 
    export const getGraphBpm = async (url:string, config?: AxiosRequestConfig): Promise<graphBpm[]> => {
     try {
