@@ -14,6 +14,7 @@ import { ModalHome } from "./body/bodyhome/modalHome";
 import { footerIcon } from "../../../axios/interface/footerIcon";
 import { BodyGraph } from "./body/bodygraph/bodygraph";
 import { BodyPulse } from "./body/bodypulse/bodypulse";
+import { BodyProfile } from "./body/bodyprofile/bodyprofile";
 
 
 interface ModalDefaultType {
@@ -24,7 +25,8 @@ interface ModalDefaultType {
   export const Modal = ({open,setModalOpen,children}:PropsWithChildren<ModalDefaultType>) =>{   
     const values = useSelector<RootState,any>(state => state.cellValues)
     const data:historyLast[] = useSelector<RootState,any>(state => state.historylast) 
-    const getProfile:profileModal = useSelector<RootState,any>(state => state.profile)[0]
+    const getProfile:profileModal = useSelector<RootState,any>(state => state.profile)
+    console.log(getProfile)
     const [footerBtn , setFooterBtn] = useState<footerIcon>({home:true,graph:false,pulse:false,profile:false})
     const modalList = getValues(data,values.eq)    
     const eq = values.eq
@@ -64,8 +66,7 @@ interface ModalDefaultType {
           );
       case footerSelect.profile:
         return (
-          <Box sx={{height:641}}>
-          </Box>
+          <BodyProfile cellValue={values} modalList={modalList} profile={getProfile}/>
         );
     
       case footerSelect.pulse:

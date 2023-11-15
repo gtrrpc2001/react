@@ -1,4 +1,4 @@
-export interface modalValues{
+export interface modalValues{    
     writetime:string
     bpm:number
     arrCnt:number
