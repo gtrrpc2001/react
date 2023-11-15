@@ -37,7 +37,7 @@ export const getHeartText = (arrCnt:number):string => {
     let row 
    for (var i = 0 ; i < data?.length; i++){
      if(data[i].eq == eq){
-       row = data[i]
+       row = data[i]       
        modalList = {writetime:row.writetime,bpm:row.bpm,arrCnt:row.arrcnt,actCal:row.calexe,step:row.step,temp:row.temp,distance:row.distanceKM}             
        break;
      }
@@ -392,6 +392,41 @@ export const graphSliceShow = (Count:number,length:number):number[] => {
           return [((Count-1) * endNum) + 1, Count * endNum]
       }
   }        
+}
+
+export const progressBarValue = (settingValue:number,values:number[],check = false):number=> {
+  try{        
+      if(check){
+         const km = settingValue * 1000
+         const calValue = values[1]
+         const percent = (calValue/km * 100) >= 100 ? 100 : calValue/km * 100                                                    
+          return percent
+      }else{
+          const percent = (values[0]/settingValue * 100) >= 100 ? 100 : values[0]/settingValue * 100
+          return percent
+      }
+  }catch{
+      return 0
+  }
+}
+
+export const getPulseEcgDataConverter = (result:string[]) => {
+  let dataList:any[] = []
+  const getData = result?.map((value:any)=>{
+    const {ecgpacket} = value
+    if(ecgpacket?.length != 0){
+        const arr:string[] = ecgpacket?.split(',')
+       return arr?.filter((value,index)=>{
+            if(index > 3){
+                dataList.push({ecg:Number(value)})
+                return value
+            }
+        })                        
+    }else{
+        return dataList.push({ecg:0})
+    }                        
+})
+return dataList
 }
 
 

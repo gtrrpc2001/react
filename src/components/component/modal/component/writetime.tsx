@@ -146,7 +146,7 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
         }
     }
 
-    const pulse = async(writetime:string) => {        
+    const pulseCalStepWritetimeGubun = async(writetime:string) => {        
         switch(true){
             case clickDayGubunButton.week:
                await getWeek(writetime)
@@ -174,13 +174,13 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
     const gubunIconButton = async(writetime:string) => {
         switch(true){
             case iconSelect.pulse :
-                pulse(writetime)
+                pulseCalStepWritetimeGubun(writetime)
                 break;
             case iconSelect.cal :
-                pulse(writetime)
+                pulseCalStepWritetimeGubun(writetime)
                 break;
             case iconSelect.step :
-                pulse(writetime)
+                pulseCalStepWritetimeGubun(writetime)
                 break;
             default :
                 await bpm_hrv(writetime)
@@ -201,8 +201,7 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
 
     const getHandler = async(id:string,bool:boolean) => {        
        await getWritetime(id)
-        setDisabled(bool)
-       
+        setDisabled(bool)       
     }
 
     const writetimeHandler = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

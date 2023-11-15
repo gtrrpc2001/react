@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useState} from "react";
 import UiModal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { historyLast } from "../../../axios/interface/history_last";
 import './modal.scss'
@@ -13,6 +13,7 @@ import { Footer } from "./footer/footer";
 import { ModalHome } from "./body/bodyhome/modalHome";
 import { footerIcon } from "../../../axios/interface/footerIcon";
 import { BodyGraph } from "./body/bodygraph/bodygraph";
+import { BodyPulse } from "./body/bodypulse/bodypulse";
 
 
 interface ModalDefaultType {
@@ -59,7 +60,7 @@ interface ModalDefaultType {
     switch(true){
       case footerSelect.graph:
           return  (
-            <BodyGraph eq={eq}/>
+            <BodyGraph profile={getProfile} eq={eq}/>
           );
       case footerSelect.profile:
         return (
@@ -69,8 +70,7 @@ interface ModalDefaultType {
     
       case footerSelect.pulse:
         return (
-          <Box sx={{height:641}}>
-          </Box>
+          <BodyPulse eq={eq}/>
         );
       default :
       

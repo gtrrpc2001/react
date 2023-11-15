@@ -22,6 +22,15 @@ const client: Axios = axios.create({
     }
    };
 
+   export const getDataResponse = async <T>(url:string, config?: AxiosRequestConfig): Promise<T> => {
+    try {
+        const response = await client.get<T>(url, config);
+        return response.data;
+    } catch (error:any) {
+      throw new Error(error.message);
+    }
+   };
+
    export const getGraphCalStep = async (url:string, config?: AxiosRequestConfig): Promise<graphCalStep[]> => {
     try {
         const response = await client.get<graphCalStep[]>(url, config);
