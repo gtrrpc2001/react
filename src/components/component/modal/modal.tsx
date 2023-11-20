@@ -26,7 +26,6 @@ interface ModalDefaultType {
     const values = useSelector<RootState,any>(state => state.cellValues)
     const data:historyLast[] = useSelector<RootState,any>(state => state.historylast) 
     const getProfile:profileModal = useSelector<RootState,any>(state => state.profile)
-    console.log(getProfile)
     const [footerBtn , setFooterBtn] = useState<footerIcon>({home:true,graph:false,pulse:false,profile:false})
     const modalList = getValues(data,values.eq)    
     const eq = values.eq

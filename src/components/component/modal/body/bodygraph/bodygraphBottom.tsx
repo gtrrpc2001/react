@@ -139,8 +139,8 @@ const [barValues,setBarValues] = useState<number[]>([0,0])
 
 const barWidth = 210
 const textWidth = 124
-const firstSettingNum = step ? Number(profile?.설정_일걸음) : Number(profile?.설정_일칼로리)
-const secondSettingNum = step ? Number(profile?.설정_일거리) : Number(profile?.설정_일활동칼로리)
+const firstSettingNum = step ? Number(profile?.step) : Number(profile?.cal)
+const secondSettingNum = step ? Number(profile?.distanceKM) : Number(profile?.calexe)
 const firstSetting = step ? `${firstSettingNum} step` : `${firstSettingNum} kcal`
 const secondSetting = step ? `${secondSettingNum} km` : `${secondSettingNum} kcal`
 

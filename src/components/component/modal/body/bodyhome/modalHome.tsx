@@ -27,9 +27,9 @@ export const ModalHome = ({modalList,values,getProfile}:Props) => {
               <MiddleBody 
               bpm={modalList.bpm} 
               arrCnt={modalList.arrCnt} 
-              sleepTime = {getProfile.설정_수면시작} 
-              upTime={getProfile.설정_수면종료}
-              settingBpm={getProfile.설정_활동BPM}
+              sleepTime = {getProfile.sleeptime} 
+              upTime={getProfile.uptime}
+              settingBpm={getProfile.bpm}
               />              
               
               <Box>                

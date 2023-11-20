@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {  listActions, loginActions, } from "../../components/createslice/createslices";
+import {  listActions, loginActions, nameActions, } from "../../components/createslice/createslices";
 import  { AppDispatch, RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { saveLog } from "../../data/login";
@@ -11,6 +11,7 @@ import { Loading } from "../../components/component/loading/loading";
 import { HomeBody } from "./body/body";
 import { Footer } from "./footer/footer";
 import { Header } from "./header/header";
+import { historyLast } from "../../axios/interface/history_last";
 
 export default function Home(){
     const navigate = useNavigate();  
@@ -20,18 +21,18 @@ export default function Home(){
     const InfoDispatch = useDispatch<AppDispatch>();
     const [check,setCheck] = useState(false)
     const [loading, setLoding] = useState(true); 
-    const [editData, setEditData] = useState([])
 
     useEffect(()=> {
         async function getInfoList():Promise<any> {
             if(!loginSelector)
                 navigate('/')
             try{
-                const data:any = await getHistory(`/mslLast/webTable?writetime=${getTime(false)}`)                            
+                const data:historyLast[] = await getHistory(`/mslLast/webTable?writetime=${getTime(false)}`)                            
                 setLoding(false)
-                setEditData(data)
                 if(data?.length != 0){
-                    InfoDispatch(listActions.listHistory(data))                                        
+                    InfoDispatch(listActions.listHistory(data))
+                    const names = data.map(d=>{ return {eq:d.eq,eqname:d.eqname}})
+                    InfoDispatch(nameActions.value(names)) 
                 }
                 return data;
             }catch(E){
