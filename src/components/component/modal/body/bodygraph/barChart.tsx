@@ -28,7 +28,7 @@ export const BarCharts = ({iconSelect,dayGubunButtonModal}:Props) => {
     
     const useGetData = () => {        
         switch(true){            
-            case iconSelect.pulse :               
+            case iconSelect.pulse :              
                 return getPulse(writetime,data,dayGubunButtonModal)
             default :
                 return getCalStep(writetime,data,iconSelect,dayGubunButtonModal)
@@ -56,20 +56,23 @@ export const BarCharts = ({iconSelect,dayGubunButtonModal}:Props) => {
     }
    
 
-    const getYAxisDomain = () => {
-        let getMax:number = 0
-        switch(true){
-            case iconSelect.cal :
-            getMax = Math.max(...data?.map(o=>o.cal > o.calexe ? o.cal : o.calexe))
+    const getYAxisDomain = () => {          
+        if(`${typeof(data)}` ===  'object'){   
+        let getMax:number = 0        
+            switch(true){
+                case iconSelect.cal :
+                getMax = Math.max(...data?.map(o=>o.cal > o.calexe ? o.cal : o.calexe))
+                    break;
+                case iconSelect.step :  
+                getMax = Math.max(...data?.map(o=>o.step > o.distanceKM ? o.step : o.distanceKM))
+                    break;
+                default :                               
+                getMax = Math.max(...data?.map(o=>o.count))
                 break;
-            case iconSelect.step :  
-            getMax = Math.max(...data?.map(o=>o.step > o.distanceKM ? o.step : o.distanceKM))
-                break;
-            default :
-            getMax = Math.max(...data?.map(o=>o.count))
-            break;
-        }
-        setMax(getMax)
+            }
+            setMax(getMax)
+
+        }    
     }
 
     useEffect(()=>{

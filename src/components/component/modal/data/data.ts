@@ -11,7 +11,7 @@ export const getArr = async(eq:string,startDate:string,endDate:string,len:number
     return result
 }
 
-export const getCalStep = async(eq:string,startDate:string,endDate:string,len:number):Promise<graphCalStep[]> => {
+export const getCalStep = async(eq:string,startDate:string,endDate:string,len:number):Promise<graphCalStep[]> => {    
     const result = await getGraphCalStep(`/mslecgday/webDay?eq=${eq}&startDate=${startDate}&endDate=${endDate}&len=${len}`)
     return result
 }

@@ -7,7 +7,7 @@ import { graphBpmHrvArr } from '../interface/graph';
 
 
 const client: Axios = axios.create({
-    baseURL: 'https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app',
+    baseURL: 'http://121.152.22.85:40081', //https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app/
     headers: {
       'Content-Type': 'application/json',
     }
@@ -101,6 +101,7 @@ const client: Axios = axios.create({
 export const postData = async <T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<APIResponse<T>> => {
   try {
     const response = await client.post<APIResponse<T>>(url, data, config);
+    console.log(response)
     return response.data;
   } catch (error:any) {
     throw new Error(error.message);

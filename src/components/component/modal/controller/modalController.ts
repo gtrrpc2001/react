@@ -1,6 +1,7 @@
 import { userBpmType } from "../../../../axios/interface/bpmType"
 import { footerIcon } from "../../../../axios/interface/footerIcon"
 import { dayGubunButtonModal, graphModal, writetimeButtonModal } from "../../../../axios/interface/graphModal"
+import { graphKindButton } from "../../../../axios/interface/graph"
 import { historyLast } from "../../../../axios/interface/history_last"
 import { modalValues } from "../../../../axios/interface/modalvalues"
 import { getChangeDate, getHour, getTime } from "../../../../func/func"
@@ -116,6 +117,21 @@ export const getHeartText = (arrCnt:number):string => {
         return {day:false,week:true,month:false,year:false}
       case id.includes(month) :
         return {day:false,week:false,month:true,year:false}      
+      default :
+        return iconClick
+    }
+  }
+
+  export const getClickGraphKindButton = (id:string):graphKindButton => {    
+    const bpm_hrv_arr = 'bpm_hrv_arr'
+    const cal_step = 'cal_step'          
+    const ecg = 'ecg'  
+    let iconClick:graphKindButton = {bpm_hrv_arr:true,cal_step:false,ecg:false}
+    switch(true){
+      case id == ecg :
+       return {bpm_hrv_arr:false,cal_step:false,ecg:true}
+      case id == cal_step :
+        return {bpm_hrv_arr:false,cal_step:true,ecg:false}       
       default :
         return iconClick
     }
