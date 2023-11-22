@@ -154,11 +154,11 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
             case clickDayGubunButton.month:
                const getYM = getYearMonth(writetime,new Date())
                const day = new Date(writetime)               
-<<<<<<< HEAD
+
                const getNextMonth = getYearMonth('',new Date(day.setMonth(day.getMonth() + 1)))               
-=======
+
                const getNextMonth = getYearMonth('',new Date(day.setMonth(day.getMonth() + 1)))
->>>>>>> 99b48e1ef3f0d5815599be6190b37234ed057f59
+
                await pulseCalStepSelectData(eq,`${getYM}-01`,`${getNextMonth}-01`,10)
                setText(getYM)   
                break;
