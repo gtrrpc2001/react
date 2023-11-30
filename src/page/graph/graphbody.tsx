@@ -46,7 +46,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
                         })
                         break;
                     default :                                                
-                        result = await getGraphBpmHrvArrData(id,calTime)                        
+                        result = await getGraphBpmHrvArrData(id,time,calTime)                        
                         v = result?.map((d)=>{
                              return {bpm:d.bpm,hrv:d.hrv,arr:d.count,time:d.writetime?.split(' ')[1]}
                          })
