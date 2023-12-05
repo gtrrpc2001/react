@@ -97,6 +97,15 @@ const client: Axios = axios.create({
     }
    };
 
+   export const getEcgTime = async (url:string, config?: AxiosRequestConfig): Promise<string[]> => {
+    try {
+        const response = await client.get<string[]>(url, config);
+        return response.data;
+    } catch (error:any) {
+      throw new Error(error.message);
+    }
+   };
+
    //TODO: POST 메서드
 export const postData = async <T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<APIResponse<T>> => {
   try {

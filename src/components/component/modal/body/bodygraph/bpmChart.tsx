@@ -14,6 +14,7 @@ import {
 } from 'recharts';
 import { ButtonChartBpm } from "./ChartButton";
 import { graphSliceShow, replaceYear, selectTime } from "../../controller/modalController";
+import { getWritetimeSelectHour_Min } from "../../../../../func/func";
 
 
 type Props = {
@@ -74,7 +75,7 @@ export const BpmChart = ({clickWritetimeButton,bpm}:Props) => {
                   return {
                     usageLast1: first,
                     usageLast2: second,
-                    xAxis:d.writetime?.split(' ')[1]
+                    xAxis:getWritetimeSelectHour_Min(d.writetime) //d.writetime?.split(' ')[1]
                   }                     
                 })                
                 return v
@@ -93,14 +94,14 @@ export const BpmChart = ({clickWritetimeButton,bpm}:Props) => {
                     usageLast3: _first,
                     usageLast4: _second,
                     usageLast5: third,
-                    xAxis:d.writetime?.split(' ')[1]
+                    xAxis:getWritetimeSelectHour_Min(d.writetime)
                     }                     
                 })                    
                 return v2
             default :
             try{                
                 return data?.slice(start,end)?.map(d=>{
-                         return  {usageLast:onlyTodayDataGubun(d),xAxis:d.writetime?.split(' ')[1]}  
+                         return  {usageLast:onlyTodayDataGubun(d),xAxis:getWritetimeSelectHour_Min(d.writetime)}  
                        });
             }catch{
                 return []
