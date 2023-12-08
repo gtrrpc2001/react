@@ -57,18 +57,27 @@ const LoginPage = () =>{
   
       const onPasswordHandler = (e:any) => {
           setPw(e.target.value);
-      }       
-  
-      const HandleLogin = async() => {
-        if(notAllow){
-            errorCode('아이디 & 비밀번호를 체크 중 입니다.');
+      }
+
+    const setHandleLogin = async()=>{
+        errorCode('아이디 & 비밀번호를 체크 중 입니다.');
             setLastEmail(email)
             setLastpw(pw)
             const loginBool = await tryLogin(email,pw)
             await SuccessLogin(loginBool) 
             if(!loginBool)            
               errorCode('이메일,비밀번호가 틀렸습니다.'); 
-        }         
+      }
+  
+      const HandleLogin = async(e?:React.KeyboardEvent<HTMLInputElement>) => {
+        if(notAllow){
+            if(e?.currentTarget.id == "password"){
+                if(e?.key === 'Enter' )
+                    setHandleLogin();                
+            }else{
+                setHandleLogin();
+            }
+        }       
       }    
 
       const SuccessLogin = async(loginBool:boolean) => {   
