@@ -85,7 +85,8 @@ export const Graphs = ({data,width,height,kind}:Props) => {
             data={data}                                                 
             >
                 <CartesianGrid stroke="#f5f5f5" />
-                <XAxis dataKey="time" />
+                {/* //label={{value:"Pages",position: "insideBottomLeft", dy: 0}} */}
+                <XAxis dataKey="writetime" />
                 <Tooltip />
                 <Legend align="left" wrapperStyle={{marginLeft:50}}/>
                 <YAxis yAxisId="left"/>
