@@ -43,11 +43,11 @@ export const BpmChart = ({clickWritetimeButton,bpm}:Props) => {
     const getValue = (prevValue:number,d: graphBpm,time:string):number => {
         if(bpm){
             if(d.writetime.includes(time)){
-                return d.bpm
+                return (d.bpm > 180) ? 180 : d.bpm
             }        
         }else{
             if(d.writetime.includes(time)){
-                return d.hrv
+                return (d.hrv > 180) ? 180 : d.hrv
             } 
         }
         return prevValue
@@ -101,7 +101,8 @@ export const BpmChart = ({clickWritetimeButton,bpm}:Props) => {
             default :
             try{                
                 return data?.slice(start,end)?.map(d=>{
-                         return  {usageLast:onlyTodayDataGubun(d),xAxis:getWritetimeSelectHour_Min(d.writetime)}  
+			const value = onlyTodayDataGubun(d)
+                         return  {usageLast:(value > 180) ? 180 : value,xAxis:getWritetimeSelectHour_Min(d.writetime)}  
                        });
             }catch{
                 return []
