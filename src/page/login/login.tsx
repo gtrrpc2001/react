@@ -138,7 +138,7 @@ const LoginPage = () =>{
                             ref={pwdRef}
                             placeholder='영문, 숫자, 특수문자 포함 8자 이상'
                             value={pw}
-                            onKeypress={HandleLogin}
+                            onKeypress={(e) => HandleLogin(e)}
                             onHandler={onPasswordHandler}
                             />                            
                                 
