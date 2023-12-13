@@ -27,7 +27,7 @@ export default function Home(){
             if(!loginSelector)
                 navigate('/')
             try{
-                const data:historyLast[] = await getHistory(`/mslLast/webTable?writetime=${getTime(false)}`)                            
+                const data:historyLast[] = await getHistory(`/mslLast/webTable`)                            
                 setLoding(false)
                 if(data?.length != 0){
                     InfoDispatch(listActions.listHistory(data))
