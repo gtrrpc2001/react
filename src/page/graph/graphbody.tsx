@@ -32,10 +32,6 @@ export const GraphBody = ({names,marginTop}:Props) => {
         return (value > 180) ? 180 : value
     }
 
-    const getCheckMaxValue = (value:number):number => {
-        return (value > 180) ? 180 : value
-    }
-
     async function getData(id:string,time:string,kindButton:graphKindButton,setData:React.Dispatch<React.SetStateAction<any[]>>)
     {
         try{
