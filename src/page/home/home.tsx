@@ -54,8 +54,7 @@ export default function Home(){
     }
 
     useEffect(()=> {
-<<<<<<< HEAD
-=======
+
         async function getInfoList():Promise<any> {
             if(!loginSelector)
                 navigate('/')
@@ -79,7 +78,6 @@ export default function Home(){
             },1000)            
             
         return ()=>{clearTimeout(timer)}
->>>>>>> 76b35c21b27a4125ff75a7a115960fb4b36c3d5a
         
         const timer = setInterval(async() => {    
             if(loginSelector || isLoginSuv == "true")
