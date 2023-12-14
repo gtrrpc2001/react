@@ -1,13 +1,10 @@
 import { Box } from "@mui/material";
-import { ModalHeader } from "../../header/modalHeader";
 import { ModalTopBody } from "./topbody/modalTopbody";
 import { MiddleBody } from "./middlebody/middleBody";
 import { ModalRealTimeGraph } from "../../../../../page/graph/modalGraph";
 import { BottomBody } from "../../component/bottomBody";
-import { Footer } from "../../footer/footer";
 import { getDecimal, getHeartText } from "../../controller/modalController";
 import { modalValues } from "../../../../../axios/interface/modalvalues";
-import { getProfile } from "../../../../../axios/api/serverApi";
 import { profileModal } from "../../../../../axios/interface/profileModal";
 
 type Props = {
@@ -34,7 +31,7 @@ export const ModalHome = ({open,modalList,values,getProfile}:Props) => {
               />              
               
               <Box>                
-                <ModalRealTimeGraph open_close={open} bpm={modalList.bpm} eq={values.eq} time={modalList.writetime} />
+                <ModalRealTimeGraph open_close={open} bpm={modalList.bpm} eq={values.eq} time={modalList.writetime}/>
               </Box>
 
               <BottomBody actCal={modalList.actCal} step={modalList.step} temp={modalList.temp} distance={getDecimal(modalList.distance)}/>

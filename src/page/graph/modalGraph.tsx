@@ -24,36 +24,31 @@ export const ModalRealTimeGraph = ({open_close,bpm,eq,time}:Porps) => {
 
     const getEcgData = async() =>  {        
       try{                        
-          const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)
-          console.log(dataArr?.length)
+          const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)          
           if(open && (dataArr?.length < 500)){                          
             result.map(d=>{dataArr?.push({ecg:d})})
             if(dataArr?.length > 420){
-              setOpen(false)
-              // setSpreadData(dataArr)         
+              setOpen(false)      
             }
           }else{
             result.map(d=>{
               dataArr.shift()
               dataArr.push({ecg:d})
             })
-            // setSpreadData(dataArr)
-          }
-          console.log('실행중')
+          }          
       }catch(E){
           console.log(E)
       }                      
   }
 
     useEffect(() => {     
-    if(open_close)
-        getEcgData();
+    if(open_close){      
+      getEcgData();
+    }
     else
-      dataArr.length = 0
-        
-    },[bpm])    
-     
-      
+      dataArr.length = 0        
+    },[bpm])
+    
     return (
       <>
       {open == false ? (

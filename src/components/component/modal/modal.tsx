@@ -24,7 +24,7 @@ interface ModalDefaultType {
 
   export const Modal = ({open,setModalOpen,children}:PropsWithChildren<ModalDefaultType>) =>{   
     const values = useSelector<RootState,any>(state => state.cellValues)
-    const data:historyLast[] = useSelector<RootState,any>(state => state.historylast) 
+    const data:historyLast[] = useSelector<RootState,any>(state => state.modalData) 
     const getProfile:profileModal = useSelector<RootState,any>(state => state.profile)
     const [footerBtn , setFooterBtn] = useState<footerIcon>({home:true,graph:false,pulse:false,profile:false})
     const modalList = getValues(data,values.eq)    
@@ -61,7 +61,7 @@ interface ModalDefaultType {
     switch(true){
       case footerSelect.graph:
           return  (
-            <BodyGraph profile={getProfile} eq={eq}/>
+            <BodyGraph profile={getProfile} eq={eq} startTime={values.startDate}/>
           );
       case footerSelect.profile:
         return (
@@ -70,7 +70,7 @@ interface ModalDefaultType {
     
       case footerSelect.pulse:
         return (
-          <BodyPulse eq={eq}/>
+          <BodyPulse eq={eq} startTime={values.startDate}/>
         );
       default :
       

@@ -23,9 +23,14 @@ export const GraphBody = ({names,marginTop}:Props) => {
     const [writetime,setWritetime] = useState<string>('')
     const [ecgTime,setEcgTime] = useState<string>('')    
     const [open,setOpen] = useState<boolean>(true)
+    
     useEffect(()=>{
         setList(names)
-    },[names])  
+    },[names])
+    
+    const getCheckMaxValue = (value:number):number => {
+        return (value > 180) ? 180 : value
+    }
 
     async function getData(id:string,time:string,kindButton:graphKindButton,setData:React.Dispatch<React.SetStateAction<any[]>>)
     {
@@ -49,7 +54,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
                     default :                                                
                         result = await getGraphBpmHrvArrData(id,time,calTime)                        
                         v = result?.map((d)=>{
-                             return {bpm:d.bpm,hrv:d.hrv,arr:d.count,writetime:getWritetimeSelectHour_Min(d.writetime)}
+                             return {bpm:getCheckMaxValue(d.bpm),hrv:getCheckMaxValue(d.hrv),arr:d.count,writetime:getWritetimeSelectHour_Min(d.writetime)}
                          })
                         break;
 

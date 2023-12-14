@@ -14,7 +14,7 @@ import { Tbody } from "./tbody";
 import { Modal } from "../modal/modal";
 import { cellActions, profileActions } from "../../createslice/createslices";
 import { getProfile } from "../../../axios/api/serverApi";
-import { getTime } from "../../../func/func";
+import { calculTime } from "../modal/controller/modalController";
 
 type Props = {
     stopCheck:boolean
@@ -24,7 +24,8 @@ type Props = {
 export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
     const columns = useMemo(() => COLUMNS,[])
     const data = useSelector<RootState,any>(state => state.historylast)
-    const cellDispatch = useDispatch();        
+    const cellDispatch = useDispatch();
+    const profileDispach = useDispatch();       
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
     const [values,setValues] = useState(Object)
             
@@ -59,12 +60,15 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
         const row = cell?.row
         const column = cell?.column
         const values = cell?.row?.values
-        const {eq,eqname,timezone} = values
-        const cellVlaue = {eq,eqname,timezone}
+        const {eq,eqname,timezone,writetime} = values
+        const startDate = writetime?.split(" ")[0]
+        const cellVlaue = {eq,eqname,timezone,startDate}
+        const times = calculTime(writetime,1)
+        console.log(`${startDate} -- ${times[1]}`)
         if(column?.id != 'selection'){
-            if(!row?.isSelected)  { 
-                const Profile:any  = await getProfile(`/mslecgarr/arrCnt?eq=${eq}&startDate=${getTime(false,true,1)}&endDate=${getTime(false)}`)                                             
-                cellDispatch(profileActions.profile(Profile))
+            if(!row?.isSelected)  {                
+                const Profile = await getProfile(`/mslecgarr/arrCnt?eq=${eq}&startDate=${startDate}&endDate=${times[1]}`)
+                profileDispach(profileActions.profile(Profile))
                 setValues(cell?.row?.values)
                 cellDispatch(cellActions.cellValues(cellVlaue))
                 setOpenModal(!isOpenModal);
@@ -100,8 +104,8 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
                     {isOpenModal && (
                         <Modal
                             open={isOpenModal}
-                            setModalOpen={setOpenModal}>
-                            이곳에 children이 들어갑니다.
+                            setModalOpen={setOpenModal}
+                            >                            
                         </Modal>
                         )            
                     }

@@ -71,7 +71,6 @@ export const BarCharts = ({iconSelect,dayGubunButtonModal}:Props) => {
                 break;
             }
             setMax(getMax)
-
         }    
     }
 

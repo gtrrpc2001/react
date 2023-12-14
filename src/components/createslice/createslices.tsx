@@ -1,4 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import { historyLast } from '../../axios/interface/history_last';
 
 
 export const cellSlice = createSlice({
@@ -41,6 +42,16 @@ export const eqSlice = createSlice({
 
 });
 export const eqActions = eqSlice.actions;
+
+export const ModalSlice = createSlice({
+    name:'history_last',
+    initialState:[],
+    reducers:{
+        ModalHistory:(state:any,action: PayloadAction<any>) => state = action.payload,
+    }
+
+});
+export const ModalActions = ModalSlice.actions;
 
 export const listSlice = createSlice({
     name:'history_last',
