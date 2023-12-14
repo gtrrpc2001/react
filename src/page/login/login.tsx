@@ -59,13 +59,11 @@ const LoginPage = () =>{
       const onPasswordHandler = (e:any) => {
           setPw(e.target.value);
       }
-<<<<<<< HEAD
       
       const setHandleLogin = async()=>{
-=======
+
 
     const setHandleLogin = async()=>{
->>>>>>> 76b35c21b27a4125ff75a7a115960fb4b36c3d5a
         errorCode('아이디 & 비밀번호를 체크 중 입니다.');
             setLastEmail(email)
             setLastpw(pw)
@@ -75,7 +73,6 @@ const LoginPage = () =>{
               errorCode('이메일,비밀번호가 틀렸습니다.'); 
       }
   
-<<<<<<< HEAD
       const HandleLogin = async(e?:React.KeyboardEvent<HTMLInputElement>) => {        
         if(notAllow){
             if(e?.currentTarget.id == "password"){
@@ -85,8 +82,8 @@ const LoginPage = () =>{
             }else{
                 setHandleLogin();
             }
-        }         
-=======
+        }  
+          
       const HandleLogin = async(e?:React.KeyboardEvent<HTMLInputElement>) => {
         if(notAllow){
             if(e?.currentTarget.id == "password"){
@@ -96,7 +93,6 @@ const LoginPage = () =>{
                 setHandleLogin();
             }
         }       
->>>>>>> 76b35c21b27a4125ff75a7a115960fb4b36c3d5a
       }    
 
       const SuccessLogin = async(loginBool:boolean) => {   
@@ -129,11 +125,7 @@ const LoginPage = () =>{
                             <div className='inputTitle'>이메일 주소</div>
 
                             <LoginInput
-<<<<<<< HEAD
-                            id='email' 
-=======
                             id='email'
->>>>>>> 76b35c21b27a4125ff75a7a115960fb4b36c3d5a
                             className='inputWrapEmail'
                             onClick={emailClick}
                             inputClassName='inputEmail'
@@ -156,11 +148,7 @@ const LoginPage = () =>{
                             </div>
 
                             <LoginInput
-<<<<<<< HEAD
-                            id='password'                             
-=======
                             id='password'
->>>>>>> 76b35c21b27a4125ff75a7a115960fb4b36c3d5a
                             className='inputWrap'
                             onClick={emailEnter}
                             inputClassName='inputPw'
