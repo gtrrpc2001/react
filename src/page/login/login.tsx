@@ -82,7 +82,8 @@ const LoginPage = () =>{
             }else{
                 setHandleLogin();
             }
-        }  
+        }
+      }  
           
       const HandleLogin = async(e?:React.KeyboardEvent<HTMLInputElement>) => {
         if(notAllow){
@@ -176,6 +177,6 @@ const LoginPage = () =>{
                 </div>
             </div>
                        
-        );
+        );      
 }
 export default LoginPage;
