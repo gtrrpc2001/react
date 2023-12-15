@@ -53,32 +53,8 @@ export default function Home(){
         InfoDispatch(ModalActions.ModalHistory(data))        
     }
 
-    useEffect(()=> {
-
-        async function getInfoList():Promise<any> {
-            if(!loginSelector)
-                navigate('/')
-            try{
-                const data:historyLast[] = await getHistory(`/mslLast/webTable`)                            
-                setLoding(false)
-                if(data?.length != 0){
-                    InfoDispatch(listActions.listHistory(data))
-                    const names = data.map(d=>{ return {eq:d.eq,eqname:d.eqname}})
-                    InfoDispatch(nameActions.value(names)) 
-                }
-                return data;
-            }catch(E){
-                console.log(E)
-                return [];
-            }
-        }
-            const timer = setInterval(async() => {    
-                if(!check)            
-                    await getInfoList()                                          
-            },1000)            
+    useEffect(()=> {        
             
-        return ()=>{clearTimeout(timer)}
-        
         const timer = setInterval(async() => {    
             if(loginSelector || isLoginSuv == "true")
                 await getInfoList()                                          
