@@ -80,19 +80,8 @@ const LoginPage = () =>{
                 setHandleLogin();
             }
         }
-      }  
-          
-      const HandleLogin = async(e?:React.KeyboardEvent<HTMLInputElement>) => {
-        if(notAllow){
-            if(e?.currentTarget.id == "password"){
-                if(e?.key === 'Enter' )
-                    setHandleLogin();                
-            }else{
-                setHandleLogin();
-            }
-        }       
-      }    
-
+      }
+    
       const SuccessLogin = async(loginBool:boolean) => {   
         AppDispatch(eqActions.eq(email))
         AppDispatch(loginActions.loginCheck(loginBool))
