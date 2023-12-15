@@ -21,8 +21,7 @@ export default function Home(){
     const InfoDispatch = useDispatch<AppDispatch>();
     const [check,setCheck] = useState(false)
     const [loading, setLoding] = useState(true);  
-    const [data,setData] = useState<historyLast[]>([])            
-
+    const [data,setData] = useState<historyLast[]>([]) 
     const isLoginSuv = window.localStorage.getItem("isLoginSuv")
     const isUserId = window.localStorage.getItem("isUserId")
     
