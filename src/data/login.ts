@@ -8,7 +8,7 @@ export const tryLogin = async (email:string,pw:string):Promise<boolean> => {
  }  
  
  export const saveLog = async (email:string,active:string):Promise<boolean> => {      
-     let body = {'kind':'web','구분':'근로자','아이디':email,'성명':'','날짜':getTime(true),'활동':active}
+     let body = {'kind':'web','gubun':'근로자','eq':email,'eqname':'','writetime':getTime(true),'activity':active}
      const data:any = await postData(`/admin_login_log/api_getdata`,body)
      return data.includes('true');
   }
