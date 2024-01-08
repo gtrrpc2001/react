@@ -214,30 +214,50 @@ export const calculMin = (writetime:string,num:number):string => {
 export const calculTime = (writetime:string,num:number):string[] => {
   const day = new Date(writetime)
   const date = day.getDate()
-  const endDay = new Date(day.setDate(date + 1))
-  const startDay = num == 0 ? day : new Date(day.setDate(date - num))
+  const endDay = new Date(day.setDate(date + 1))  
   const endDate = getWritetimeValue(endDay)
-  const startDate = getWritetimeValue(startDay)
+  const startDate = getMinusDateWritetime(writetime,num)
   return [startDate,endDate]
+}
+
+export const getMinusDateWritetime = (time:string,num:number):string => {
+  const date = new Date(time)
+  const minusDate = new Date(date.setDate(date.getDate() - num))
+  const getYear = minusDate.getFullYear() 
+  const getMonth = minusDate.getMonth() + 1
+  const getDate = minusDate.getDate()
+  var monthStr: string = getChangeDate(getMonth)
+  var dateStr: string = getChangeDate(getDate)
+ return `${getYear}-${monthStr}-${dateStr}`    
+}
+
+export const getMinusMonthWritetime = (time:string,num:number):string => {
+  const date = new Date(time)
+  const minusDate = new Date(date.setMonth(date.getMonth() - num))
+  const getYear = minusDate.getFullYear() 
+  const getMonth = minusDate.getMonth() + 1
+  const getDate = minusDate.getDate()
+  var monthStr: string = getChangeDate(getMonth)
+  var dateStr: string = getChangeDate(getDate)
+ return `${getYear}-${monthStr}-${dateStr}`    
 }
 
 export const calculWeek = (writetime:string):string[] => {
   const day = new Date(writetime)
   const date = day.getDate()
-  const endDay = new Date(day.setDate(date + 7))
-  const startDay = new Date(day.setDate(date - 7))
+  const endDay = new Date(day.setDate(date + 7))  
   const endDate = getWritetimeValue(endDay)  
-  const startDate = getWritetimeValue(startDay)
+  const startDate = getMinusDateWritetime(writetime,7)
   return [startDate,endDate]
 }
 
-export const calculMonth = (writetime:string):string[] => {
+export const calculMonth = (writetime:string):string[] => {  
   const day = new Date(writetime)
   const month = day.getMonth()
-  const endDay = new Date(day.setMonth(month + 1))
-  const startDay = new Date(day.setMonth(month - 1))
+  const endDay = new Date(day.setMonth(month + 1))  
   const endDate = getWritetimeValue(endDay)
-  const startDate = getWritetimeValue(startDay)  
+  const startDate = getMinusMonthWritetime(writetime,1)    
+  console.log(startDate)
   return [startDate,endDate]
 }
 
@@ -429,11 +449,7 @@ export const progressBarValue = (settingValue:number,value:number,check = false)
          const percent = (calValue/km * 100) >= 100 ? 100 : calValue/km * 100                                                    
           return percent
       }else{
-<<<<<<< HEAD
           const percent = (value/settingValue * 100) >= 100 ? 100 : value/settingValue * 100          
-=======
-          const percent = (value/settingValue * 100) >= 100 ? 100 : value/settingValue * 100
->>>>>>> ed2a75bf3c625436fb0ec352c918fbd86a8ab47f
           return percent
       }
   }catch{
