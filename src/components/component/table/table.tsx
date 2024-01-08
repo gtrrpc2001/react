@@ -64,9 +64,7 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
         const startDate = writetime?.split(" ")[0]
         const cellVlaue = {eq,eqname,timezone,startDate}
         const times = calculTime(writetime,1)
-<<<<<<< HEAD
         const yesterday = times[0]
-
         console.log(`${yesterday} -- ${startDate}`)        
         if(column?.id != 'selection'){
             if(!row?.isSelected)  {                
@@ -74,12 +72,6 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
                 const yesterdayArr = await getOnlyArr(`mslecgarr/arrCount?eq=${eq}&startDate=${yesterday}&endDate=${startDate}`)
                 cellDispatch(yesterdayArrActions.count(yesterdayArr.arrCnt))
                 profileDispach(profileActions.profile(Profile))
-=======
-        if(column?.id != 'selection'){
-            if(!row?.isSelected)  { 
-                const Profile = await getProfile(`/mslecgarr/arrCnt?eq=${eq}&startDate=${startDate}&endDate=${times[1]}`)                                             
-                cellDispatch(profileActions.profile(Profile))
->>>>>>> ed2a75bf3c625436fb0ec352c918fbd86a8ab47f
                 setValues(cell?.row?.values)
                 cellDispatch(cellActions.cellValues(cellVlaue))
                 setOpenModal(!isOpenModal);
