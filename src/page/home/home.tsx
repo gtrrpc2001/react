@@ -21,8 +21,7 @@ export default function Home(){
     const InfoDispatch = useDispatch<AppDispatch>();
     const [check,setCheck] = useState(false)
     const [loading, setLoding] = useState(true);  
-    const [data,setData] = useState<historyLast[]>([])            
-
+    const [data,setData] = useState<historyLast[]>([]) 
     const isLoginSuv = window.localStorage.getItem("isLoginSuv")
     const isUserId = window.localStorage.getItem("isUserId")
     
@@ -53,8 +52,13 @@ export default function Home(){
         InfoDispatch(ModalActions.ModalHistory(data))        
     }
 
+<<<<<<< HEAD
     useEffect(()=> {
         
+=======
+    useEffect(()=> {        
+            
+>>>>>>> ed2a75bf3c625436fb0ec352c918fbd86a8ab47f
         const timer = setInterval(async() => {    
             if(loginSelector || isLoginSuv == "true")
                 await getInfoList()                                          

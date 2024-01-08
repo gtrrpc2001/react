@@ -96,36 +96,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
                 const result = await getGraphEcgValue(id,startTime,endTime)                
                 const v = result?.map((d)=>{
                     return {ecg:d}
-                })  
-                
-            //     const result = await getTest(id,startTime,endTime)       
-            //     let getEcgArr:number[] = []
-            //     let getTime:string[] = []
-            //     let i = 0        
-            //     let index = 0
-            //     let time = ""
-            //     result?.forEach(d => {
-            //         getEcgNumArr(getEcgArr,d.ecgpacket)                    
-            //         getTime.push(getMinSecond(d.writetime))                  
-            //     })
-            //    const v = getEcgArr?.map(d => {
-            //         if(i == 140)
-            //             i = 0
-            //         let va:{ecg:number,writetime:string}
-            //         if(i == 0){
-            //             time = getTime[index]    
-                                            
-            //             index++
-            //             va = {ecg:d,writetime:time}
-            //         }else{
-            //             //  time = "0"    
-            //             va = {ecg:d,writetime:""}                    
-            //         }                    
-            //         i++ 
-            //         return va
-                    
-            //     }) 
-                console.log(v)               
+                })         
                 setData(v)
                 setOpen(true)
             } 
