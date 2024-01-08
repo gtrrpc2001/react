@@ -54,32 +54,6 @@ export default function Home(){
     }
 
     useEffect(()=> {
-<<<<<<< HEAD
-=======
-        async function getInfoList():Promise<any> {
-            if(!loginSelector)
-                navigate('/')
-            try{
-                const data:historyLast[] = await getHistory(`/mslLast/webTable`)                            
-                setLoding(false)
-                if(data?.length != 0){
-                    InfoDispatch(listActions.listHistory(data))
-                    const names = data.map(d=>{ return {eq:d.eq,eqname:d.eqname}})
-                    InfoDispatch(nameActions.value(names)) 
-                }
-                return data;
-            }catch(E){
-                console.log(E)
-                return [];
-            }
-        }
-            const timer = setInterval(async() => {    
-                if(!check)            
-                    await getInfoList()                                          
-            },1000)            
-            
-        return ()=>{clearTimeout(timer)}
->>>>>>> 76b35c21b27a4125ff75a7a115960fb4b36c3d5a
         
         const timer = setInterval(async() => {    
             if(loginSelector || isLoginSuv == "true")

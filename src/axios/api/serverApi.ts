@@ -4,10 +4,11 @@ import { historyLast } from '../interface/history_last';
 import { profileModal } from '../interface/profileModal';
 import { graphBpm, graphCalStep, graphPulse } from '../interface/graphModal';
 import { graphBpmHrvArr } from '../interface/graph';
+import { yesterdayArr } from '../interface/arr';
 
 
 const client: Axios = axios.create({
-    baseURL: 'https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app',
+    baseURL: 'http://121.152.22.85:40081', //https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app/
     headers: {
       'Content-Type': 'application/json',
     }
@@ -17,6 +18,15 @@ const client: Axios = axios.create({
    export const getData = async <T>(url:string, config?: AxiosRequestConfig): Promise<APIResponse<T>> => {
     try {
         const response = await client.get<APIResponse<T>>(url, config);
+        return response.data;
+    } catch (error:any) {
+      throw new Error(error.message);
+    }
+   };
+
+   export const getOnlyArr = async (url:string, config?: AxiosRequestConfig): Promise<yesterdayArr> => {
+    try {
+        const response = await client.get<yesterdayArr>(url, config);
         return response.data;
     } catch (error:any) {
       throw new Error(error.message);

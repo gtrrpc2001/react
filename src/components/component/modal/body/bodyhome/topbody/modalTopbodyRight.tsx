@@ -18,6 +18,7 @@ export const ModalTopBodyRight = ({ArrCnt,prevArrCnt,HeartText}:Props) =>{
    
     let minusArrCnt = Boolean(beforeArrCnt < +ArrCnt) ? Math.abs(ArrCnt - beforeArrCnt) : Math.abs(beforeArrCnt - ArrCnt)
     let compareArrChecked = (beforeArrCnt > +ArrCnt) ? true : false 
+    
     return (
         <Box sx={{display:'flex',width:177,justifyContent:'flex-end'}}>
                   
