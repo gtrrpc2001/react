@@ -449,11 +449,7 @@ export const progressBarValue = (settingValue:number,value:number,check = false)
          const percent = (calValue/km * 100) >= 100 ? 100 : calValue/km * 100                                                    
           return percent
       }else{
-<<<<<<< HEAD
-          const percent = (value/settingValue * 100) >= 100 ? 100 : value/settingValue * 100          
-=======
-          const percent = (value/settingValue * 100) >= 100 ? 100 : value/settingValue * 100                    
->>>>>>> 97e852b29bf0bda8220de93f890f2ebfb8e20c71
+          const percent = (value/settingValue * 100) >= 100 ? 100 : value/settingValue * 100  
           return percent
       }
   }catch{
