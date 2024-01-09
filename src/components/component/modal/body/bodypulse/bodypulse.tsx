@@ -15,20 +15,20 @@ export const BodyPulse = ({eq,startTime}:Props) => {
     const [disabled,setDisabled] = useState(true)
     const [writetimes,setWritetimes] = useState<any[]>([])
     const [id,setId] = useState<string>('')
-
+    
     const setValue = (id:string) => {
-       const plusDate = calculTime(writetime,1)
+        const plusDate = calculTime(writetime,1)       
         if(id == "plus"){            
             setWritetime(plusDate[1])      
-        }else{    
-            setWritetime(plusDate[0])          
+        }else{                        
+            setWritetime(plusDate[0])
         }
-    }
+    }   
     
     const writetimeHandler = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const id = e?.currentTarget?.id 
         if(id == "plus"){
-            if(!compareToWritetime(writetime)){
+            if(!compareToWritetime(startTime,writetime)){
                 setValue('plus')   
                 setDisabled(false)              
             }else{

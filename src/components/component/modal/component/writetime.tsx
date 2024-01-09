@@ -26,7 +26,7 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
     const setValue = (id:string,plusDate:string[]) => {
         if(id == "plus"){            
             setOriginalWritetime(plusDate[1])      
-        }else{    
+        }else{                
             setOriginalWritetime(plusDate[0])          
         }
     }
@@ -35,7 +35,7 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
         let plusDate:string[] = [] 
         switch(true){
             case clickDayGubunButton.week:
-                if(!compareDay(id,originalWritetime)){                    
+                if(!compareDay(id,startTime,originalWritetime)){                    
                     plusDate = calculWeek(originalWritetime)
                     setDisabled(false)
                     setValue(id,plusDate)
@@ -43,8 +43,8 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
                     setDisabled(true)
                 }                
                 break;
-            case clickDayGubunButton.month:
-                if(!compareMonth(id,originalWritetime)){
+            case clickDayGubunButton.month:                
+                if(!compareMonth(id,startTime,originalWritetime)){                                        
                     plusDate = calculMonth(originalWritetime)
                     setDisabled(false)                                
                     setValue(id,plusDate)
@@ -53,7 +53,7 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
                 }
                 break;
             case clickDayGubunButton.year:
-                if(!compareYear(id,originalWritetime)){
+                if(!compareYear(id,startTime,originalWritetime)){                    
                     plusDate = calculYear(originalWritetime)
                     setDisabled(false)                                
                     setValue(id,plusDate)
@@ -87,8 +87,8 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
         }             
     }    
 
-    const setEffectFunc = () => {
-        setDisabled(compareToWritetime(originalWritetime,true))
+    const setEffectFunc = () => {        
+        setDisabled(compareToWritetime(startTime,originalWritetime,true))
         getTimeChangeFromButton(new Date(originalWritetime)) 
     }
 
@@ -205,9 +205,9 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
     }
 
     const writetimeHandler = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const id = e?.currentTarget?.id 
+        const id = e?.currentTarget?.id         
         if(id == "plus"){
-            if(!compareToWritetime(originalWritetime)){
+            if(!compareToWritetime(startTime,originalWritetime)){
                 getHandler('plus',false)                
             }else{
                 getHandler('plus',true)
@@ -215,7 +215,7 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
         }else{
             getHandler('minus',false)            
         }
-    }
+    }    
 
     return (
         <Box sx={{height:40 , display:'flex',alignItems:'center',justifyContent:'center'}}>
