@@ -13,6 +13,7 @@ type Props = {
     bpm?:boolean        
     profile?:profileModal
     step?:boolean
+    setting?:number
 }
 
 export const BodyGraphBpmBottom = ({clickWritetimeButton,bpm}:Props) => {
@@ -130,22 +131,21 @@ export const BodyGraphPulseBottom = ({clickDayGubunButton}:Props) => {
 
 
 
-export const BodyGraphCalStepBottom = ({clickDayGubunButton,profile,step}:Props) => {    
+export const BodyGraphCalStepBottom = ({setting,profile,step}:Props) => {    
 const writetime:string = useSelector<RootState,any>(state => state.writetimeGraph)
 const data:graphCalStep[] = useSelector<RootState,any>(state => state.barGraphValue)
 const [values,setValues] = useState<number[]>([0,0])
 const [barValues,setBarValues] = useState<number[]>([0,0])
 
-
 const barWidth = 210
 const textWidth = 124
-const firstSettingNum = step ? Number(profile?.step) : Number(profile?.cal)
-const secondSettingNum = step ? Number(profile?.distanceKM) : Number(profile?.calexe)
+
+const firstSettingNum = (step ? Number(profile?.step) : Number(profile?.cal)) * Number(setting)
+const secondSettingNum = (step ? Number(profile?.distanceKM) : Number(profile?.calexe)) * Number(setting)
 const firstSetting = step ? `${firstSettingNum} step` : `${firstSettingNum} kcal`
 const secondSetting = step ? `${secondSettingNum} km` : `${secondSettingNum} kcal`
 
-useEffect(()=>{
-    
+useEffect(()=>{    
     try{        
         const firstValueAdd = data.reduce(function add(sum,currValue){                        
             return step ? +currValue.step + +sum : +currValue.cal + +sum;         
@@ -158,7 +158,7 @@ useEffect(()=>{
     }catch{
 
     }
-},[clickDayGubunButton,data,writetime])
+},[data,writetime])
 
 useEffect(()=>{
     setBarValues([progressBarValue(firstSettingNum,values[0]),
@@ -168,7 +168,7 @@ useEffect(()=>{
     return (
         <Box sx={{height:120,marginLeft:1,marginTop:2,marginRight:1}}>
             <Box sx={{display:'flex'}}>
-                <ProgressBar value={barValues[0]} barWidth={barWidth} color={'#ef507b'} text={'총 칼로리'}/>                
+                <ProgressBar value={barValues[0]} barWidth={barWidth} color={'#ef507b'} text={step ? '걸음' : '총 칼로리'}/>                
                 <Box sx={{width:textWidth,textAlign:'center'}}>
                     <Typography>
                         {step ? `${values[0]} step` :`${values[0]} kcal`}
@@ -180,7 +180,7 @@ useEffect(()=>{
             </Box>
             <Divider />
             <Box sx={{display:'flex'}}>
-                <ProgressBar value={barValues[1]} barWidth={barWidth} color={'#5388F7'} text={'활동 칼로리'}/>                                
+                <ProgressBar value={barValues[1]} barWidth={barWidth} color={'#5388F7'} text={step ? '걸음 거리' :'활동 칼로리'}/>                                
                 <Box sx={{width:textWidth,textAlign:'center'}}>
                     <Typography>
                         {step ? `${values[1]/1000} km` :`${values[1]} kcal`}

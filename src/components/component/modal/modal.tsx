@@ -59,6 +59,7 @@ interface ModalDefaultType {
 
   const getModalUI = (footerSelect:footerIcon) => {
     const startDate = values.startDate    
+    const koreaTime = values.changtime
     switch(true){
       case footerSelect.graph:
           return  (
@@ -71,7 +72,7 @@ interface ModalDefaultType {
     
       case footerSelect.pulse:
         return (
-          <BodyPulse eq={eq} startTime={startDate}/>
+          <BodyPulse eq={eq} startTime={startDate} koreaTime={koreaTime}/>
         );
       default :
       

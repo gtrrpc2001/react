@@ -8,20 +8,25 @@ import { PulseChart } from "./pulseChart";
 type Props = {
     eq:string
     startTime:string
+    koreaTime:string
 }
-export const BodyPulse = ({eq,startTime}:Props) => {
+export const BodyPulse = ({eq,startTime,koreaTime}:Props) => {
     const [writetime,setWritetime] = useState(startTime)
-    const [currentTime,setCurrentTime] = useState('')
+    // const [gijunTime,setGijunTime] = useState(koreaTime)
+    const [currentTime,setCurrentTime] = useState(startTime)
     const [disabled,setDisabled] = useState(true)
     const [writetimes,setWritetimes] = useState<any[]>([])
     const [id,setId] = useState<string>('')
     
     const setValue = (id:string) => {
         const plusDate = calculTime(writetime,1)       
+        // const plusGijunDate = calculTime(gijunTime,1)
         if(id == "plus"){            
-            setWritetime(plusDate[1])      
+            setWritetime(plusDate[1])
+            // setGijunTime(plusGijunDate[1])      
         }else{                        
             setWritetime(plusDate[0])
+            // setGijunTime(plusGijunDate[0])
         }
     }   
     

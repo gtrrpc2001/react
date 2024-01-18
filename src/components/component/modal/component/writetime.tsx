@@ -37,6 +37,7 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
             case clickDayGubunButton.week:
                 if(!compareDay(id,startTime,originalWritetime)){                    
                     plusDate = calculWeek(originalWritetime)
+                    console.log('week : ' + plusDate)
                     setDisabled(false)
                     setValue(id,plusDate)
                 }else{
@@ -82,14 +83,17 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
                 break;
             default :
                 plusDate = calculTime(originalWritetime,1)
+                
                 setValue(id,plusDate)
                 break;
         }             
-    }    
+    }
+    
+    
 
     const setEffectFunc = () => {        
         setDisabled(compareToWritetime(startTime,originalWritetime,true))
-        getTimeChangeFromButton(new Date(originalWritetime)) 
+        getTimeChangeFromButton_test(originalWritetime)
     }
 
     useEffect(()=>{
@@ -106,7 +110,7 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
     },[originalWritetime,clickWritetimeButton,clickDayGubunButton])    
 
 
-    const bpm_hrv = async(writetime:string) => {
+    const bpm_hrv = async(writetime:string) => {        
         switch(true){
             case clickWritetimeButton?.days2 :
                 const time = calculTime(writetime,1)                                
@@ -118,9 +122,10 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
                 GraphValue(bpmGraphActions.value(await getBpm(eq,times[0],times[1])))
                 setText(getWritetimeButtomValue(writetime,2))                                   
                 break;
-            default :
-                const timeOne = calculTime(writetime,0)                 
-                GraphValue(bpmGraphActions.value(await getBpm(eq,writetime,timeOne[1])))
+            default :                
+                const timeOne = calculTime(writetime,0)
+                console.log('bpm_hrv : ' + timeOne)                 
+                GraphValue(bpmGraphActions.value(await getBpm(eq,timeOne[0],timeOne[1])))
                 setText(writetime) 
                 break;
         }
@@ -191,22 +196,30 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
     const getTimeChangeFromButton = async(day:Date) => {
         if(!Number.isNaN(day.getDate())){            
             const writetime = getWritetimeValue(day)
-            GraphValue(writetimeGraphActions.value(writetime))
-            setOriginalWritetime(writetime)            
+            console.log(`originalWritetime : ${originalWritetime} -- writetime : ${writetime}`)
+            GraphValue(writetimeGraphActions.value(writetime))                        
             gubunIconButton(writetime)           
-        }else{
+            setOriginalWritetime(writetime)
+        }else{            
             gubunIconButton(originalWritetime)            
         }
     }   
 
-    const getHandler = async(id:string,bool:boolean) => {        
+    const getTimeChangeFromButton_test = async(time:string) => {                          
+            GraphValue(writetimeGraphActions.value(time))                        
+            gubunIconButton(time)           
+            setOriginalWritetime(time)        
+    }  
+
+    const getHandler = async(id:string,bool:boolean) => {  
+        console.log(`startTime : ${startTime} -- originalWritetime : ${originalWritetime} -- ${iconSelect} -- ${clickDayGubunButton}`)      
        await getWritetime(id)
         setDisabled(bool)       
     }
 
     const writetimeHandler = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const id = e?.currentTarget?.id         
-        if(id == "plus"){
+        if(id == "plus"){                        
             if(!compareToWritetime(startTime,originalWritetime)){
                 getHandler('plus',false)                
             }else{

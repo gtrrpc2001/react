@@ -163,9 +163,9 @@ export const getHeartText = (arrCnt:number):string => {
      return `${monthStr}-${dateStr} ~ ${writetimeArr[1]}-${writetimeArr[2]}`    
   }
 
- export const compareToWritetime = (updateWritetime:string,originalWritetime:string,fromEffect:boolean=false):boolean => {
-    const time1Arr = originalWritetime.split('-')
-    const time2Arr = updateWritetime.split('-')   
+ export const compareToWritetime = (updateWritetime:string,originalWritetime:string,fromEffect:boolean=false):boolean => {  
+    const time1Arr = originalWritetime?.split('-')
+    const time2Arr = updateWritetime?.split('-')   
     let bool = false        
     if(Number(time1Arr[0]) == Number(time2Arr[0])){
         if(Number(time1Arr[1]) == Number(time2Arr[1])){
@@ -211,18 +211,28 @@ export const calculMin = (writetime:string,num:number):string => {
   return `${startDate} ${hour}:${minute}`
 }
 
-export const calculTime = (writetime:string,num:number):string[] => {
+export const calculTime = (writetime:string,num:number):string[] => {  
+  const realDate = +writetime.split('-')[2]
   const day = new Date(writetime)
   const date = day.getDate()
-  const endDay = new Date(day.setDate(date + 1))  
+  let endDay = new Date(day.setDate(date + 1))  
+  if(realDate == endDay.getDate()){
+    endDay = new Date(day.setDate(date + 2))
+  }
   const endDate = getWritetimeValue(endDay)
   const startDate = getMinusDateWritetime(writetime,num)
   return [startDate,endDate]
 }
 
 export const getMinusDateWritetime = (time:string,num:number):string => {
-  const date = new Date(time)
-  const minusDate = new Date(date.setDate(date.getDate() - num))
+  const realDate = +time.split('-')[2]  
+  const date = new Date(time)  
+  let minusDate
+  if(realDate == date.getDate()){
+    minusDate = new Date(date.setDate(date.getDate() - num))    
+  }else{
+    minusDate = num > 1 ? new Date(date.setDate(date.getDate() - num)) : date
+  }
   const getYear = minusDate.getFullYear() 
   const getMonth = minusDate.getMonth() + 1
   const getDate = minusDate.getDate()
@@ -243,9 +253,13 @@ export const getMinusMonthWritetime = (time:string,num:number):string => {
 }
 
 export const calculWeek = (writetime:string):string[] => {
+  const realDate = +writetime.split('-')[2]
   const day = new Date(writetime)
   const date = day.getDate()
-  const endDay = new Date(day.setDate(date + 7))  
+  let endDay = new Date(day.setDate(date + 7))  
+  if(realDate == date - 1){
+    endDay = new Date(day.setDate(date + 8))
+  }
   const endDate = getWritetimeValue(endDay)  
   const startDate = getMinusDateWritetime(writetime,7)
   return [startDate,endDate]
@@ -449,11 +463,7 @@ export const progressBarValue = (settingValue:number,value:number,check = false)
          const percent = (calValue/km * 100) >= 100 ? 100 : calValue/km * 100                                                    
           return percent
       }else{
-<<<<<<< HEAD
           const percent = (value/settingValue * 100) >= 100 ? 100 : value/settingValue * 100          
-=======
-          const percent = (value/settingValue * 100) >= 100 ? 100 : value/settingValue * 100                    
->>>>>>> 97e852b29bf0bda8220de93f890f2ebfb8e20c71
           return percent
       }
   }catch{
