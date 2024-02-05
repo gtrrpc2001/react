@@ -22,29 +22,48 @@ export const ModalRealTimeGraph = ({open_close,bpm,eq,time}:Porps) => {
     const [open , setOpen] = useState<boolean>(true);        
     let [dataArr] = useState<{ecg: number;}[]>([])
 
+    const EcgData = async (result:number[]) => {
+      if(open && (dataArr?.length < 500)){ 
+        if(result.length > 1000){
+          result.slice(0,999).map(d=>{              
+            dataArr?.push({ecg:d})
+          })
+        }else{
+          result.map(d=>{              
+            dataArr?.push({ecg:d})                
+          })
+        }                         
+        // if(result.length > 560){
+        //   result.slice(0,559).map(d=>{              
+        //     dataArr?.push({ecg:d})
+        //   })
+        // }else{
+        //   result.map(d=>{              
+        //     dataArr?.push({ecg:d})
+        //   })
+        // }
+                    
+        if(dataArr?.length > 420){
+          setOpen(false)
+          // setSpreadData(dataArr)         
+        }
+      }else{
+        result.map(d=>{
+          dataArr.shift()
+          dataArr.push({ecg:d})
+        })
+        // setSpreadData(dataArr)
+      }
+    }
+
     const getEcgData = async() =>  {        
       try{                        
-          const result =  await getEcg(`/mslecg/Ecg?eq=${eq}&startDate=${time}`)          
-          if(open && (dataArr?.length < 500)){     
-            if(result.length > 560){
-              result.slice(0,559).map(d=>{              
-                dataArr?.push({ecg:d})
-              })
-            }else{
-              result.map(d=>{              
-                dataArr?.push({ecg:d})
-              })
-            }            
-            
-            if(dataArr?.length > 420){
-              setOpen(false)      
-            }
-          }else{
-            result.map(d=>{
-              dataArr.shift()
-              dataArr.push({ecg:d})
-            })
-          }          
+          const result =  await getEcg(`/mslecgbyte/Ecg?eq=${eq}&startDate=${time}`)
+          if(result?.length != 1){
+              await EcgData(result)
+          }else{              
+                               
+          }
       }catch(E){
           console.log(E)
       }                      
@@ -56,7 +75,7 @@ export const ModalRealTimeGraph = ({open_close,bpm,eq,time}:Porps) => {
     }
     else
       dataArr.length = 0        
-    },[bpm])
+    },[time])
     
     return (
       <>

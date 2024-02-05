@@ -10,7 +10,8 @@ import {
 	YAxis,
 	CartesianGrid,
 	Tooltip,
-    Legend
+    Legend,
+    ResponsiveContainer
 } from 'recharts';
 import { ButtonChartBpm } from "./ChartButton";
 import { graphSliceShow, replaceYear, selectTime } from "../../controller/modalController";
@@ -203,17 +204,15 @@ export const BpmChart = ({clickWritetimeButton,bpm}:Props) => {
 
     return (
         <Box sx={{width:350,height:350,marginTop:2}}>            
-            <LineChart
-                    width={335}
-                    height={300}
-                    data={lineData}                       
-                >
-                <CartesianGrid stroke="#f5f5f5" />
-                <XAxis dataKey="xAxis" allowDataOverflow={true} domain={[0,1000]}/>
-                <YAxis yAxisId="left" domain={[0, 180]} width={30}/>
-                <Tooltip active={true}/>
-                {getLine()}
-            </LineChart>
+            <ResponsiveContainer width={335} height={300}>
+                <LineChart data={lineData}>
+                    <CartesianGrid stroke="#f5f5f5" />
+                    <XAxis dataKey="xAxis" allowDataOverflow={true} domain={[0,1000]}/>
+                    <YAxis yAxisId="left" domain={[0, 180]} width={30}/>
+                    <Tooltip active={true}/>
+                    {getLine()}
+                </LineChart>
+            </ResponsiveContainer>
             <Box sx={{display:'flex',alignItems:'center',justifyContent:'center'}}>
                 <ButtonChartBpm id="minus" bgColor="#5388F7" disabled={backBtn} Handler={(e)=>countHandler(e)} front={false}/>                
                 <Typography sx={{marginLeft:1,marginRight:1,fontSize:12,fontWeight:'bold',":hover":{cursor:'default'}}}>

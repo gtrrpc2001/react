@@ -17,7 +17,7 @@ export const LoginInput = ({id,className,inputClassName,placeholder,onClick,type
     return (
         <div className={className} onClick={onClick}>
             <input
-                id={id}
+                id={id} 
                 className={inputClassName}
                 type={type}
                 ref={ref}

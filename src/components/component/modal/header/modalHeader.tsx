@@ -2,15 +2,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import BatteryCharging50Icon from '@mui/icons-material/BatteryCharging50';
 import  alarm  from '../../../../assets/image/KakaoTalk_20231012_172309103_01.png';
-import { Zoom } from '@mui/material';
+import { Zoom,Tooltip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { modalValues } from '../../../../axios/interface/modalvalues';
 
 type Props = {
     values:modalValues
+    battery:number
 }
 
-export const ModalHeader = ({values}:Props) => {
+export const ModalHeader = ({values,battery}:Props) => {
     const [check,setCheck] = useState(false)
     const arrCnt = values.arrCnt
     const [open,setOpen] = useState<boolean>(true)     
@@ -55,6 +56,10 @@ export const ModalHeader = ({values}:Props) => {
 
       },[arrCnt])
 
+    const batteryMouseEnter = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+
+    }
+    
     return (
         <Box sx={headerBox}>
             <Box sx={{display:flex,alignItems:center,position:'relative'}} onClick={test}>                  
@@ -67,11 +72,13 @@ export const ModalHeader = ({values}:Props) => {
                 {Headeralarm(values.writetime)}
             </Zoom>
             }
-            <Box sx={{width:'80%',display:flex, alignItems:center,
-                justifyContent: 'end',paddingBlockEnd:1,paddingInlineEnd:3}}> 
-                <BatteryCharging50Icon sx={{transform:'rotate(90deg)',
-                ":hover":{color:'green', fontSize:'large'}}}/>                
-            </Box>
+            <Tooltip placement='bottom-end' title={battery}>
+                <Box sx={{width:'80%',display:flex, alignItems:center,
+                    justifyContent: 'end',paddingBlockEnd:1,paddingInlineEnd:3}}> 
+                    <BatteryCharging50Icon sx={{transform:'rotate(90deg)',textAlign:'center',
+                    ":hover":{color:'green', fontSize:'large'}}}/>                    
+                </Box>
+            </Tooltip>
         </Box>
     );
 }

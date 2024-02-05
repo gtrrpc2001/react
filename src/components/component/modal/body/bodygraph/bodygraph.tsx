@@ -1,4 +1,4 @@
-import { Box} from "@mui/material";
+import { Box } from "@mui/material";
 import { getClickDayGubunButton, getClickGraph, getClickWriteimteButton } from "../../controller/modalController";
 import { graphModal, writetimeButtonModal,dayGubunButtonModal } from "../../../../../axios/interface/graphModal";
 import { useEffect, useState } from "react";
@@ -22,6 +22,7 @@ export const BodyGraph = ({profile,eq,startTime}:Props) => {
     const [clickWritetimeButton,setClickWritetimeButton] = useState<writetimeButtonModal>({today:true,days2:false,days3:false}) 
     const [clickDayGubunButton,setClickDayGubunButton] = useState<dayGubunButtonModal>({day:true,week:false,month:false,year:false})
     const [gubunSettingNum,setSetting] = useState<number>(1)
+    const [dataChecking,setDataChecking] = useState<boolean>(false);
 
     const iconClick = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const id = e?.currentTarget?.id
@@ -124,16 +125,14 @@ export const BodyGraph = ({profile,eq,startTime}:Props) => {
         }
       }
     
-
+      console.log(dataChecking)
+      
     return (
         <Box sx={{height:625,marginTop:2}}>
 
-            <BodyGraphTopBody onClick={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => iconClick(e)} graphIcon = {clickGraph}/>
-              
-            {(getGraphBodyUI(clickGraph))}  
-
-            <Writetime iconSelect={clickGraph} clickWritetimeButton={clickWritetimeButton} clickDayGubunButton={clickDayGubunButton} eq={eq} startTime={startTime}/>
-
+            <BodyGraphTopBody onClick={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => iconClick(e)} graphIcon = {clickGraph}/>                        
+            {(getGraphBodyUI(clickGraph))}
+            <Writetime iconSelect={clickGraph} clickWritetimeButton={clickWritetimeButton} clickDayGubunButton={clickDayGubunButton} eq={eq} startTime={startTime}/>    
             {getGraphBottomUI(clickGraph)}
 
         </Box>

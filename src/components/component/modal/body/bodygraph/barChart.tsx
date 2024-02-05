@@ -7,7 +7,8 @@ import {
 	Tooltip,
     Legend,
     Rectangle,
-    ComposedChart
+    ComposedChart,
+    ResponsiveContainer
 } from 'recharts';
 import { dayGubunButtonModal,graphModal } from '../../../../../axios/interface/graphModal';
 import { useSelector } from 'react-redux';
@@ -83,18 +84,18 @@ export const BarCharts = ({iconSelect,dayGubunButtonModal}:Props) => {
     
     return (
         <Box sx={{width:350,height:320,marginTop:2}}>
-            <ComposedChart
-            width={335}
-            height={300}
-            data={barData}                        
-            >
-                <CartesianGrid stroke="#f5f5f5" />
-                <XAxis dataKey="xAxis" height={15}/>
-                <YAxis yAxisId="left" domain={[0,max]} width={40}/>
-                {bar()}
-                <Legend formatter={(value, entry, index) => <span className="text-color-class">{value}</span>}/>
-                <Tooltip/>
-            </ComposedChart>
+            <ResponsiveContainer width={335} height={300}>
+                <ComposedChart
+                data={barData}                        
+                >
+                    <CartesianGrid stroke="#f5f5f5" />
+                    <XAxis dataKey="xAxis" height={15}/>
+                    <YAxis yAxisId="left" domain={[0,max]} width={40}/>
+                    {bar()}
+                    <Legend formatter={(value, entry, index) => <span className="text-color-class">{value}</span>}/>
+                    <Tooltip/>
+                </ComposedChart>
+            </ResponsiveContainer>
         </Box>
     );
 }

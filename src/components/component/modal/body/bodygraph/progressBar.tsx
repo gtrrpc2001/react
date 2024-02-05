@@ -22,7 +22,7 @@ export const ProgressBar = ({value,barWidth,color,text}:Props) => {
                 <LinearBar 
                 sx={{width:barWidth,height:15,borderRadius:3,bgcolor:'#a8a7a7',}} 
                 variant="determinate"
-                value={value}
+                value={value}                                
                 />                    
         </Box>
     );

@@ -15,6 +15,7 @@ import { Modal } from "../modal/modal";
 import { cellActions, profileActions, yesterdayArrActions } from "../../createslice/createslices";
 import { getOnlyArr, getProfile } from "../../../axios/api/serverApi";
 import { calculTime } from "../modal/controller/modalController";
+import { historyLast } from "../../../axios/interface/history_last";
 
 type Props = {
     stopCheck:boolean
@@ -23,7 +24,7 @@ type Props = {
 
 export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
     const columns = useMemo(() => COLUMNS,[])
-    const data = useSelector<RootState,any>(state => state.historylast)
+    const data = useSelector<RootState,any>(state => state.historylast)    
     const cellDispatch = useDispatch();
     const profileDispach = useDispatch();       
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -61,15 +62,19 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
         const column = cell?.column
         const values = cell?.row?.values
         const {eq,eqname,timezone,writetime} = values
-        const startDate = writetime?.split(" ")[0]
-        const cellVlaue = {eq,eqname,timezone,startDate}
+        const getData:historyLast[] = data
+        const info = getData.filter(d => d.eq == eq)    
+        const changtime = info.map(d => d.changeTime)[0]?.split(' ')[0]   
+        const battery = info.map(d => d.battery)[0]     
+        const startDate = writetime?.split(" ")[0]        
+        const cellVlaue = {eq,eqname,timezone,startDate,changtime,battery}
         const times = calculTime(startDate,1)
-        const yesterday = times[0]
-        console.log(`${yesterday} -- ${startDate}`)        
+        const yesterday = times[0]        
         if(column?.id != 'selection'){
             if(!row?.isSelected)  {                
                 const Profile = await getProfile(`/mslecgarr/arrCnt?eq=${eq}&startDate=${startDate}&endDate=${times[1]}`)
-                const yesterdayArr = await getOnlyArr(`mslecgarr/arrCount?eq=${eq}&startDate=${yesterday}&endDate=${startDate}`)
+                const yesterdayArr = await getOnlyArr(`mslecgarr/arrCount?eq=${eq}&startDate=${yesterday}&endDate=${startDate}`)                
+                console.log(times)
                 cellDispatch(yesterdayArrActions.count(yesterdayArr.arrCnt))
                 profileDispach(profileActions.profile(Profile))
                 setValues(cell?.row?.values)

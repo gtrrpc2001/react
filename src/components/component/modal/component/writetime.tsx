@@ -7,6 +7,10 @@ import { calculTime, compareToWritetime, getYearMonth, getWritetimeButtomValue, 
 import { bpmGraphActions, barGraphActions, writetimeGraphActions } from "../../../createslice/createslices";
 import { getArr, getBpm, getCalStep } from "../data/data";
 import { useDispatch } from "react-redux";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { Calendar } from "../component/calendar";
+import { getCalendarTime } from "../../../../func/func";
+import { PickerSelectionState } from "@mui/x-date-pickers/internals";
 
 
 type Props = {
@@ -22,6 +26,20 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
     const [disabled,setDisabled] = useState(true)
     const [originalWritetime,setOriginalWritetime] = useState(startTime)
     const GraphValue = useDispatch()
+    const [showCalendar,setShowCalendar] = useState<boolean>(false)
+    const [calendarPosition,setCalendarPosition] =useState<number>(204) 
+
+    useEffect(()=>{
+        switch(true){
+            case iconSelect.cal || iconSelect.step || iconSelect.pulse :
+                setCalendarPosition(238)
+                break;
+            default :
+                setCalendarPosition(204)
+                break;
+            
+        }
+    },[iconSelect])
 
     const setValue = (id:string,plusDate:string[]) => {
         if(id == "plus"){            
@@ -193,22 +211,22 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
         }        
     }
 
-    const getTimeChangeFromButton = async(day:Date) => {
-        if(!Number.isNaN(day.getDate())){            
-            const writetime = getWritetimeValue(day)
-            console.log(`originalWritetime : ${originalWritetime} -- writetime : ${writetime}`)
-            GraphValue(writetimeGraphActions.value(writetime))                        
-            gubunIconButton(writetime)           
-            setOriginalWritetime(writetime)
-        }else{            
-            gubunIconButton(originalWritetime)            
-        }
-    }   
-
+    // const getTimeChangeFromButton = async(day:Date) => {
+    //     if(!Number.isNaN(day.getDate())){            
+    //         const writetime = getWritetimeValue(day)
+    //         console.log(`originalWritetime : ${originalWritetime} -- writetime : ${writetime}`)
+    //         GraphValue(writetimeGraphActions.value(writetime))                        
+    //         gubunIconButton(writetime)           
+    //         setOriginalWritetime(writetime)
+    //     }else{            
+    //         gubunIconButton(originalWritetime)            
+    //     }
+    // }   
+    
     const getTimeChangeFromButton_test = async(time:string) => {                          
             GraphValue(writetimeGraphActions.value(time))                        
             gubunIconButton(time)           
-            setOriginalWritetime(time)        
+            setOriginalWritetime(time)                 
     }  
 
     const getHandler = async(id:string,bool:boolean) => {  
@@ -230,12 +248,22 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
         }
     }    
 
+    const calendarHandler = (value:any,cal:PickerSelectionState | undefined) => {
+        setShowCalendar(false)        
+        const currentTime = getCalendarTime(value)
+        setOriginalWritetime(currentTime)
+    }
+
     return (
         <Box sx={{height:40 , display:'flex',alignItems:'center',justifyContent:'center'}}>
             <ButtonChartBpm id="minus"  bgColor="#a8a7a7" Handler={(e)=>writetimeHandler(e)} front={false}/>            
             <Typography sx={{width:110,textAlign:'center',fontWeight:'bold',marginLeft:7,marginRight:7,":hover":{cursor:'default'}}}>
                 {text}
-            </Typography>            
+            </Typography>
+            <CalendarMonthIcon onClick={(e)=>{setShowCalendar(!showCalendar)}} sx={{position:'absolute',bottom:calendarPosition,left:232,":hover":{cursor:'pointer'}}}/>            
+            {showCalendar && (
+                <Calendar handler={calendarHandler}/>                
+            )}            
             <ButtonChartBpm id="plus" disabled={disabled} bgColor="#a8a7a7" Handler={(e)=>writetimeHandler(e)} front={true}/>            
         </Box>        
     );

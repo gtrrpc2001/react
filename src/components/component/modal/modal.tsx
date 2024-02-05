@@ -92,7 +92,7 @@ interface ModalDefaultType {
             >
             <Box sx={mainBoxstyle}>
             
-              <ModalHeader values={modalList}/>        
+              <ModalHeader values={modalList} battery={values.battery}/>        
 
               {(getModalUI(footerBtn))}                           
             
