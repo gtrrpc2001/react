@@ -72,7 +72,7 @@ export const ModalHeader = ({values,battery}:Props) => {
                 {Headeralarm(values.writetime)}
             </Zoom>
             }
-            <Tooltip placement='bottom-end' title={battery}>
+            <Tooltip placement='bottom-end' title={`${battery}%`}>
                 <Box sx={{width:'80%',display:flex, alignItems:center,
                     justifyContent: 'end',paddingBlockEnd:1,paddingInlineEnd:3}}> 
                     <BatteryCharging50Icon sx={{transform:'rotate(90deg)',textAlign:'center',
