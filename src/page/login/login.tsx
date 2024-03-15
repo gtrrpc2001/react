@@ -65,6 +65,7 @@ const LoginPage = () =>{
             setLastEmail(email)
             setLastpw(pw)
             const loginBool = await tryLogin(email,pw)
+            console.log(pw)
             await SuccessLogin(loginBool) 
             if(!loginBool)            
               errorCode('이메일,비밀번호가 틀렸습니다.'); 
