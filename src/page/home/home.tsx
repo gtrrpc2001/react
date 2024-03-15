@@ -32,7 +32,7 @@ export default function Home(){
     
     async function getInfoList():Promise<any> {
         try{
-            const getData:historyLast[] = await getHistory(`/mslLast/webTable`)                                                    
+            const getData:historyLast[] = await getHistory(`/mslLast/webTable?eq=${eqSelector}`)                                                    
             setLoding(false)                
             if(getData?.length != 0){
                 setData(getData)                    
