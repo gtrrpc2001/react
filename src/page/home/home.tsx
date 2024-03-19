@@ -23,18 +23,19 @@ export default function Home(){
     const [loading, setLoding] = useState(true);  
     const [data,setData] = useState<historyLast[]>([])            
 
-    const isLoginSuv = window.localStorage.getItem("isLoginSuv")
-    const isUserId = window.localStorage.getItem("isUserId")
-    
-    if(!loginSelector && isLoginSuv == "false"){        
+    // const isLoginSuv = window.localStorage.getItem("isLoginSuv")
+    // const isUserId = window.localStorage.getItem("isUserId")
+    //&& isLoginSuv == "false"
+    if(!loginSelector){        
         navigate('/')
     }
     
     async function getInfoList():Promise<any> {
         try{
-            const getData:historyLast[] = await getHistory(`/mslLast/webTable?eq=${eqSelector}`)                                                    
+            const getData:historyLast[] = await getHistory(`/mslLast/webTable?eq=${eqSelector}`) 
+            console.log(eqSelector)                 
             setLoding(false)                
-            if(getData?.length != 0){
+            if(getData?.length != 0 && !String(getData).includes('result')){
                 setData(getData)                    
                 const names = getData.map((d:any)=>{ return {eq:d.eq,eqname:d.eqname}})
                 InfoDispatch(nameActions.value(names))                                         
@@ -56,7 +57,8 @@ export default function Home(){
     useEffect(()=> {
         
         const timer = setInterval(async() => {    
-            if(loginSelector || isLoginSuv == "true")
+            //|| isLoginSuv == "true"
+            if(loginSelector)
                 await getInfoList()                                          
         },1000)            
         

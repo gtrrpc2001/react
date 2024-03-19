@@ -118,14 +118,12 @@ export const BodyGraph = ({profile,eq,startTime}:Props) => {
             );
           default :          
             return (
-                <>
-                    <BodyGraphBpmBottom clickWritetimeButton={clickWritetimeButton} bpm={true}/>
-                </>
+                
+                <BodyGraphBpmBottom clickWritetimeButton={clickWritetimeButton} bpm={true}/>
+                
             );
         }
       }
-    
-      console.log(dataChecking)
       
     return (
         <Box sx={{height:625,marginTop:2}}>
