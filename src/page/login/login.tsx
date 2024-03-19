@@ -35,7 +35,7 @@ const LoginPage = () =>{
         emailChecked()
         pwChecked()
         setNotAllow((emailValid && pw.length>7) || (email == 'admin' && pw =='admin'))
-    },)
+    },[email,pw])
 
     function emailChecked(){        
         setEmailValid(email.includes('@') && email.includes('.'))        
