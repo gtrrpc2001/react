@@ -35,7 +35,7 @@ const setTextValues = (max:number,min:number,aver:number) => {
 
 useEffect(()=>{
     const getValue = () => {
-        if(data?.length != 0){
+        if(data?.length != 0 && !String(data).includes("result")){
             const value = bpm ? data?.map(d => d.bpm) : data?.map(d => d.hrv)
             const max = Math?.max(...value)
             const min = Math?.min(...value)
