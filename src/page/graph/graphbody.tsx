@@ -7,7 +7,7 @@ import { Graphs } from "./graphBpmHrvArr";
 import { GraphKindButton } from "./graphDataKindButton";
 import { graphKindButton } from "../../axios/interface/graph";
 import { getCalendarTime, getWritetimeSelectHour_Min } from "../../func/func";
-import { calculMin, calculTime, getClickGraphKindButton } from "../../components/component/modal/controller/modalController";
+import { calculTime, getClickGraphKindButton } from "../../components/component/modal/controller/modalController";
 import { getCalStep } from "../../components/component/modal/data/data";
 
 type Props = {
@@ -38,7 +38,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
             if(id != '' && time != ''){
                 let result
                 let v:any[] = []
-                const calTime = calculTime(time,1)                              
+                const calTime = calculTime(time,-1,1,'YYYY-MM-DD','days')                              
                 switch(true){
                     case kindButton.ecg :
                         setEcgTime('')
@@ -65,24 +65,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
         }catch{
 
         }
-    }
-
-    const getEcgNumArr = (changeEcg:number[],ecgpacket:string) => {                  
-          const after = ecgpacket?.replaceAll(';','')                                
-          after?.split('][')?.forEach((data:string) => {
-                  const sliceEcg = data?.replaceAll('[','')?.replaceAll(']','')?.split(',')
-                  sliceEcg.forEach(d => {                            
-                  changeEcg.push(Number(d))
-                  
-              })          
-        })        
-    }
-
-    const getMinSecond = (writetime:string):string => {
-        const hourMinSec = writetime?.split(' ')[1]
-        const MinSec = hourMinSec?.split(':')
-        return `${MinSec[1]}:${MinSec[2]}`
-    }
+    }    
 
     useEffect(()=>{       
         getData(id,writetime,kindButton,setData)
@@ -92,7 +75,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
         async function getEcgData(){
             if(ecgTime != ''){               
                 const startTime = `${writetime} ${ecgTime}`
-                const endTime = calculMin(startTime,10)
+                const endTime = calculTime(startTime,0,10,'YYYY-MM-DD HH:mm','minute')[1]                
                 const result = await getGraphEcgValue(id,startTime,endTime)                
                 const v = result?.map((d)=>{
                     return {ecg:d}
@@ -124,8 +107,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
             //         i++ 
             //         return va
                     
-            //     }) 
-                console.log(v)               
+            //     })                           
                 setData(v)
                 setOpen(true)
             } 

@@ -3,14 +3,14 @@ import { ModalTopBody } from "./topbody/modalTopbody";
 import { MiddleBody } from "./middlebody/middleBody";
 import { ModalRealTimeGraph } from "../../../../../page/graph/modalGraph";
 import { BottomBody } from "../../component/bottomBody";
-import { getDecimal, getHeartText } from "../../controller/modalController";
+import { getDayjs, getDecimal, getHeartText } from "../../controller/modalController";
 import { modalValues } from "../../../../../axios/interface/modalvalues";
 import { profileModal } from "../../../../../axios/interface/profileModal";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store/store";
 import { useEffect, useState } from "react";
 import { getOnlyArr } from "../../../../../axios/api/serverApi";
-import dayjs from "dayjs";
+
 
 type Props = {
     open:boolean
@@ -23,13 +23,14 @@ export const ModalHome = ({open,modalList,values,getProfile}:Props) => {
   const getYesterdayArrCount = useSelector<RootState,number>(state => state.yesterdayArrCount)
   const [todayArr,setTodayArr] = useState(getProfile.arrCnt)
   const yesterdayArr = getYesterdayArrCount;
-  const startDate = modalList.writetime?.split(' ')[0]
-  const endDate = dayjs(new Date(startDate)).add(1,'day').format('YYYY-MM-DD')
+  const startDate = modalList.writetime?.split(' ')[0]    
   
+  const endDate = getDayjs(startDate,1,'YYYY-MM-DD','day')
+  // const endDate = dayjs(new Date(startDate)).add(1,'day').tz(tz).format('YYYY-MM-DD')
+
   const getArr = async() => {
     const arrCount = await getOnlyArr(`mslecgarr/arrCount?eq=${values.eq}&startDate=${startDate}&endDate=${endDate}`)
-    setTodayArr(arrCount.arrCnt)
-    console.log(arrCount.arrCnt)
+    setTodayArr(arrCount.arrCnt)    
   }
 
   useEffect(()=>{

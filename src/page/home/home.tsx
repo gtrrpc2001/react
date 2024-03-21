@@ -21,19 +21,15 @@ export default function Home(){
     const InfoDispatch = useDispatch<AppDispatch>();
     const [check,setCheck] = useState(false)
     const [loading, setLoding] = useState(true);  
-    const [data,setData] = useState<historyLast[]>([])            
+    const [data,setData] = useState<historyLast[]>([])           
 
-    // const isLoginSuv = window.localStorage.getItem("isLoginSuv")
-    // const isUserId = window.localStorage.getItem("isUserId")
-    //&& isLoginSuv == "false"
     if(!loginSelector){        
         navigate('/')
     }
     
     async function getInfoList():Promise<any> {
         try{
-            const getData:historyLast[] = await getHistory(`/mslLast/webTable?eq=${eqSelector}`) 
-            console.log(eqSelector)                 
+            const getData:historyLast[] = await getHistory(`/mslLast/webTable?eq=${eqSelector}`)             
             setLoding(false)                
             if(getData?.length != 0 && !String(getData).includes('result')){
                 setData(getData)                    

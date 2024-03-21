@@ -59,7 +59,7 @@ export const ModalHeader = ({values,battery}:Props) => {
     const batteryMouseEnter = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 
     }
-    
+
     return (
         <Box sx={headerBox}>
             <Box sx={{display:flex,alignItems:center,position:'relative'}} onClick={test}>                  

@@ -24,11 +24,10 @@ type Props = {
 
 export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
     const columns = useMemo(() => COLUMNS,[])
-    const data = useSelector<RootState,any>(state => state.historylast)    
+    const data = useSelector<RootState,any>(state => state.historylast)           
     const cellDispatch = useDispatch();
     const profileDispach = useDispatch();       
-    const [isOpenModal, setOpenModal] = useState<boolean>(false);
-    const [values,setValues] = useState(Object)
+    const [isOpenModal, setOpenModal] = useState<boolean>(false);    
             
     const {
         getTableProps,
@@ -68,16 +67,14 @@ export const Table = ({stopCheck,stopHandleCheckbox}:Props) =>{
         const battery = info.map(d => d.battery)[0]     
         const startDate = writetime?.split(" ")[0]        
         const cellVlaue = {eq,eqname,timezone,startDate,changtime,battery}
-        const times = calculTime(startDate,1)
+        const times = calculTime(startDate,-1,1,'YYYY-MM-DD','days')
         const yesterday = times[0]        
         if(column?.id != 'selection'){
             if(!row?.isSelected)  {                
                 const Profile = await getProfile(`/mslecgarr/arrCnt?eq=${eq}&startDate=${startDate}&endDate=${times[1]}`)
-                const yesterdayArr = await getOnlyArr(`mslecgarr/arrCount?eq=${eq}&startDate=${yesterday}&endDate=${startDate}`)                
-                console.log(times)
+                const yesterdayArr = await getOnlyArr(`mslecgarr/arrCount?eq=${eq}&startDate=${yesterday}&endDate=${startDate}`)                                
                 cellDispatch(yesterdayArrActions.count(yesterdayArr.arrCnt))
-                profileDispach(profileActions.profile(Profile))
-                setValues(cell?.row?.values)
+                profileDispach(profileActions.profile(Profile))                
                 cellDispatch(cellActions.cellValues(cellVlaue))
                 setOpenModal(!isOpenModal);
             }

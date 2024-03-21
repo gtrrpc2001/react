@@ -19,14 +19,11 @@ export const BodyPulse = ({eq,startTime,koreaTime}:Props) => {
     const [id,setId] = useState<string>('')
     
     const setValue = (id:string) => {
-        const plusDate = calculTime(writetime,1)       
-        // const plusGijunDate = calculTime(gijunTime,1)
+        const plusDate = calculTime(writetime,-1,1,'YYYY-MM-DD','days')               
         if(id == "plus"){            
-            setWritetime(plusDate[1])
-            // setGijunTime(plusGijunDate[1])      
+            setWritetime(plusDate[1])            
         }else{                        
-            setWritetime(plusDate[0])
-            // setGijunTime(plusGijunDate[0])
+            setWritetime(plusDate[0])            
         }
     }   
     

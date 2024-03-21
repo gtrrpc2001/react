@@ -1,5 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import { historyLast } from '../../axios/interface/history_last';
+
 
 
 export const cellSlice = createSlice({
