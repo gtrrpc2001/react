@@ -165,16 +165,7 @@ export const getHeartText = (arrCnt:number):string => {
     const tz = 'Asia/Seoul'
     extendDayjs()
     return dayjs(new Date(date)).tz(tz).day()
-  }
-
-  export const getWritetimeValue = (day:Date):string => {
-    const getYear = day.getFullYear() 
-    const getMonth = day.getMonth() + 1    
-    const getDate = day.getDate()
-    var monthStr: string = getChangeDate(getMonth)
-    var dateStr: string = getChangeDate(getDate)
-   return `${getYear}-${monthStr}-${dateStr}`    
-}
+  }  
 
 export const getWritetimeButtomValue = (writetime:string,num:number):string =>{
   const first = getDayjs(writetime,-num,'MM-DD','days')
