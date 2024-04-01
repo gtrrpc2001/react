@@ -4,7 +4,7 @@ import { dayGubunButtonModal, graphModal, writetimeButtonModal } from "../../../
 import { graphKindButton } from "../../../../axios/interface/graph"
 import { historyLast } from "../../../../axios/interface/history_last"
 import { modalValues } from "../../../../axios/interface/modalvalues"
-import { getChangeDate, getHour } from "../../../../func/func"
+import { getHour } from "../../../../func/func"
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
