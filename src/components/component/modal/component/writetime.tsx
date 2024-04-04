@@ -129,21 +129,18 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
     const bpm_hrv = async(writetime:string) => {        
         switch(true){
             case clickWritetimeButton?.days2 :                              
-                const time = calculTime(writetime,-1,1,'YYYY-MM-DD','day')      
-                console.log('여기' + time)                          
+                const time = calculTime(writetime,-1,1,'YYYY-MM-DD','day')                            
                 GraphValue(bpmGraphActions.value(await getBpm(eq,time[0],time[1])))                
                 setText(getWritetimeButtomValue(writetime,1))       
                         
                 break;
             case clickWritetimeButton?.days3 :   
-                const times = calculTime(writetime,-2,1,'YYYY-MM-DD','day') 
-                console.log('여기' + times) 
+                const times = calculTime(writetime,-2,1,'YYYY-MM-DD','day')                 
                 GraphValue(bpmGraphActions.value(await getBpm(eq,times[0],times[1])))                                           
                 setText(getWritetimeButtomValue(writetime,2)) 
                 break;
             default :                
-                const timeOne = calculTime(writetime,0,1,'YYYY-MM-DD','day')
-                console.log('여기' + timeOne)
+                const timeOne = calculTime(writetime,0,1,'YYYY-MM-DD','day')                
                 GraphValue(bpmGraphActions.value(await getBpm(eq,timeOne[0],timeOne[1])))
                 setText(writetime) 
                 break;
@@ -210,18 +207,6 @@ export const Writetime = ({iconSelect,clickWritetimeButton,clickDayGubunButton,e
                 break;
         }        
     }
-
-    // const getTimeChangeFromButton = async(day:Date) => {
-    //     if(!Number.isNaN(day.getDate())){            
-    //         const writetime = getWritetimeValue(day)
-    //         console.log(`originalWritetime : ${originalWritetime} -- writetime : ${writetime}`)
-    //         GraphValue(writetimeGraphActions.value(writetime))                        
-    //         gubunIconButton(writetime)           
-    //         setOriginalWritetime(writetime)
-    //     }else{            
-    //         gubunIconButton(originalWritetime)            
-    //     }
-    // }   
     
     const getTimeChangeFromButton_test = async(time:string) => {                          
             GraphValue(writetimeGraphActions.value(time))                        

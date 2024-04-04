@@ -91,8 +91,7 @@ const LoginPage = () =>{
           logBool = await saveLog(email,'로그인')        
        
         if(logBool){            
-            navigate('/home');   
-            setWindowLoginItems("true",email)                
+            navigate('/home');               
         }
     }
 

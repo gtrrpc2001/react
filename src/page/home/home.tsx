@@ -34,8 +34,8 @@ export default function Home(){
             if(getData?.length != 0 && !String(getData).includes('result')){
                 setData(getData)                    
                 const names = getData.map((d:any)=>{ return {eq:d.eq,eqname:d.eqname}})
-                InfoDispatch(nameActions.value(names))                                         
-            }
+                InfoDispatch(nameActions.value(names))                                                         
+            }            
             return data;
         }catch(E){
             console.log(E)
@@ -70,8 +70,7 @@ export default function Home(){
     const HandleLogout = async() =>{
         const loginBool = await saveLog(eqSelector,'로그아웃')
         useCheckDispatch(loginActions.loginCheck(!loginBool))
-        navigate('/')
-        setWindowLoginItems("false","")
+        navigate('/')        
     }
 
     function HandleCheckbox(event: React.ChangeEvent<HTMLInputElement>): void {
