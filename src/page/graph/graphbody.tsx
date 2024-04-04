@@ -21,7 +21,8 @@ export const GraphBody = ({names,marginTop}:Props) => {
     const [data,setData] = useState<any[]>([])
     const [kindButton,setKindButton] = useState<graphKindButton>({bpm_hrv_arr:true,cal_step:false,ecg:false})
     const [writetime,setWritetime] = useState<string>('')
-    const [ecgTime,setEcgTime] = useState<string>('')    
+    const [ecgTime,setEcgTime] = useState<string>('')
+    const prevEcgTime = useRef<string>('')    
     const [open,setOpen] = useState<boolean>(true)    
     
     const getCheckMaxValue = (value:number):number => {
@@ -46,16 +47,18 @@ export const GraphBody = ({names,marginTop}:Props) => {
                                 writetime:d.writetime
                             }
                         })
+                        setOpen(true)
                         break;
                     default :                                                
                         result = await getGraphBpmHrvArrData(id,time,calTime)                        
                         v = result?.map((d)=>{
                              return {bpm:getCheckMaxValue(d.bpm),hrv:getCheckMaxValue(d.hrv),arr:d.count,writetime:getWritetimeSelectHour_Min(d.writetime)}
                          })
+                         setOpen(true)
                         break;
 
                 }
-                setOpen(true)
+                
                 setData(v)                
             }
         }catch{
@@ -125,14 +128,17 @@ export const GraphBody = ({names,marginTop}:Props) => {
         const id = e?.currentTarget?.id    
         let iconClick:graphKindButton = getClickGraphKindButton(id) 
         setKindButton(iconClick)       
-        setOpen(false)
+        if (!iconClick.ecg)
+            setOpen(false)
     }
     
     const ecgTimeListHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
         const nowId = e.currentTarget.id
-        console.log(nowId)
-        setEcgTime(nowId)
-        setOpen(false)
+        if (prevEcgTime.current != nowId || (prevEcgTime.current == "" && ecgTime == "")){            
+            prevEcgTime.current = nowId
+            setEcgTime(nowId)
+            setOpen(false)
+        }
     }
 
     return (

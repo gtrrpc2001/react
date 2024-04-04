@@ -1,5 +1,5 @@
 import { Box,Button,CircularProgress,Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { graphKindButton } from "../../axios/interface/graph";
 import { TimeList } from "./userList";
 import { getGraphEcgTime } from "../../data/graph";
@@ -22,6 +22,7 @@ export const GraphKindButton = ({onClick,onEcgTimeClick,eq,id,time,kindButton,fr
     const [selectColor, setSelectColor] = useState('#5388F7')
     const [listClick,setListClick] = useState<boolean>(false)
     const [data,setData] = useState<any[]>([])
+    const checkData = useRef<any[]>([])
     const [check,setCheck] = useState<boolean>(true)
     const border = 2 
     const borderRadius = 3   
@@ -58,6 +59,10 @@ export const GraphKindButton = ({onClick,onEcgTimeClick,eq,id,time,kindButton,fr
                     )}
                 </Box>            
                 );
+    }
+
+    const getEcgFileDownload = () => {
+
     }
 
     return (
@@ -103,9 +108,14 @@ export const GraphKindButton = ({onClick,onEcgTimeClick,eq,id,time,kindButton,fr
                         getTimeList()
                         }                                        
                     </Box>
-                    <Button>
-                       심전도 데이터 다운
-                    </Button>
+                    {
+                        data.length != 0 && (
+                            <Button onClick={getEcgFileDownload} >
+                                심전도 데이터 다운
+                            </Button>
+                        )
+                    }
+                    
                 </>
             )}
         </Box>
