@@ -57,7 +57,7 @@ export const Graphs = ({data,width,height,kind}:Props) => {
             case kind.ecg :
                 return (
                     <>
-                        <Line yAxisId="left" type="monotone" dataKey="ecg" stroke="#8884d8" dot={false}/>                        
+                        <Line yAxisId="left" type="monotone" dataKey="ecg" stroke="#8884d8" dot={false} isAnimationActive={false}/>                        
                     </>
                 );
             case kind.cal_step :
