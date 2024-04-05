@@ -49,7 +49,7 @@ export const Graphs = ({data,width,height,kind}:Props) => {
         }else{
             setScroll(false)
         }
-    },[graphWidth])
+    },[graphWidth])    
 
     const changeGraph = () => {
         

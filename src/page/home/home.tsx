@@ -11,7 +11,6 @@ import { HomeBody } from "./body/body";
 import { Footer } from "./footer/footer";
 import { Header } from "./header/header";
 import { historyLast } from "../../axios/interface/history_last";
-import { setWindowLoginItems } from "../../func/func";
 
 export default function Home(){
     const navigate = useNavigate();  
@@ -23,20 +22,24 @@ export default function Home(){
     const [loading, setLoding] = useState(true);  
     const [data,setData] = useState<historyLast[]>([])           
 
-    if(!loginSelector){        
-        navigate('/')
-    }
+    useEffect(() => {        
+        if (!loginSelector) 
+            navigate('/');
+        
+    }, [loginSelector, navigate]);
     
-    async function getInfoList():Promise<any> {
+    async function getInfoList() {
         try{
-            const getData:historyLast[] = await getHistory(`/mslLast/webTable?eq=${eqSelector}`)             
-            setLoding(false)                
+            const getData:historyLast[] = await getHistory(`/mslLast/webTable?eq=${eqSelector}`)
+
+            if (loading)
+                setLoding(false)                
+
             if(getData?.length != 0 && !String(getData).includes('result')){
                 setData(getData)                    
                 const names = getData.map((d:any)=>{ return {eq:d.eq,eqname:d.eqname}})
                 InfoDispatch(nameActions.value(names))                                                         
-            }            
-            return data;
+            }                        
         }catch(E){
             console.log(E)
             return [];
@@ -51,16 +54,16 @@ export default function Home(){
     }
 
     useEffect(()=> {
-        
-        const timer = setInterval(async() => {    
-            //|| isLoginSuv == "true"
+        let isMounted = true;
+        const timer = setInterval(async() => {                
             if(loginSelector)
                 await getInfoList()                                          
         },1000)            
         
-        if(!loginSelector)
-            return ()=>{clearTimeout(timer)}
-        
+        return () => {
+            isMounted = false;
+            clearInterval(timer); 
+        };
     },[loginSelector])
     
     useEffect(()=>{
