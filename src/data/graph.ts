@@ -1,4 +1,4 @@
-import { getEcg, getEcgTime, getGraphBpmHrvArr } from "../axios/api/serverApi";
+import { getData, getEcg, getEcgTime, getGraphBpmHrvArr, getGraphEcg } from "../axios/api/serverApi";
 import { graphBpmHrvArr } from "../axios/interface/graph";
 
 export const getGraphBpmHrvArrData = async (eq:string,nowTime:string,time:string[]):Promise<graphBpmHrvArr[]> => {   
@@ -11,7 +11,7 @@ export const getGraphBpmHrvArrData = async (eq:string,nowTime:string,time:string
         return data;   
  }
 
- export const getGraphEcgValue = async (eq:string,startTime:string,endTime:string):Promise<number[]> => {       
-       const data:number[] = await getEcg(`/mslecgbyte/GraphEcg?eq=${eq}&startDate=${startTime}&endDate=${endTime}`)
+ export const getGraphEcgValue = async (eq:string,startTime:string,endTime:string):Promise<{ecg:number[]; writetime:string}[]> => {              
+       const data = getGraphEcg(`/mslecgbyte/GraphEcg?eq=${eq}&startDate=${startTime}&endDate=${endTime}`)
        return data;
- } 
+ }  

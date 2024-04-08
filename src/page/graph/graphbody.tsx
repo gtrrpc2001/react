@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { UserList } from "./userList";
 import { GraphDatePicker } from "./datepicker";
@@ -66,6 +66,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
 
     useEffect(()=>{       
         getData(id,writetime,kindButton,setData)
+        prevEcgTime.current = ''
     },[id,writetime,kindButton])
 
     useEffect(()=>{  
@@ -74,38 +75,14 @@ export const GraphBody = ({names,marginTop}:Props) => {
                 const startTime = `${writetime} ${ecgTime}`
                 const endTime = calculTime(startTime,0,10,'YYYY-MM-DD HH:mm','minute')[1]                
                 const result = await getGraphEcgValue(id,startTime,endTime)                
-                const v = result?.map((d)=>{
-                    return {ecg:d}
-                })  
-                
-            //     const result = await getTest(id,startTime,endTime)       
-            //     let getEcgArr:number[] = []
-            //     let getTime:string[] = []
-            //     let i = 0        
-            //     let index = 0
-            //     let time = ""
-            //     result?.forEach(d => {
-            //         getEcgNumArr(getEcgArr,d.ecgpacket)                    
-            //         getTime.push(getMinSecond(d.writetime))                  
-            //     })
-            //    const v = getEcgArr?.map(d => {
-            //         if(i == 140)
-            //             i = 0
-            //         let va:{ecg:number,writetime:string}
-            //         if(i == 0){
-            //             time = getTime[index]    
-                                            
-            //             index++
-            //             va = {ecg:d,writetime:time}
-            //         }else{
-            //             //  time = "0"    
-            //             va = {ecg:d,writetime:""}                    
-            //         }                    
-            //         i++ 
-            //         return va
-                    
-            //     })                           
-                setData(v)
+                const ecgList: SetStateAction<any[]> = []
+                result?.map((d)=>{
+                   d.ecg.map(e => 
+                    {
+                        ecgList.push({ecg:e,writetime:d.writetime})                    
+                    })                    
+                })               
+                setData(ecgList)
                 setOpen(true)
             } 
         }
@@ -141,8 +118,7 @@ export const GraphBody = ({names,marginTop}:Props) => {
 
     const getEcgFileDownload = () => {        
         if(names.length != 0){
-            const eqname = names.filter(d => d.eq == id)[0].eqname
-            console.log(eqname)
+            const eqname = names.filter(d => d.eq == id)[0].eqname            
             exportToExcel(data,`${eqname}님의 ${writetime} ${ecgTime} 부터 10분간 ECG데이터`)
         }
     }

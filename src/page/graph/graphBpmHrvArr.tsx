@@ -1,6 +1,6 @@
 import { Bar, CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis,ResponsiveContainer, } from "recharts";
 import { graphKindButton } from "../../axios/interface/graph";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
     data:any[]
@@ -14,6 +14,7 @@ export const Graphs = ({data,width,height,kind}:Props) => {
     const [scroll,setScroll] = useState<boolean>(false)
     const [calMax,setCalMax] = useState<number>(180)    
     const [Max,setMax] = useState<number>(180)    
+    const x = useRef<string>('')
 
     const getCalculWidth = (length:number,setNumber:number) => {
        const num =  length / setNumber
@@ -82,18 +83,30 @@ export const Graphs = ({data,width,height,kind}:Props) => {
         }
     }
 
+    const formatXAxis = (tickItem:string, index:number):string => {
+        if(data.length != 0){
+            if(index == 0 || x.current != tickItem){
+                x.current = tickItem
+                return tickItem; 
+            }else{
+                return '';
+            }
+        }else{
+            return '';
+        }
+      };
+
     return (
         <div style={{display:'flex',flexDirection:'row',overflowX:scroll ? 'scroll' : 'hidden',overflowY:'hidden',width:width,height:height+10}}>
         <ResponsiveContainer
         width={graphWidth}
-        height={height}                
+        height={height}          
         >          
             <ComposedChart                                
             data={data}                                                 
             >
                 <CartesianGrid stroke="#f5f5f5" />
-                {/* //label={{value:"Pages",position: "insideBottomLeft", dy: 0}} */}
-                <XAxis dataKey="writetime" />
+                <XAxis dataKey="writetime" tickFormatter={kind.ecg ? formatXAxis : undefined}/>
                 <Tooltip />
                 <Legend align="left" wrapperStyle={{marginLeft:50}}/>
                 <YAxis yAxisId="left" domain={[0,Max]}/>
