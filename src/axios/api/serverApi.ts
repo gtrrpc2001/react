@@ -8,7 +8,7 @@ import { yesterdayArr } from '../interface/arr';
 
 
 const client: Axios = axios.create({
-    baseURL: 'http://121.152.22.85:4500',//http://121.152.22.85:40081 //https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app/
+    baseURL: 'https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app',
     headers: {
       'Content-Type': 'application/json',
     }
