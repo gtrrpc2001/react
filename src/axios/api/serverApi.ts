@@ -6,9 +6,8 @@ import { graphBpm, graphCalStep, graphPulse } from '../interface/graphModal';
 import { graphBpmHrvArr } from '../interface/graph';
 import { yesterdayArr } from '../interface/arr';
 
-
 const client: Axios = axios.create({
-    baseURL: 'https://port-0-nestjs-2rrqq2blmpy5nvs.sel5.cloudtype.app',
+    baseURL: `${process.env.REACT_APP_BASEURL}`,
     headers: {
       'Content-Type': 'application/json',
     }
