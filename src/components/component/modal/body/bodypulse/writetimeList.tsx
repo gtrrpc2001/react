@@ -42,6 +42,7 @@ export const WritetimeList = React.memo(function WritetimeList({
   useEffect(() => {
     const getList = async () => {
       const result = await getWritetimeList(eq, writetime, calDate[1]);
+      console.log('날짜 자동으로 바꼈을때 -- ','writetime : ',writetime, ' calDate[1] : ' ,calDate[1])
       setList(result);
     };
     getList();
@@ -52,8 +53,7 @@ export const WritetimeList = React.memo(function WritetimeList({
       const lastItem = list[list.length - 1];
       if (lastItem) {
         const { writetime } = lastItem;
-        const result = await getWritetimeList(eq, writetime, calDate[1]);
-        console.log(result)
+        const result = await getWritetimeList(eq, writetime, calDate[1]);        
         if (result) {
           if (!result.includes("result")) {
             setList((prevList) => [...prevList, ...result]);
