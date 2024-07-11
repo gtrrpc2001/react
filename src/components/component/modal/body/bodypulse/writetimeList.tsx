@@ -97,117 +97,61 @@ export const WritetimeList = React.memo(function WritetimeList({
     [id]
   );
 
-  // useEffect(() => {
-  //   const itemes = () => {
-  //     try {
-  //       return list?.map((value, index) => {
-  //         const { writetime, address } = value;
-  //         return (
-  //           <ListItem
-  //             className="listItem"
-  //             id={`${index + 1}`}
-  //             key={`${index + 1}`}
-  //             onClick={(e) => handler(e.currentTarget.id)}
-  //             ref={index == list.length - 1 ? listEndRef : null}
-  //           >
-  //             <ListItemButton sx={{ padding: 0 }}>
-  //               <ListItemIcon>
-  //                 <Box
-  //                   sx={{
-  //                     width: 45,
-  //                     height: 40,
-  //                     borderRadius: 3,
-  //                     bgcolor: selectedColor(index, true),
-  //                     display: "flex",
-  //                     justifyContent: "center",
-  //                     alignItems: "center",
-  //                     ":hover": { cursor: "default" },
-  //                   }}
-  //                 >
-  //                   <Typography sx={{ color: "white" }}>
-  //                     {address == null ? index + 1 : "E"}
-  //                   </Typography>
-  //                 </Box>
-  //               </ListItemIcon>
-  //               <ListItemText
-  //                 className="text"
-  //                 sx={{
-  //                   display: "flex",
-  //                   justifyContent: "center",
-  //                   alignItems: "center",
-  //                   border: 1,
-  //                   borderRadius: 3,
-  //                   borderColor: selectedColor(index),
-  //                   height: 40,
-  //                   ":hover": { cursor: "pointer" },
-  //                 }}
-  //                 primary={writetime}
-  //               />
-  //             </ListItemButton>
-  //           </ListItem>
-  //         );
-  //       });
-  //     } catch {}
-  //   };
-
-  //   setItems(itemes());
-  // }, [list, id]);
-
-  const itemes = useMemo(() => {
-    try {
-      return list?.map((value, index) => {
-        const { writetime, address } = value;
-        return (
-          <ListItem
-            className="listItem"
-            id={`${index + 1}`}
-            key={`${index + 1}`}
-            onClick={(e) => handler(e.currentTarget.id)}
-            ref={index === list.length - 1 ? listEndRef : null}
-          >
-            <ListItemButton sx={{ padding: 0 }}>
-              <ListItemIcon>
-                <Box
+  useEffect(() => {
+    const itemes = () => {
+      try {
+        return list?.map((value, index) => {
+          const { writetime, address } = value;
+          return (
+            <ListItem
+              className="listItem"
+              id={`${index + 1}`}
+              key={`${index + 1}`}
+              onClick={(e) => handler(e.currentTarget.id)}
+              ref={index == list.length - 1 ? listEndRef : null}
+            >
+              <ListItemButton sx={{ padding: 0 }}>
+                <ListItemIcon>
+                  <Box
+                    sx={{
+                      width: 45,
+                      height: 40,
+                      borderRadius: 3,
+                      bgcolor: selectedColor(index, true),
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      ":hover": { cursor: "default" },
+                    }}
+                  >
+                    <Typography sx={{ color: "white" }}>
+                      {address == null ? index + 1 : "E"}
+                    </Typography>
+                  </Box>
+                </ListItemIcon>
+                <ListItemText
+                  className="text"
                   sx={{
-                    width: 45,
-                    height: 40,
-                    borderRadius: 3,
-                    bgcolor: selectedColor(index, true),
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    ":hover": { cursor: "default" },
+                    border: 1,
+                    borderRadius: 3,
+                    borderColor: selectedColor(index),
+                    height: 40,
+                    ":hover": { cursor: "pointer" },
                   }}
-                >
-                  <Typography sx={{ color: "white" }}>
-                    {address === null ? index + 1 : "E"}
-                  </Typography>
-                </Box>
-              </ListItemIcon>
-              <ListItemText
-                className="text"
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  border: 1,
-                  borderRadius: 3,
-                  borderColor: selectedColor(index),
-                  height: 40,
-                  ":hover": { cursor: "pointer" },
-                }}
-                primary={writetime}
-              />
-            </ListItemButton>
-          </ListItem>
-        );
-      });
-    } catch {}
-  }, [list, id, selectedColor]);
+                  primary={writetime}
+                />
+              </ListItemButton>
+            </ListItem>
+          );
+        });
+      } catch {}
+    };
 
-  useEffect(() => {
-    setItems(itemes);
-  }, [itemes]);
+    setItems(itemes());
+  }, [list, id]);  
 
   useEffect(() => {
     const scrollToBottom = () => {
