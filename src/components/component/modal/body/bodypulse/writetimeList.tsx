@@ -7,10 +7,9 @@ import {
   Typography,
   ListItemButton,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getWritetimeList } from "../../data/data";
 import { calculTime, getToday } from "../../controller/modalController";
-import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store/store";
 import React from "react";
@@ -49,22 +48,30 @@ export const WritetimeList = React.memo(function WritetimeList({
       setList(result);
     };
 
+    const updateToday = () => {
+      const newToday = getToday();
+      if (today.current !== newToday) {
+        today.current = newToday;
+        getList(); // 날짜가 변경되면 리스트를 갱신
+      }
+    };
+
     if (today.current != writetime) {
       today.current = writetime;
       calDate.current = calculTime(writetime, 0, 1, "YYYY-MM-DD", "days");
     }
 
     getList();
+
+    const intervalId = setInterval(updateToday, 3600000);
+
+    return () => clearInterval(intervalId);
   }, [writetime]);
 
   useEffect(() => {
     const addNewArrWritetime = async () => {
-      let lastItem;
-      if (list.length > 0) {
-        lastItem = list[list.length - 1];
-      } else {
-        lastItem = undefined;
-      }
+      const lastItem = list?.length > 0 ? list[list.length - 1] : undefined;
+
       if (lastItem) {
         const { writetime } = lastItem;
         const result = await getWritetimeList(
@@ -77,18 +84,6 @@ export const WritetimeList = React.memo(function WritetimeList({
             setList((prevList) => [...prevList, ...result]);
           }
         }
-      } else {
-        const result = await getWritetimeList(
-          eq,
-          writetime,
-          calDate.current[1]
-        );
-        console.log(`writetime = ${writetime} , result : `, result);
-        if (result) {
-          if (!result.includes("result")) {
-            setList(result);
-          }
-        }
       }
     };
     if (today.current == writetime) {
@@ -96,64 +91,123 @@ export const WritetimeList = React.memo(function WritetimeList({
     }
   }, [todayArrCountSelector, list]);
 
-  const selectedColor = (index: number, box = false) =>
-    `${id == `${index + 1}` ? "#5388F7" : box ? "black" : "#c3c1c1"}`;
+  const selectedColor = useCallback(
+    (index: number, box = false) =>
+      `${id === `${index + 1}` ? "#5388F7" : box ? "black" : "#c3c1c1"}`,
+    [id]
+  );
 
-  useEffect(() => {
-    const itemes = () => {
-      try {
-        return list?.map((value, index) => {
-          const { writetime, address } = value;
-          return (
-            <ListItem
-              className="listItem"
-              id={`${index + 1}`}
-              key={`${index + 1}`}
-              onClick={(e) => handler(e.currentTarget.id)}
-              ref={index == list.length - 1 ? listEndRef : null}
-            >
-              <ListItemButton sx={{ padding: 0 }}>
-                <ListItemIcon>
-                  <Box
-                    sx={{
-                      width: 45,
-                      height: 40,
-                      borderRadius: 3,
-                      bgcolor: selectedColor(index, true),
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      ":hover": { cursor: "default" },
-                    }}
-                  >
-                    <Typography sx={{ color: "white" }}>
-                      {address == null ? index + 1 : "E"}
-                    </Typography>
-                  </Box>
-                </ListItemIcon>
-                <ListItemText
-                  className="text"
+  // useEffect(() => {
+  //   const itemes = () => {
+  //     try {
+  //       return list?.map((value, index) => {
+  //         const { writetime, address } = value;
+  //         return (
+  //           <ListItem
+  //             className="listItem"
+  //             id={`${index + 1}`}
+  //             key={`${index + 1}`}
+  //             onClick={(e) => handler(e.currentTarget.id)}
+  //             ref={index == list.length - 1 ? listEndRef : null}
+  //           >
+  //             <ListItemButton sx={{ padding: 0 }}>
+  //               <ListItemIcon>
+  //                 <Box
+  //                   sx={{
+  //                     width: 45,
+  //                     height: 40,
+  //                     borderRadius: 3,
+  //                     bgcolor: selectedColor(index, true),
+  //                     display: "flex",
+  //                     justifyContent: "center",
+  //                     alignItems: "center",
+  //                     ":hover": { cursor: "default" },
+  //                   }}
+  //                 >
+  //                   <Typography sx={{ color: "white" }}>
+  //                     {address == null ? index + 1 : "E"}
+  //                   </Typography>
+  //                 </Box>
+  //               </ListItemIcon>
+  //               <ListItemText
+  //                 className="text"
+  //                 sx={{
+  //                   display: "flex",
+  //                   justifyContent: "center",
+  //                   alignItems: "center",
+  //                   border: 1,
+  //                   borderRadius: 3,
+  //                   borderColor: selectedColor(index),
+  //                   height: 40,
+  //                   ":hover": { cursor: "pointer" },
+  //                 }}
+  //                 primary={writetime}
+  //               />
+  //             </ListItemButton>
+  //           </ListItem>
+  //         );
+  //       });
+  //     } catch {}
+  //   };
+
+  //   setItems(itemes());
+  // }, [list, id]);
+
+  const itemes = useMemo(() => {
+    try {
+      return list?.map((value, index) => {
+        const { writetime, address } = value;
+        return (
+          <ListItem
+            className="listItem"
+            id={`${index + 1}`}
+            key={`${index + 1}`}
+            onClick={(e) => handler(e.currentTarget.id)}
+            ref={index === list.length - 1 ? listEndRef : null}
+          >
+            <ListItemButton sx={{ padding: 0 }}>
+              <ListItemIcon>
+                <Box
                   sx={{
+                    width: 45,
+                    height: 40,
+                    borderRadius: 3,
+                    bgcolor: selectedColor(index, true),
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    border: 1,
-                    borderRadius: 3,
-                    borderColor: selectedColor(index),
-                    height: 40,
-                    ":hover": { cursor: "pointer" },
+                    ":hover": { cursor: "default" },
                   }}
-                  primary={writetime}
-                />
-              </ListItemButton>
-            </ListItem>
-          );
-        });
-      } catch {}
-    };
+                >
+                  <Typography sx={{ color: "white" }}>
+                    {address === null ? index + 1 : "E"}
+                  </Typography>
+                </Box>
+              </ListItemIcon>
+              <ListItemText
+                className="text"
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: 1,
+                  borderRadius: 3,
+                  borderColor: selectedColor(index),
+                  height: 40,
+                  ":hover": { cursor: "pointer" },
+                }}
+                primary={writetime}
+              />
+            </ListItemButton>
+          </ListItem>
+        );
+      });
+    } catch {}
+  }, [list, id, selectedColor]);
 
-    setItems(itemes());
-  }, [list, id]);
+  useEffect(() => {
+    setItems(itemes);
+  }, [itemes]);
 
   useEffect(() => {
     const scrollToBottom = () => {
