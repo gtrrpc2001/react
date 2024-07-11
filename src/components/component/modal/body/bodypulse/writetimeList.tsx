@@ -42,19 +42,20 @@ export const WritetimeList = React.memo(function WritetimeList({
   const listEndRef = useRef<HTMLLIElement>(null);
   const [items, setItems] = useState<JSX.Element[] | undefined>();
 
-  useEffect(() => {
-    const getList = async () => {
-      const result = await getWritetimeList(eq, writetime, calDate.current[1]);
-      setList(result);
-    };
+  const getList = async () => {
+    const result = await getWritetimeList(eq, writetime, calDate.current[1]);
+    setList(result);
+  };
 
-    const updateToday = () => {
-      const newToday = getToday();
-      if (today.current !== newToday) {
-        today.current = newToday;
-        getList(); // 날짜가 변경되면 리스트를 갱신
-      }
-    };
+  const updateToday = async() => {
+    const newToday = getToday();
+    if (today.current !== newToday) {
+      today.current = newToday;
+      await getList(); // 날짜가 변경되면 리스트를 갱신
+    }
+  };
+
+  useEffect(() => {
 
     if (today.current != writetime) {
       today.current = writetime;
