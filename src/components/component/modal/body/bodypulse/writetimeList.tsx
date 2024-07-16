@@ -42,38 +42,38 @@ export const WritetimeList = React.memo(function WritetimeList({
   const listEndRef = useRef<HTMLLIElement>(null);
   const [items, setItems] = useState<JSX.Element[] | undefined>();
 
-  
+  const getList = async () => {
+    const result = await getWritetimeList(eq, writetime, calDate.current[1]);
+    setList(result);
+  };
+
+  const updateToday = async () => {
+    const newToday = getToday();
+    if (today.current !== newToday) {
+      today.current = newToday;
+      await getList(); // 날짜가 변경되면 리스트를 갱신
+    }
+  };
 
   useEffect(() => {
-    const getList = async () => {
-      const result = await getWritetimeList(eq, writetime, calDate.current[1]);
-      setList(result);
-    };
-  
-    const updateToday = async() => {
-      const newToday = getToday();
-      if (today.current !== newToday) {
-        today.current = newToday;
-        await getList(); // 날짜가 변경되면 리스트를 갱신
-      }
-    };
-    
+    const intervalId = setInterval(updateToday, 3600000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
     if (today.current != writetime) {
       today.current = writetime;
       calDate.current = calculTime(writetime, 0, 1, "YYYY-MM-DD", "days");
     }
 
     getList();
-
-    const intervalId = setInterval(updateToday, 3600000);
-
-    return () => clearInterval(intervalId);
   }, [writetime]);
 
   useEffect(() => {
     const addNewArrWritetime = async () => {
       const lastItem = list?.length > 0 ? list[list.length - 1] : undefined;
-      console.log('lastItem : ',  lastItem)
+      console.log("lastItem : ", lastItem);
       if (lastItem) {
         const { writetime } = lastItem;
         const result = await getWritetimeList(
@@ -81,7 +81,7 @@ export const WritetimeList = React.memo(function WritetimeList({
           writetime,
           calDate.current[1]
         );
-        console.log('result : ',  result)
+        console.log("result : ", result);
         if (result) {
           if (!result.includes("result")) {
             setList((prevList) => [...prevList, ...result]);
@@ -90,7 +90,7 @@ export const WritetimeList = React.memo(function WritetimeList({
       }
     };
     if (today.current == writetime) {
-      console.log('today.current == writetime : ',  today.current == writetime)
+      console.log("today.current == writetime : ", today.current == writetime);
       addNewArrWritetime();
     }
   }, [todayArrCountSelector, list]);
@@ -155,7 +155,7 @@ export const WritetimeList = React.memo(function WritetimeList({
     };
 
     setItems(itemes());
-  }, [list, id]);  
+  }, [list, id]);
 
   useEffect(() => {
     const scrollToBottom = () => {
