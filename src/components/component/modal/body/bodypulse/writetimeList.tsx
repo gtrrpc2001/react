@@ -45,17 +45,17 @@ export const WritetimeList = React.memo(function WritetimeList({
   const getList = async () => {
     const result = await getWritetimeList(eq, writetime, calDate.current[1]);
     setList(result);
-  };
-
-  const updateToday = async () => {
-    const newToday = getToday();
-    if (today.current !== newToday) {
-      today.current = newToday;
-      await getList(); // 날짜가 변경되면 리스트를 갱신
-    }
-  };
+  }; 
 
   useEffect(() => {
+    const updateToday = async () => {
+      const newToday = getToday();
+      if (today.current !== newToday) {
+        today.current = newToday;
+        await getList(); // 날짜가 변경되면 리스트를 갱신
+      }
+    };
+
     const intervalId = setInterval(updateToday, 600000);
 
     return () => clearInterval(intervalId);
@@ -89,11 +89,11 @@ export const WritetimeList = React.memo(function WritetimeList({
         }
       }
     };
-    if (today.current == writetime) {
-      console.log("today.current == writetime : ", today.current == writetime);
+    // if (today.current == writetime) {
+      // console.log("today.current == writetime : ", today.current == writetime);
       addNewArrWritetime();
-    }
-  }, [todayArrCountSelector, list]);
+    // }
+  }, [todayArrCountSelector, ]); //list
 
   const selectedColor = useCallback(
     (index: number, box = false) =>
