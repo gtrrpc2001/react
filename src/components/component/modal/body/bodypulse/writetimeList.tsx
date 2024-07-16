@@ -56,7 +56,7 @@ export const WritetimeList = React.memo(function WritetimeList({
   };
 
   useEffect(() => {
-    const intervalId = setInterval(updateToday, 3600000);
+    const intervalId = setInterval(updateToday, 600000);
 
     return () => clearInterval(intervalId);
   }, []);
