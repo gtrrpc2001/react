@@ -71,42 +71,58 @@ export const WritetimeList = React.memo(function WritetimeList({
   }, [writetime]);
 
   useEffect(() => {
-
-    const addResult = async(writetime:string) => {
-      const result = await getWritetimeList(
-        eq,
-        writetime,
-        calDate.current[1]
+    const addResult = async (writetime: string,newCheck:boolean = false) => {
+      const result = await getWritetimeList(eq, writetime, calDate.current[1]);
+      console.log(
+        "result : ",
+        result,
+        "nextDate : ",
+        calDate.current[1],
+        "today : ",
+        today.current
       );
-      console.log("result : ", result, "nextDate : ", calDate.current[1] , "today : " ,today.current);
       if (!result.includes("result")) {
-        setList((prevList) => {
-          const checkResult:string[] = []
-          for(const r of result){
-           if(!prevList.includes(r)){
-            checkResult.push(r)
-           }
-          }
-          return [...prevList, ...checkResult]
-        });
+        if(!newCheck){
+          setList((prevList) => {
+            // for (const r of result) {
+            //   if (r) {
+            //     const writetime = r.writetime;
+            //     console.log(!prevList.find( p => p === writetime))
+            //     if (!prevList.find( p => p === writetime)) {                  
+            //       prevList.push(r);
+            //     }
+            //   }
+            // }
+            console.log("add new arr : ",result)
+            return [...prevList,...result];
+          });
+        }
+      }else{
+        return result
       }
-    }
+    };
 
     const addNewArrWritetime = async () => {
       const lastItem = list?.length > 0 ? list[list.length - 1] : today.current;
       console.log("lastItem : ", lastItem);
-      if (list?.length > 0) {
-        const { writetime } = lastItem;
-        await addResult(writetime)
-      }else{
-        await addResult(lastItem)        
+      if (lastItem) {
+        if (list.length > 0) {
+          const { writetime } = lastItem;          
+          await addResult(writetime);
+        } else {
+          await addResult(lastItem,true);
+        }
       }
+      // else if (list?.length === 0){
+      //   await addResult(lastItem)
+      //   console.log("여기2 : ", lastItem);
+      // }
     };
     // if (today.current == writetime) {
     // console.log("today.current == writetime : ", today.current == writetime);
     addNewArrWritetime();
     // }
-  }, [todayArrCountSelector]); //list
+  }, [todayArrCountSelector]); //list  
 
   const selectedColor = useCallback(
     (index: number, box = false) =>
