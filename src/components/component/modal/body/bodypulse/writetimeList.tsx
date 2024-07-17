@@ -80,7 +80,15 @@ export const WritetimeList = React.memo(function WritetimeList({
       );
       console.log("result : ", result, "nextDate : ", calDate.current[1] , "today : " ,today.current);
       if (!result.includes("result")) {
-        setList((prevList) => [...prevList, ...result]);
+        setList((prevList) => {
+          const checkResult:string[] = []
+          for(const r of result){
+           if(!prevList.includes(r)){
+            checkResult.push(r)
+           }
+          }
+          return [...prevList, ...checkResult]
+        });
       }
     }
 
