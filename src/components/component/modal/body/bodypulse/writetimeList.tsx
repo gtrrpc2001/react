@@ -45,7 +45,7 @@ export const WritetimeList = React.memo(function WritetimeList({
   const getList = async () => {
     const result = await getWritetimeList(eq, writetime, calDate.current[1]);
     setList(result);
-  }; 
+  };
 
   useEffect(() => {
     const updateToday = async () => {
@@ -71,29 +71,34 @@ export const WritetimeList = React.memo(function WritetimeList({
   }, [writetime]);
 
   useEffect(() => {
+
+    const addResult = async(writetime:string) => {
+      const result = await getWritetimeList(
+        eq,
+        writetime,
+        calDate.current[1]
+      );
+      console.log("result : ", result, "nextDate : ", calDate.current[1] , "today : " ,today.current);
+      if (!result.includes("result")) {
+        setList((prevList) => [...prevList, ...result]);
+      }
+    }
+
     const addNewArrWritetime = async () => {
-      const lastItem = list?.length > 0 ? list[list.length - 1] : undefined;
+      const lastItem = list?.length > 0 ? list[list.length - 1] : today.current;
       console.log("lastItem : ", lastItem);
-      if (lastItem) {
+      if (list?.length > 0) {
         const { writetime } = lastItem;
-        const result = await getWritetimeList(
-          eq,
-          writetime,
-          calDate.current[1]
-        );
-        console.log("result : ", result, "nextDate : " , calDate.current[1]);
-        if (result.length > 0) {
-          if (!result.includes("result")) {
-            setList((prevList) => [...prevList, ...result]);
-          }
-        }
+        await addResult(writetime)
+      }else{
+        await addResult(lastItem)        
       }
     };
     // if (today.current == writetime) {
-      // console.log("today.current == writetime : ", today.current == writetime);
-      addNewArrWritetime();
+    // console.log("today.current == writetime : ", today.current == writetime);
+    addNewArrWritetime();
     // }
-  }, [todayArrCountSelector, ]); //list
+  }, [todayArrCountSelector]); //list
 
   const selectedColor = useCallback(
     (index: number, box = false) =>
