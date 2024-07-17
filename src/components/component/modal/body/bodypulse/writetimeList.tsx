@@ -81,7 +81,7 @@ export const WritetimeList = React.memo(function WritetimeList({
           writetime,
           calDate.current[1]
         );
-        console.log("result : ", result);
+        console.log("result : ", result, "nextDate : " , calDate.current[1]);
         if (result) {
           if (!result.includes("result")) {
             setList((prevList) => [...prevList, ...result]);
