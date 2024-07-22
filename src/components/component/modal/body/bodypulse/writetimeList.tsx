@@ -52,11 +52,12 @@ export const WritetimeList = React.memo(function WritetimeList({
       const newToday = getToday();
       if (today.current !== newToday) {
         today.current = newToday;
-        await getList(); // 날짜가 변경되면 리스트를 갱신
+        await getList();
       }
+      console.log('newToday : ',newToday)
     };
 
-    const intervalId = setInterval(updateToday, 600000);
+    const intervalId = setInterval(updateToday, 60000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -72,30 +73,14 @@ export const WritetimeList = React.memo(function WritetimeList({
 
   useEffect(() => {
     const addResult = async (writetime: string,newCheck:boolean = false) => {
-      const result = await getWritetimeList(eq, writetime, calDate.current[1]);
-      console.log(
-        "result : ",
-        result,
-        "nextDate : ",
-        calDate.current[1],
-        "today : ",
-        today.current
-      );
+      const result = await getWritetimeList(eq, writetime, calDate.current[1]);      
       if (!result.includes("result")) {
         if(!newCheck){
           setList((prevList) => {
-            // for (const r of result) {
-            //   if (r) {
-            //     const writetime = r.writetime;
-            //     console.log(!prevList.find( p => p === writetime))
-            //     if (!prevList.find( p => p === writetime)) {                  
-            //       prevList.push(r);
-            //     }
-            //   }
-            // }
-            console.log("add new arr : ",result)
             return [...prevList,...result];
           });
+        }else{
+          setList(result)
         }
       }else{
         return result
@@ -103,8 +88,7 @@ export const WritetimeList = React.memo(function WritetimeList({
     };
 
     const addNewArrWritetime = async () => {
-      const lastItem = list?.length > 0 ? list[list.length - 1] : today.current;
-      console.log("lastItem : ", lastItem);
+      const lastItem = list?.length > 0 ? list[list.length - 1] : today.current;      
       if (lastItem) {
         if (list.length > 0) {
           const { writetime } = lastItem;          
@@ -113,16 +97,9 @@ export const WritetimeList = React.memo(function WritetimeList({
           await addResult(lastItem,true);
         }
       }
-      // else if (list?.length === 0){
-      //   await addResult(lastItem)
-      //   console.log("여기2 : ", lastItem);
-      // }
     };
-    // if (today.current == writetime) {
-    // console.log("today.current == writetime : ", today.current == writetime);
     addNewArrWritetime();
-    // }
-  }, [todayArrCountSelector]); //list  
+  }, [todayArrCountSelector]);
 
   const selectedColor = useCallback(
     (index: number, box = false) =>
