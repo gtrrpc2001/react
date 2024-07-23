@@ -35,7 +35,7 @@ export const WritetimeList = React.memo(function WritetimeList({
     (state) => state.todayArrCount
   );
 
-  const today = useRef<string>(getToday());
+  const today = useRef<string>(getToday());  
   const calDate = useRef<string[]>(
     calculTime(writetime, 0, 1, "YYYY-MM-DD", "days")
   );
@@ -48,19 +48,19 @@ export const WritetimeList = React.memo(function WritetimeList({
     console.log('writetime : ',writetime,' calDate.current[1] : ',calDate.current[1], ' result : ', result, ' list : ',list)
   };
 
-  useEffect(() => {
-    const updateToday = async () => {
-      const newToday = getToday();
-      if (today.current !== newToday) {
-        today.current = newToday;
-        await getList();
-      }      
-    };
+  // useEffect(() => {
+  //   const updateToday = async () => {
+  //     const newToday = getToday();
+  //     if (today.current !== newToday) {
+  //       today.current = newToday;
+  //       await getList();
+  //     }      
+  //   };
 
-    const intervalId = setInterval(updateToday, 60000);
+  //   const intervalId = setInterval(updateToday, 60000);
 
-    return () => clearInterval(intervalId);
-  }, []);
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
   useEffect(() => {
     if (today.current != writetime) {
