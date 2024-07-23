@@ -42,10 +42,10 @@ export const WritetimeList = React.memo(function WritetimeList({
   const listEndRef = useRef<HTMLLIElement>(null);
   const [items, setItems] = useState<JSX.Element[] | undefined>();
 
-  const getList = async () => {
-    const result = await getWritetimeList(eq, writetime, calDate.current[1]);
+  const getList = async (sDate:string) => {
+    const result = await getWritetimeList(eq, sDate, calDate.current[1]);
     setList(result);
-    console.log('writetime : ',writetime,' calDate.current[1] : ',calDate.current[1], ' result : ', result, ' list : ',list)
+    console.log('sDate : ',sDate,' calDate.current[1] : ',calDate.current[1], ' result : ', result, ' list : ',list)
   };
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const WritetimeList = React.memo(function WritetimeList({
       const newToday = getToday();
       if (today.current !== newToday) {
         today.current = newToday;
-        await getList();
+        await getList(today.current);
       }      
     };
 
@@ -68,7 +68,7 @@ export const WritetimeList = React.memo(function WritetimeList({
       calDate.current = calculTime(writetime, 0, 1, "YYYY-MM-DD", "days");
     }
 
-    getList();
+    getList(writetime);
   }, [writetime]);
 
   useEffect(() => {
