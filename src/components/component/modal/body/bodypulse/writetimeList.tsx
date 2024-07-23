@@ -45,6 +45,7 @@ export const WritetimeList = React.memo(function WritetimeList({
   const getList = async () => {
     const result = await getWritetimeList(eq, writetime, calDate.current[1]);
     setList(result);
+    console.log('writetime : ',writetime,' calDate.current[1] : ',calDate.current[1], ' result : ', result, ' list : ',list)
   };
 
   useEffect(() => {
@@ -53,8 +54,7 @@ export const WritetimeList = React.memo(function WritetimeList({
       if (today.current !== newToday) {
         today.current = newToday;
         await getList();
-      }
-      console.log('newToday : ',newToday)
+      }      
     };
 
     const intervalId = setInterval(updateToday, 60000);
