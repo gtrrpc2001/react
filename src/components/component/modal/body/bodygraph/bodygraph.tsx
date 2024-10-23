@@ -148,14 +148,14 @@ export const BodyGraph = ({ profile, eq, startTime }: Props) => {
         return (
           <BodyGraphBpmBottom
             clickWritetimeButton={clickWritetimeButton}
-            bpm={false}
+            id={"stress"}
           />
         );
       case iconSelect.hrv:
         return (
           <BodyGraphBpmBottom
             clickWritetimeButton={clickWritetimeButton}
-            bpm={false}
+            id={"hrv"}
           />
         );
 
@@ -179,7 +179,7 @@ export const BodyGraph = ({ profile, eq, startTime }: Props) => {
         return (
           <BodyGraphBpmBottom
             clickWritetimeButton={clickWritetimeButton}
-            bpm={true}
+            id={"bpm"}
           />
         );
     }
