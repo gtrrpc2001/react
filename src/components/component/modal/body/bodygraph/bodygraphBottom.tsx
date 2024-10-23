@@ -169,7 +169,7 @@ export const BodyGraphCalStepBottom = ({ setting, profile, step }: Props) => {
   const secondSetting = step
     ? `${secondSettingNum} km`
     : `${secondSettingNum} kcal`;
-
+  // console.log(`${profile?.distanceKM} -- ${profile?.calexe} -- ${setting}`);
   useEffect(() => {
     try {
       if (data.length != 0 && !String(data).includes("result")) {
