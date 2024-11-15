@@ -1,5 +1,10 @@
 export const COLUMNS = [
   {
+    Header: "장치명",
+    accessor: "log",
+  },
+
+  {
     Header: "아이디",
     accessor: "eq",
   },
