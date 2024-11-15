@@ -1,10 +1,11 @@
 $colorddd: #ddd;
 $align: center;
 $display: flex;
-$colorAA: #6699FF;
+$colorAA: #6699ff;
 
 .table-pagesize {
   width: 100%;
+  min-width: 300px;
   margin: 5px;
   display: $display;
 }
@@ -33,7 +34,7 @@ $colorAA: #6699FF;
 }
 
 .table {
-  font-size: 24px;
+  font-size: 22px;
 }
 
 table {
