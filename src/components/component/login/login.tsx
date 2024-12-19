@@ -128,11 +128,11 @@ export const Login = (props: UserLoginPropsWithAnimation) => {
   }
 
   function handleButtonPress(_e: React.FormEvent<HTMLFormElement>) {
-    console.log({
-      email: props.email,
-      pw: props.pw,
-      userType: props.userType,
-    });
+    // console.log({
+    //   email: props.email,
+    //   pw: props.pw,
+    //   userType: props.userType,
+    // });
   }
 
   async function handleLogin() {

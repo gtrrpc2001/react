@@ -43,11 +43,6 @@ export const UserMenuList = ({ userMenuList }: userMenuListProps) => {
                     location.pathname === element.path ? "#33afe4" : "#262626",
                 }}
               />
-              {/* <element.Icon
-                fill={
-                  location.pathname === element.path ? "#33afe4" : "#262626"
-                }
-              /> */}
               <ListItemText
                 primary={element.name}
                 className={`listItemText ${

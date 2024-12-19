@@ -18,7 +18,6 @@ const LoginPage = () => {
 
   function handleUserType(type: "일반" | "보호자" | "기업") {
     if (type !== null) {
-      console.log(type);
       setUserType(type);
     }
   }
