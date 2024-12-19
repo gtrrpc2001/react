@@ -9,7 +9,6 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import { ClockNumberClassKey } from "@mui/x-date-pickers";
 
 type Porps = {
   open_close: boolean;
@@ -23,7 +22,6 @@ type Porps = {
 
 export const ModalRealTimeGraph = ({
   open_close,
-  bpm,
   eq,
   time,
   width,

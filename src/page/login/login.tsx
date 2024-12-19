@@ -1,6 +1,6 @@
 import "./login.scss";
 import { useState, SyntheticEvent } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { setInitialParams } from "../../func/func";
 import { motion } from "framer-motion";
 import { Tab, Tabs } from "@mui/material";
@@ -10,8 +10,6 @@ import { MainFrame } from "../../components/component/login/main_frame";
 const LoginPage = () => {
   const location = useLocation();
   const pageStatus = location.state?.pageStatus || "init";
-  const navigate = useNavigate();
-
   const [userType, setUserType] = useState<"일반" | "보호자" | "기업">("일반");
   const [email, setEmail] = useState<string>("");
   const [pw, setPw] = useState<string>("");
@@ -33,7 +31,7 @@ const LoginPage = () => {
     setPw(e.target.value);
   }
 
-  function handleSelectedTab(e: SyntheticEvent, value: any) {
+  function handleSelectedTab(_e: SyntheticEvent, value: any) {
     setSelectedTab(value);
   }
 

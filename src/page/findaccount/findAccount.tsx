@@ -18,7 +18,7 @@ export const FindAccount = () => {
   const [exitParams, setExitParams] = useState({ opacity: 0, x: 100 });
   const [selectedTab, setSelectedTab] = useState(1);
 
-  function handleSelectedTab(e: SyntheticEvent, value: any) {
+  function handleSelectedTab(_e: SyntheticEvent, value: any) {
     setSelectedTab(value);
   }
 

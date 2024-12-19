@@ -1,5 +1,5 @@
-import { Grid, Paper, Typography } from "@mui/material";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { Grid2, Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { handleAnimateInit } from "../../../func/func";
 
 interface MainFrameProps {
@@ -17,8 +17,8 @@ export const MainFrame = (props: MainFrameProps) => {
   return (
     <Paper elevation={24} className="loginPaper">
       {/* 타이틀  */}
-      <Grid container className="Grid-Container">
-        <Grid item xs={12} className="GridRow-center">
+      <Grid2 container className="Grid-Container">
+        <Grid2 size={12} className="GridRow-center">
           <div
             className="titleWraper"
             onClick={() => {
@@ -29,8 +29,8 @@ export const MainFrame = (props: MainFrameProps) => {
               LOOKHEART
             </Typography>
           </div>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
       {/* 타이틀  */}
       {props.children}
     </Paper>

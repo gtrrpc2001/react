@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import "./usersignup.scss";
-import axios from "axios";
+// import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { handleAnimatePrev, setInitialParams } from "../../../func/func";
@@ -39,28 +39,28 @@ export const UserSignUp = () => {
     setPw2(e.target.value);
   };
 
-  const handleButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    axios
-      .post(process.env.REACT_APP_BASEURL + "/msl/api_getdata", {
-        kind: "checkReg",
-        eq: email,
-        email: email,
-        password1: pw1,
-        // eqname: 사용자 이름,
-        // phone: 핸드폰번호,
-        // sex: 성별,
-        // weight: 몸무게,
-        // height: 키,
-        // age: 나이
-        // birth: 생년월일
-      })
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const handleButton = (_e: React.MouseEvent<HTMLButtonElement>) => {
+  //   axios
+  //     .post("/msl/api_getdata", {
+  //       kind: "checkReg",
+  //       eq: email,
+  //       email: email,
+  //       password1: pw1,
+  //       // eqname: 사용자 이름,
+  //       // phone: 핸드폰번호,
+  //       // sex: 성별,
+  //       // weight: 몸무게,
+  //       // height: 키,
+  //       // age: 나이
+  //       // birth: 생년월일
+  //     })
+  //     .then((resp) => {
+  //       console.log(resp);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   /////////////////////////////////////////////////////////////////////////
   //                                                                     //
