@@ -2,8 +2,6 @@ import { Hooks } from "react-table";
 import { CellCheckbox } from "../checkbox/cellCheckbox";
 import { useEffect, useMemo, useState } from "react";
 import { getDate, getToday } from "../modal/controller/modalController";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
 
 export const CellSelectHooks = (hooks: Hooks<object>) => {
   return hooks.visibleColumns.push((columns) => [

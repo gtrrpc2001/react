@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getEcg } from "../../axios/api/serverApi";
 import { Box, CircularProgress } from "@mui/material";
 import {
   LineChart,
