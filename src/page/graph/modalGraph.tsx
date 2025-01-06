@@ -9,6 +9,9 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import { GetEcg } from "../../data/graph";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 type Porps = {
   open_close: boolean;
@@ -31,9 +34,8 @@ export const ModalRealTimeGraph = ({
   const [open, setOpen] = useState<boolean>(true);
   // let [dataArr] = useState<{ ecg: number }[]>([]);
   const [dataArr, setDataArr] = useState<{ ecg: number }[]>([]);
-
+  const url = useSelector<RootState, string>((state) => state.comboBoxSelected);
   const EcgData = async (result: number[]) => {
-    // console.log(dataArr.length , result.length)
     if (open && dataArr?.length < 500) {
       let newData: { ecg: number }[] = [];
       if (result.length > 1000) {
@@ -55,7 +57,7 @@ export const ModalRealTimeGraph = ({
 
   const getEcgData = async () => {
     try {
-      const result = await getEcg(`/mslecgbyte/Ecg?eq=${eq}&startDate=${time}`);
+      const result = await GetEcg(eq, time, url);
       if (result) {
         if (result?.length != 1 && result?.length < 500) {
           await EcgData(result);
