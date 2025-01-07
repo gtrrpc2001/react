@@ -34,7 +34,6 @@ export const WritetimeList = React.memo(function WritetimeList({
   const todayArrCountSelector = useSelector<RootState, number>(
     (state) => state.todayArrCount
   );
-  const url = useSelector<RootState, string>((state) => state.comboBoxSelected);
   const today = useRef<string>(writetime);
   const calDate = useRef<string[]>(
     calculTime(writetime, 0, 1, "YYYY-MM-DD", "days")
@@ -44,12 +43,7 @@ export const WritetimeList = React.memo(function WritetimeList({
 
   useEffect(() => {
     const getList = async () => {
-      const result = await getWritetimeList(
-        eq,
-        writetime,
-        calDate.current[1],
-        url
-      );
+      const result = await getWritetimeList(eq, writetime, calDate.current[1]);
       if (!result.includes("result")) setList(result);
       else setList([]);
     };
@@ -64,12 +58,7 @@ export const WritetimeList = React.memo(function WritetimeList({
 
   useEffect(() => {
     const addResult = async (writetime: string, newCheck: boolean = false) => {
-      const result = await getWritetimeList(
-        eq,
-        writetime,
-        calDate.current[1],
-        url
-      );
+      const result = await getWritetimeList(eq, writetime, calDate.current[1]);
       if (!result.includes("result")) {
         if (!newCheck) {
           setList((prevList) => {

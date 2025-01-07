@@ -55,7 +55,6 @@ export const Room = ({ setRoomVisible }: Props) => {
   const newPatientList = useRef<string[]>([]);
   const firstData = useRef<historyLast[]>([]);
   const Dispatch = useDispatch();
-  const url = useSelector<RootState, string>((state) => state.comboBoxSelected);
 
   const [assignedPatients, setAssignedPatients] = useState<string[]>(
     Array(bedList.length).fill(null)
@@ -81,7 +80,7 @@ export const Room = ({ setRoomVisible }: Props) => {
         };
         const times = calculTime(startDate, -1, 1, "YYYY-MM-DD", "days");
 
-        const Profile = await GetProfile(oneUser.eq, startDate, times[1], url);
+        const Profile = await GetProfile(oneUser.eq, startDate, times[1]);
         Dispatch(profileActions.profile(Profile));
         Dispatch(cellActions.cellValues(cellVlaue));
         setBedClickEq(eq);
@@ -128,7 +127,7 @@ export const Room = ({ setRoomVisible }: Props) => {
   useEffect(() => {
     async function getInfoList() {
       try {
-        const getData: historyLast[] = await GetHistory(eqSelector, url);
+        const getData: historyLast[] = await GetHistory(eqSelector);
 
         if (getData?.length != 0 && !String(getData).includes("result")) {
           setData(getData);
@@ -168,7 +167,7 @@ export const Room = ({ setRoomVisible }: Props) => {
   useEffect(() => {
     async function getInfoList() {
       try {
-        const getData: historyLast[] = await GetHistory(bedClickEq, url);
+        const getData: historyLast[] = await GetHistory(bedClickEq);
 
         if (getData?.length != 0 && !String(getData).includes("result")) {
           return getData;

@@ -136,13 +136,3 @@ export const exceptColumnIdSlice = createSlice({
     },
 });
 export const exceptColumnIdAction = exceptColumnIdSlice.actions;
-
-export const comboBoxSlice = createSlice({
-    name: "url",
-    initialState: String,
-    reducers: {
-        value: (_state: string, action: PayloadAction<string>) =>
-            (_state = action.payload),
-    },
-});
-export const comboBoxAction = comboBoxSlice.actions;

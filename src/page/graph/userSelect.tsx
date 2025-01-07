@@ -3,8 +3,6 @@ import { graphKindButton } from "../../axios/interface/graph";
 import { useEffect, useState } from "react";
 import { UserProfileBox } from "./userProfileBox";
 import { GetProfile } from "../../data/graph";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 
 type User = {
   eq: string;
@@ -27,10 +25,9 @@ type UserSelectProps = {
 export const UserSelect = ({ userList, onChange }: UserSelectProps) => {
   const [selectedUser, setSelecedUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<any>(null);
-  const url = useSelector<RootState, string>((state) => state.comboBoxSelected);
 
   const handleProfile = async (eq: string) => {
-    const profile = await GetProfile(eq, url);
+    const profile = await GetProfile(eq);
     setUserProfile(profile);
   };
 

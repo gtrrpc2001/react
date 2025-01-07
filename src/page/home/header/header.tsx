@@ -12,8 +12,6 @@ import { PropsWithChildren, useRef, useState } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LocalMallIcon from "@mui/icons-material/LocalMall";
-import { AdminMenuList } from "../../../components/component/menu/adminMenuList";
 import { UserMenuList } from "../../../components/component/menu/userMenuList";
 
 export const Header = ({ children }: PropsWithChildren) => {
@@ -53,18 +51,6 @@ export const Header = ({ children }: PropsWithChildren) => {
     { name: "병동", func: wardClick, Icon: WardIcon, path: "/home/ward" },
   ];
 
-  const adminMenuList = [
-    {
-      name: "제품",
-      Icon: LocalMallIcon,
-      contents: [
-        { name: "현황", func: () => {}, path: "#" },
-        { name: "등록", func: () => {}, path: "#" },
-        { name: "수정", func: () => {}, path: "#" },
-      ],
-    },
-  ];
-
   return (
     <Box>
       <div>
@@ -83,11 +69,6 @@ export const Header = ({ children }: PropsWithChildren) => {
           </div>
 
           <UserMenuList userMenuList={appBarList} />
-
-          {eqSelector === import.meta.env.VITE_API_ADMIN && (
-            <AdminMenuList adminMenuList={adminMenuList} />
-          )}
-          {/* -------- */}
 
           <div className="logoutbuttonDiv">
             <Button

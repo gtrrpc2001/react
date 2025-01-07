@@ -10,8 +10,6 @@ import {
 } from "recharts";
 import { getArrEcgList } from "../../data/data";
 import { getPulseEcgDataConverter } from "../../controller/modalController";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store/store";
 
 type Props = {
   eq: string;
@@ -20,11 +18,10 @@ type Props = {
 
 export const PulseChart = ({ eq, time }: Props) => {
   const [data, setData] = useState<any[]>([]);
-  const url = useSelector<RootState, string>((state) => state.comboBoxSelected);
   useEffect(() => {
     const getData = async () => {
       try {
-        const result = await getArrEcgList(eq, time, url);
+        const result = await getArrEcgList(eq, time);
         let dataList: any[] = getPulseEcgDataConverter(result);
         setData(dataList);
       } catch {}

@@ -16,13 +16,12 @@ export default function Home() {
   const navigate = useNavigate();
   const eqSelector = useSelector<RootState, string>((state) => state.eq);
   const loginSelector = useSelector<RootState, boolean>((state) => state.check);
-  const url = useSelector<RootState, string>((state) => state.comboBoxSelected);
   const InfoDispatch = useDispatch<AppDispatch>();
   const [loading, setLoding] = useState(true);
 
   const { data } = useQuery<historyLast[], Error>({
-    queryKey: ["historyData", eqSelector, url],
-    queryFn: async () => GetHistory(eqSelector, url),
+    queryKey: ["historyData", eqSelector],
+    queryFn: async () => GetHistory(eqSelector),
     enabled: loginSelector,
     refetchInterval: loginSelector ? 1000 : false,
   });
