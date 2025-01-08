@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "pnpm build && pnpm serve dist",
+    "sev": "pnpm serve dist",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
