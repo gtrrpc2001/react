@@ -29,7 +29,6 @@ export const ModalRealTimeGraph = ({
   Ywidth,
 }: Porps) => {
   const [open, setOpen] = useState<boolean>(true);
-  // let [dataArr] = useState<{ ecg: number }[]>([]);
   const [dataArr, setDataArr] = useState<{ ecg: number }[]>([]);
   const EcgData = async (result: number[]) => {
     if (open && dataArr?.length < 500) {
@@ -85,7 +84,7 @@ export const ModalRealTimeGraph = ({
             height={0}
           />
           <YAxis yAxisId="left" domain={[0, 1000]} width={Ywidth} />
-          <Tooltip active={true} />
+          <Tooltip />
           <Line
             yAxisId="left"
             type="monotone"
