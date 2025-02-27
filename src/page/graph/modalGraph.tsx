@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, CircularProgress } from "@mui/material";
+// import { Box, CircularProgress } from "@mui/material";
 import {
   LineChart,
   Line,
@@ -8,7 +8,8 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import { GetEcg } from "../../data/graph";
+// import { GetEcg, GetEcgIdx, GetEcgTemp } from "../../data/graph";
+import { GetEcgIdx, GetEcgTemp } from "../../data/graph";
 
 type Porps = {
   open_close: boolean;
@@ -28,35 +29,40 @@ export const ModalRealTimeGraph = ({
   height,
   Ywidth,
 }: Porps) => {
-  const [open, setOpen] = useState<boolean>(true);
+  // const [open, setOpen] = useState<boolean>(false);
   const [dataArr, setDataArr] = useState<{ ecg: number }[]>([]);
-  const EcgData = async (result: number[]) => {
-    if (open && dataArr?.length < 500) {
-      let newData: { ecg: number }[] = [];
-      if (result.length > 1000) {
-        newData = result.slice(0, 999).map((d) => ({ ecg: d }));
-      } else {
-        newData = result.map((d) => ({ ecg: d }));
-      }
-      setDataArr((dataArr) => [...dataArr, ...newData]);
-      if (dataArr?.length >= 420) {
-        setOpen(false);
-      }
-    } else {
-      for (const d of result) {
-        dataArr.shift();
-        dataArr.push({ ecg: d });
-      }
-    }
-  };
+  const [startIdx, setStartIdx] = useState<number>(0);
 
-  const getEcgData = async () => {
+  // const EcgData = async (result: number[]) => {
+  //   const newData = result.map((data) => ({ ecg: data }));
+  //   setDataArr([...dataArr, ...newData].slice(-700));
+  // };
+
+  // const getEcgData = async () => {
+  //   try {
+  //     const result = await GetEcg(eq, time);
+  //     if (result) {
+  //       if (result?.length != 1 && result?.length < 500) {
+  //         await EcgData(result);
+  //       }
+  //     }
+  //   } catch (E) {
+  //     console.log(E);
+  //   }
+  // };
+
+  const getEcgTempData = async () => {
     try {
-      const result = await GetEcg(eq, time);
-      if (result) {
-        if (result?.length != 1 && result?.length < 500) {
-          await EcgData(result);
-        }
+      const rows = await GetEcgTemp(eq, startIdx);
+      let newDataArr = [...dataArr];
+      if (rows) {
+        setStartIdx(rows[rows.length - 1].idx);
+        rows.map((row) => {
+          const ecgList = row.ecgpacket.map((d) => ({ ecg: d }));
+          newDataArr = [...newDataArr, ...ecgList];
+        });
+
+        setDataArr(newDataArr.slice(-700));
       }
     } catch (E) {
       console.log(E);
@@ -64,8 +70,19 @@ export const ModalRealTimeGraph = ({
   };
 
   useEffect(() => {
+    const getEcgIdx = async (eq: string) => {
+      const result = await GetEcgIdx(eq);
+      setStartIdx(result);
+    };
+
+    getEcgIdx(eq);
+  }, []);
+
+  useEffect(() => {
     if (open_close) {
-      getEcgData();
+      if (startIdx) {
+        getEcgTempData();
+      }
     } else {
       setDataArr([]);
     }
@@ -73,7 +90,27 @@ export const ModalRealTimeGraph = ({
 
   return (
     <>
-      {open == false ? (
+      <LineChart data={dataArr} width={width} height={height}>
+        <CartesianGrid stroke="#f5f5f5" />
+        <XAxis
+          dataKey="xAxis"
+          allowDataOverflow={true}
+          domain={[0, 700]}
+          width={0}
+          height={0}
+        />
+        <YAxis yAxisId="left" domain={[0, 1000]} width={Ywidth} />
+        <Tooltip />
+        <Line
+          yAxisId="left"
+          type="monotone"
+          dataKey="ecg"
+          stroke="#8884d8"
+          dot={false}
+          animationDuration={0}
+        />
+      </LineChart>
+      {/* {open == false ? (
         <LineChart data={dataArr} width={width} height={height}>
           <CartesianGrid stroke="#f5f5f5" />
           <XAxis
@@ -91,6 +128,7 @@ export const ModalRealTimeGraph = ({
             dataKey="ecg"
             stroke="#8884d8"
             dot={false}
+            animationDuration={0}
           />
         </LineChart>
       ) : (
@@ -105,7 +143,7 @@ export const ModalRealTimeGraph = ({
         >
           <CircularProgress color="primary" />
         </Box>
-      )}
+      )} */}
     </>
   );
 };
