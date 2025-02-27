@@ -25,8 +25,10 @@ import { calculTime } from "../modal/controller/modalController";
 import { historyLast } from "../../../axios/interface/history_last";
 import { Button, Table as MuiTable, TableContainer } from "@mui/material";
 import { GetProfile } from "../../../data/table";
+import { useTranslation } from "react-i18next";
 
 export const Table = () => {
+  const [t, _i18n] = useTranslation();
   const columns: any = useMemo(() => COLUMNS, []);
   const data = useSelector<RootState, any>((state) => state.historylast);
   const cellDispatch = useDispatch();
@@ -91,13 +93,14 @@ export const Table = () => {
       <div className="table-pagesize">
         <div className="clsStopCheckbox">
           <Button
+            sx={{ textTransform: "none" }}
             className="selectButton"
             variant="outlined"
             onClick={() => {
               // const test = selectedFlatRows.map((d) => d.original);
             }}
           >
-            옵션
+            {t("Option")}
           </Button>
           {/* <Combobox /> */}
           <Search onSubmit={setGlobalFilter} />

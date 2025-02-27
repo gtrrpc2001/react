@@ -6,6 +6,7 @@ import HeartCheckIcon from "../../assets/image/heart_check.svg?raw";
 import RunningIcon from "../../assets/image/directions_run.svg?raw";
 import SignalIcon from "../../assets/image/vital_signs.svg?raw";
 import DownloadIcon from "../../assets/image/download.svg?raw";
+import { useTranslation } from "react-i18next";
 
 const GraphOption = (
   kind: graphKindButton,
@@ -13,6 +14,7 @@ const GraphOption = (
   kindButtonHandler: (id: string) => void,
   downloadECG: () => void
 ) => {
+  const [t, _i18n] = useTranslation();
   const loginSelector = useSelector<RootState, string>((state) => state.eq);
   const ecgDownloadShow =
     loginSelector == import.meta.env.VITE_API_ADMIN ? true : false;
@@ -57,7 +59,7 @@ const GraphOption = (
     toolbox: {
       show: true,
       orient: "vertical",
-      left: "auto",
+      left: "5",
       top: "middle",
       itemSize: 30,
       itemGap: 32,
@@ -74,7 +76,7 @@ const GraphOption = (
       feature: {
         myHrvData: {
           show: true,
-          title: "진단",
+          title: t("Diagnosis"),
           icon: extractPathData(HeartCheckIcon), // 수정 영역
           iconStyle: kind.bpm_hrv_arr ? setIconColor() : {},
           onclick: () => {
@@ -83,7 +85,7 @@ const GraphOption = (
         },
         myLivingData: {
           show: true,
-          title: "생활",
+          title: t("Daily"),
           icon: extractPathData(RunningIcon, 1), // 수정 영역
           iconStyle: kind.cal_step ? setIconColor() : {},
           onclick: () => {
@@ -101,7 +103,7 @@ const GraphOption = (
         },
         myEcgDownload: {
           show: kind.ecg && ecgDownloadShow ? true : false,
-          title: "다운로드",
+          title: t("Download"),
           icon: extractPathData(DownloadIcon), // 수정 영역
           onclick: () => {
             downloadECG();
@@ -113,7 +115,7 @@ const GraphOption = (
     grid: {
       top: 30,
       bottom: 70,
-      left: 50,
+      left: 60,
       right: 20,
       containLabel: true,
     },
@@ -144,6 +146,8 @@ export const EcgGraphOption = (
   kindButtonHandler: (id: string) => void,
   downloadECG: () => void
 ) => {
+  const [_t, _i18n] = useTranslation();
+
   return {
     ...GraphOption(kind, zoomInside, kindButtonHandler, downloadECG),
     xAxis: {
@@ -183,6 +187,8 @@ export const HrvGraphOption = (
   kindButtonHandler: (id: string) => void,
   downloadECG: () => void
 ) => {
+  const [t, _i18n] = useTranslation();
+
   return {
     ...GraphOption(kind, zoomInside, kindButtonHandler, downloadECG),
     color: ["#5C7BD9", "#9FE080", "#ff0000"],
@@ -206,21 +212,21 @@ export const HrvGraphOption = (
     },
     series: [
       {
-        name: "심박 변화율",
+        name: t("HRV"),
         data: data.map((item) => item.hrv),
         type: "line",
         smooth: false,
         symbol: "none",
       },
       {
-        name: "심박수",
+        name: t("BPM"),
         data: data.map((item) => item.bpm),
         type: "line",
         smooth: false,
         symbol: "none",
       },
       {
-        name: "비정상맥박 지점",
+        name: t("I.H.R Moment"),
         type: "line",
         markLine: {
           silent: true,
@@ -261,6 +267,7 @@ export const LivingGraphOption = (
   kindButtonHandler: (id: string) => void,
   downloadECG: () => void
 ) => {
+  const [t, _i18n] = useTranslation();
   return {
     ...GraphOption(kind, zoomInside, kindButtonHandler, downloadECG),
 
@@ -282,28 +289,28 @@ export const LivingGraphOption = (
     },
     series: [
       {
-        name: "걸음",
+        name: t("Steps"),
         data: data.map((item) => item.step),
         type: "bar",
         smooth: false,
         symbol: "none",
       },
       {
-        name: "걸음거리",
+        name: t("Distance"),
         data: data.map((item) => item.distanceKM),
         type: "bar",
         smooth: false,
         symbol: "none",
       },
       {
-        name: "칼로리",
+        name: t("Calories"),
         data: data.map((item) => item.cal),
         type: "bar",
         smooth: false,
         symbol: "none",
       },
       {
-        name: "활동칼로리",
+        name: t("Exe Calories"),
         data: data.map((item) => item.calexe),
         type: "bar",
         smooth: false,
