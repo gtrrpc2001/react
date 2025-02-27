@@ -13,6 +13,7 @@ import { HeaderFooter } from "./page/Header_Footer/HeaderFooter";
 import { MainFrame } from "./components/component/login/main_frame";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import "./i18n";
 
 const queryClient = new QueryClient();
 

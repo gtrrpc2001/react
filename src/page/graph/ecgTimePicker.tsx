@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { calculTime } from "../../components/component/modal/controller/modalController";
 import { getGraphEcgTime } from "../../data/graph";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   width: number;
@@ -20,6 +21,7 @@ export const EcgTimePicker = ({
   time,
   handleTime,
 }: Props) => {
+  const [t, _i18n] = useTranslation();
   const [data, setData] = useState<any[]>([]);
   const [isTimeListOpen, setTimeListOpen] = useState(false);
   useEffect(() => {
@@ -35,7 +37,7 @@ export const EcgTimePicker = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <TimePicker
-        label="측정 시간"
+        label={t("Measure Time")}
         disabled={disabled}
         ampm={false}
         minutesStep={10}

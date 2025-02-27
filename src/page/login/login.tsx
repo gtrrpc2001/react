@@ -5,8 +5,10 @@ import { setInitialParams } from "../../func/func";
 import { motion } from "framer-motion";
 import { Tab, Tabs } from "@mui/material";
 import { Login } from "../../components/component/login/login";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
+  const [t, _i18n] = useTranslation();
   const location = useLocation();
   const pageStatus = location.state?.pageStatus || "init";
   const [userType, setUserType] = useState<"일반" | "보호자" | "기업">("일반");
@@ -48,11 +50,15 @@ const LoginPage = () => {
           variant="fullWidth"
         >
           <Tab
-            label="사용자"
+            label={t("User")}
             value={1}
             onClick={() => handleUserType("일반")}
           />
-          <Tab label="기업" value={2} onClick={() => handleUserType("기업")} />
+          <Tab
+            label={t("Corp")}
+            value={2}
+            onClick={() => handleUserType("기업")}
+          />
         </Tabs>
 
         <Login

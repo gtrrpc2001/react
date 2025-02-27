@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { Login_Tab } from "./Login_components/login_tab";
 import { Login_Info } from "./Login_components/login_Info";
 import { Login_Button } from "./Login_components/login_Button";
+import { LanguageButton } from "../buttons/languageButton";
 
 export interface UserLoginProps {
   email: string;
@@ -153,6 +154,7 @@ export const Login = (props: UserLoginPropsWithAnimation) => {
           handleLogin();
         }}
       >
+        <LanguageButton />
         <Login_Tab
           page={props.page}
           userType={props.userType}
