@@ -1,7 +1,6 @@
 import { graphKindButton } from "../../axios/interface/graph";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-
 import HeartCheckIcon from "../../assets/image/heart_check.svg?raw";
 import RunningIcon from "../../assets/image/directions_run.svg?raw";
 import SignalIcon from "../../assets/image/vital_signs.svg?raw";
