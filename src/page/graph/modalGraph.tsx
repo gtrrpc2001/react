@@ -69,19 +69,31 @@ export const ModalRealTimeGraph = ({
     }
   };
 
+  const getEcgIdx = async (eq: string) => {
+    const result = await GetEcgIdx(eq);
+    setStartIdx(result);
+  };
+
   useEffect(() => {
-    const getEcgIdx = async (eq: string) => {
-      const result = await GetEcgIdx(eq);
-      setStartIdx(result);
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        getEcgIdx(eq);
+      }
     };
 
-    getEcgIdx(eq);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   useEffect(() => {
     if (open_close) {
       if (startIdx) {
         getEcgTempData();
+      } else if (startIdx === 0) {
+        getEcgIdx(eq);
       }
     } else {
       setDataArr([]);
