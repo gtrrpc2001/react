@@ -33,6 +33,7 @@ export const GraphBody = ({ names, graphId, onDelete }: Props) => {
   const [kindButton, setKindButton] = useState<graphKindButton>({
     bpm_hrv_arr: true,
     cal_step: false,
+    stress: false,
     ecg: false,
   });
   const [writetime, setWritetime] = useState<string>(getCalendarTime(dayjs()));
@@ -142,16 +143,21 @@ export const GraphBody = ({ names, graphId, onDelete }: Props) => {
     }
   };
 
+  const getStressFileDownload = () => {
+    if (loginSelector && name.length != 0 && writetime) {
+      exportToExcel(data, `${name}_${writetime}_Stress`);
+    }
+  };
+
+  const getHRVFileDownload = () => {
+    if (loginSelector && name.length != 0 && writetime) {
+      exportToExcel(data, `${name}_${writetime}_HRV`);
+    }
+  };
+
   const getEcgFileDownload = () => {
-    if (
-      loginSelector == import.meta.env.VITE_API_ADMIN &&
-      name.length != 0 &&
-      ecgTime
-    ) {
-      exportToExcel(
-        data,
-        `${name}님의 ${writetime} ${ecgTime} 부터 10분간 ECG데이터`
-      );
+    if (loginSelector && name.length != 0 && ecgTime) {
+      exportToExcel(data, `${name}_10m_ECG_from_${writetime}_${ecgTime}`);
     }
   };
 
@@ -210,6 +216,8 @@ export const GraphBody = ({ names, graphId, onDelete }: Props) => {
               writetime={writetime}
               kind={kindButton}
               kindButtonHandler={ToolboxIconClickHandler}
+              downloadHRV={getHRVFileDownload}
+              downloadStress={getStressFileDownload}
               downloadECG={getEcgFileDownload}
             />
           </Box>

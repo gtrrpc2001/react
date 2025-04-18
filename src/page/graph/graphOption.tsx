@@ -1,9 +1,8 @@
 import { graphKindButton } from "../../axios/interface/graph";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 import HeartCheckIcon from "../../assets/image/heart_check.svg?raw";
 import RunningIcon from "../../assets/image/directions_run.svg?raw";
 import SignalIcon from "../../assets/image/vital_signs.svg?raw";
+import StressIcon from "../../assets/image/sentiment_stressed.svg?raw";
 import DownloadIcon from "../../assets/image/download.svg?raw";
 import { useTranslation } from "react-i18next";
 
@@ -14,9 +13,6 @@ const GraphOption = (
   downloadECG: () => void
 ) => {
   const [t, _i18n] = useTranslation();
-  const loginSelector = useSelector<RootState, string>((state) => state.eq);
-  const ecgDownloadShow =
-    loginSelector == import.meta.env.VITE_API_ADMIN ? true : false;
   const setIconColor = () => {
     return {
       color: "#4D9FC9",
@@ -61,7 +57,7 @@ const GraphOption = (
       left: "5",
       top: "middle",
       itemSize: 30,
-      itemGap: 32,
+      itemGap: 16,
       emphasis: {
         iconStyle: {
           color: "#4D9FC9",
@@ -91,6 +87,17 @@ const GraphOption = (
             kindButtonHandler("cal_step");
           },
         },
+
+        myStressData: {
+          show: true,
+          title: t("Stress"),
+          icon: extractPathData(StressIcon),
+          iconStyle: kind.stress ? setIconColor() : {},
+          onclick: () => {
+            kindButtonHandler("stress");
+          },
+        },
+
         myEcgData: {
           show: true,
           title: "ECG",
@@ -101,7 +108,7 @@ const GraphOption = (
           },
         },
         myEcgDownload: {
-          show: kind.ecg && ecgDownloadShow ? true : false,
+          show: kind.ecg || kind.bpm_hrv_arr || kind.stress ? true : false,
           title: t("Download"),
           icon: extractPathData(DownloadIcon), // 수정 영역
           onclick: () => {
@@ -269,6 +276,75 @@ export const HrvGraphOption = (
       orient: "horizontal",
       icon: "rect",
     },
+  };
+};
+
+export const StressGraphOption = (
+  kind: graphKindButton,
+  data: any[],
+  zoomInside: boolean,
+  xaxisFormatter: (item: string, index: number) => void,
+  kindButtonHandler: (id: string) => void,
+  downloadFunc: () => void
+) => {
+  const [_t, _i18n] = useTranslation();
+  return {
+    ...GraphOption(kind, zoomInside, kindButtonHandler, downloadFunc),
+    color: ["#ff0000", "#0000ff"],
+    xAxis: {
+      axisTick: {
+        show: false,
+      },
+      axisLabel: {
+        formatter: (value: string, index: number) =>
+          xaxisFormatter(value, index),
+        interval: 0,
+        rotate: 45,
+      },
+      type: "category",
+      data: data.map((item) => item.writetime),
+    },
+    yAxis: {
+      type: "value",
+      min: 0,
+      max: 100,
+    },
+    series: [
+      {
+        name: "SNS",
+        data: data.map((item) => item.sns_percent),
+        type: "line",
+        smooth: false,
+        symbol: "none",
+      },
+      {
+        name: "PNS",
+        data: data.map((item) => item.pns_percent),
+        type: "line",
+        smooth: false,
+        symbol: "none",
+      },
+    ],
+    legend: {
+      show: true,
+      bottom: 0,
+      right: 40,
+      orient: "horizontal",
+      icon: "rect",
+    },
+    dataZoom: [
+      {
+        type: "slider",
+        start: 0,
+        end: 100,
+        bottom: 30,
+        brushSelect: false,
+        handleSize: "0%",
+      },
+      {
+        type: "inside",
+      },
+    ],
   };
 };
 

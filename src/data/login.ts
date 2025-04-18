@@ -5,6 +5,7 @@ export const tryLogin = async (email: string, pw: string): Promise<boolean> => {
   const data: any = await getData(
     `/msl/CheckLogin?empid=${email}&pw=${pw}&destroy=${true}`
   );
+  console.log(data)
   return data?.includes("true");
 };
 
